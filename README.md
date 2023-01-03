@@ -27,12 +27,12 @@
   <tr>
   <td align="center">
   <sub>
-    리더쉽으로 팀을 이끄는 사령탑
+    팀을 이끄는 사령탑
   </sub>
   </td>
   <td align="center">
   <sub>
-    UIUX 실력을 겸비한 주니어 FED 
+    UIUX를 겸비한 FED 
   </sub>
   </td>
   <td align="center">
