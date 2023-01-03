@@ -47,12 +47,12 @@
   </td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/tjsrjs8282"><br /><sub><b>유선건</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/Shape2ee"><br /><sub><b>이도형</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/dog2789"><br /><sub><b>정우재</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/soomgo-chloe"><br /><sub><b>노기진</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/tjsrjs8282"><sub><b>유선건</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/Shape2ee"><sub><b>이도형</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/dog2789"><sub><b>정우재</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/soomgo-chloe"><sub><b>노기진</b></sub></a><br /></td>
   </tr>
-    <tr>
+    <!--  <tr>
   <td align="center">
     <sub>
     <a href="">오늘의식단 유선건 소개서</a></sub>
@@ -69,7 +69,7 @@
     <sub>
     <a href="">오늘의식단 노기진 소개서</a></sub>
   </td>
-  </tr>
+  </tr>-->
 </table>
 
 ---
