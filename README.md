@@ -1,4 +1,4 @@
-<h1 align='middle'><a href='react-diet.vercel.app'>🏠react-diet.vercel.app</a></h1>
+<h1 align='middle'><a href='https://react-diet.vercel.app'>🏠react-diet.vercel.app</a></h1>
 <p align='middle'>
 오늘의 식단은 다이어트를 도와줄 식단관리 웹입니다.<br>
 사용자 목표에 맞춤 식단관리로 식단을 기록 할 수 있습니다.<br><br>
@@ -15,7 +15,7 @@
 ## 목차
 
 1. [프로젝트 소개](#프로젝트-소개)  
-   2-1. [팀원 소개](#팀원-소개)
+   2-1. [팀원 소개](#팀원-소개)<br>
    2-2. [프로젝트 목표](#프로젝트-목표)
 2. [실행 방법](#실행-방법)
 
@@ -67,7 +67,7 @@
   </td>
   <td align="center">
     <sub>
-    <a href="">오늘의식단 유선건 소개서</a></sub>
+    <a href="">오늘의식단 노기진 소개서</a></sub>
   </td>
   </tr>
 </table>
