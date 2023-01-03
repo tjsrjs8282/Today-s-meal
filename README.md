@@ -27,17 +27,17 @@
   <tr>
   <td align="center">
   <sub>
-    한줄소개
+    리더쉽으로 팀을 이끄는 사령탑
   </sub>
   </td>
   <td align="center">
   <sub>
-    한줄소개
+    UIUX 실력을 겸비한 주니어 FED 
   </sub>
   </td>
   <td align="center">
   <sub>
-    한줄소개
+    컴포넌트의 귀재
   </sub>
   </td>
   <td align="center">
@@ -48,9 +48,9 @@
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/tjsrjs8282"><br /><sub><b>유선건</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/tjsrjs8282"><br /><sub><b>이도형</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/tjsrjs8282"><br /><sub><b>정우재</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/tjsrjs8282"><br /><sub><b>노기진</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/Shape2ee"><br /><sub><b>이도형</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/dog2789"><br /><sub><b>정우재</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/soomgo-chloe"><br /><sub><b>노기진</b></sub></a><br /></td>
   </tr>
     <tr>
   <td align="center">
@@ -59,11 +59,11 @@
   </td>
   <td align="center">
     <sub>
-    <a href="">오늘의식단 유선건 소개서</a></sub>
+    <a href="">오늘의식단 이도형 소개서</a></sub>
   </td>
   <td align="center">
     <sub>
-    <a href="">오늘의식단 유선건 소개서</a></sub>
+    <a href="">오늘의식단 정우재 소개서</a></sub>
   </td>
   <td align="center">
     <sub>
