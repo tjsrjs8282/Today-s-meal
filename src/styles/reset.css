@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600;800&display=swap');
+#root {
+  background: #fff;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.App {
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+a:link,
+a:visited {
+  color: #000;
+}
+.clearfix:after {
+  clear: both;
+  display: block;
+  content: '';
+}
+
+.blind,
+legend {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: -9999px;
+}
+
+button {
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+}
+
+body {
+  margin: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Noto Sans', sans-serif;
+  min-height: 100vh;
+}
+
+@media (min-width: 680px) {
+  .App {
+    width: 650px;
+  }
+}
+@media (max-width: 680px) {
+  .App {
+    width: 90vw;
+  }
+}
