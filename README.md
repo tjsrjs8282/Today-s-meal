@@ -24,22 +24,22 @@
   <tr>
   <td align="center">
   <sub>
-    팀을 이끄는 사령탑
+    Leader / FED
   </sub>
   </td>
   <td align="center">
   <sub>
-    UIUX를 겸비한 FED 
+    Design / FED 
   </sub>
   </td>
   <td align="center">
   <sub>
-    컴포넌트의 귀재
+    FED
   </sub>
   </td>
   <td align="center">
   <sub>
-    한줄소개
+    Teacher
   </sub>
   </td>
   </tr>
