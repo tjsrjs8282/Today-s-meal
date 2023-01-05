@@ -1,0 +1,17 @@
+@import '@styles/shared.scss';
+.introBox {
+  text-align: center;
+  h1 {
+    font-size: 3rem;
+    font-weight: 900;
+  }
+  p {
+    color: $subTitColor;
+    font-size: 1.3rem;
+    margin-top: 5px;
+  }
+  img {
+    width: 18rem;
+    margin-top: 40px;
+  }
+}

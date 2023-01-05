@@ -1,0 +1,13 @@
+@import '@styles/shared.scss';
+.button {
+  background: $siteColor1;
+  color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 20px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  border-radius: 15px;
+}
