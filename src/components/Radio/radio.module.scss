@@ -1,0 +1,30 @@
+@import '@styles/shared.scss';
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 49%;
+  margin-right: 2%;
+  height: 80px;
+  background: $BackGroundColor1;
+  font-size: 1.2rem;
+  border-radius: 15px;
+  color: #777;
+  font-weight: 500;
+  &:nth-of-type(2n) {
+    margin-right: 0;
+  }
+  svg {
+    font-size: 1.5rem;
+  }
+}
+.input[type='radio'] {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  width: 0;
+  &:checked + label {
+    background-color: #9b2c2c;
+  }
+}
