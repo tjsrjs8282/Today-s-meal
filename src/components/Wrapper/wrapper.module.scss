@@ -1,13 +1,8 @@
 .wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  overflow: scroll;
   height: 100vh;
   width: 100%;
   box-sizing: border-box;
-  position: relative;
-}
-
-.column {
-  flex-direction: column;
+  padding-bottom: 6rem;
 }

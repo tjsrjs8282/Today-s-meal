@@ -1,14 +1,14 @@
 @import '@styles/shared.scss';
-.introBox {
+.intro_box {
   text-align: center;
   h1 {
     font-size: 3rem;
     font-weight: 900;
   }
   p {
+    margin-top: 5px;
     color: $subTitColor;
     font-size: 1.3rem;
-    margin-top: 5px;
   }
   img {
     width: 18rem;

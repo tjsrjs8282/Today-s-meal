@@ -1,0 +1,65 @@
+@import '@styles/shared.scss';
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 49%;
+  margin-right: 2%;
+  margin-top: 15px;
+  padding: 20px 15px;
+  box-sizing: border-box;
+  background: $backGroundColor1;
+  border-radius: 15px;
+  font-weight: 500;
+  color: #777;
+  &:nth-of-type(-n + 2) {
+    margin-top: 0;
+  }
+  &:nth-of-type(2n) {
+    margin-right: 0;
+  }
+  svg {
+    font-size: 1.5rem;
+  }
+  span {
+    margin-top: 3px;
+    font-size: 1.2rem;
+    color: #777;
+  }
+
+  h3 {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    color: #000;
+    font-size: 1.4rem;
+    margin-top: 2px;
+  }
+  p {
+    width: 100%;
+    margin-top: 30px;
+    box-sizing: border-box;
+    text-align: left;
+    font-size: 1rem;
+  }
+}
+.input[type='radio'] {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  width: 0;
+  &:checked + label {
+    background-color: $siteColorSub;
+    border: 1px solid $siteColorMain;
+    svg {
+      color: $siteColorMain;
+    }
+    h3 {
+      color: $siteColorMain;
+    }
+    span {
+      color: $siteColorMain;
+    }
+  }
+}

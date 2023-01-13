@@ -1,13 +1,17 @@
 @import '@styles/shared.scss';
 .button {
-  background: $siteColor1;
-  color: #fff;
-  width: 100%;
-  box-sizing: border-box;
-  position: absolute;
+  position: fixed;
+  left: 50%;
   bottom: 20px;
-  height: 45px;
-  line-height: 45px;
+  transform: translate(-50%, 0);
+  width: calc(90vw - 30px);
+  max-width: 737px;
+  height: 4rem;
+  line-height: 4rem;
+  box-sizing: border-box;
   text-align: center;
+  background: $siteColor1;
+  font-size: 1.2rem;
   border-radius: 15px;
+  color: #fff;
 }

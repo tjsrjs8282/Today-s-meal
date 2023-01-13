@@ -1,19 +1,39 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700;900&family=Noto+Sans:wght@300;400;600;800;900&display=swap');
-#root {
-  background: #fff;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-}
-.App {
-  min-height: 100vh;
-  box-sizing: border-box;
-  position: relative;
-  padding: 20px;
-}
 * {
   margin: 0;
   padding: 0;
 }
+html {
+  font-size: 62.5%;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  min-height: 100vh;
+  background: #f6f6f6;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
+}
+#root {
+  background: #fff;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.App {
+  box-sizing: border-box;
+  position: relative;
+  min-height: 100vh;
+  padding: 0px 20px;
+}
+
+input,
+fieldset {
+  border: none;
+}
+
 li {
   list-style: none;
 }
@@ -21,13 +41,10 @@ li {
 a {
   text-decoration: none;
 }
-a:link,
-a:visited {
-  color: #000;
-}
+
 .clearfix:after {
-  clear: both;
   display: block;
+  clear: both;
   content: '';
 }
 
@@ -44,19 +61,11 @@ button {
   border: 0;
   cursor: pointer;
 }
-html {
-  font-size: 62.5%;
-}
-body {
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: #f6f6f6;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
-  min-height: 100vh;
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
 }
 
 @media (min-width: 480px) {
@@ -64,21 +73,17 @@ body {
     font-size: 14px;
   }
 }
-
-@media (min-width: 680px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-@media (min-width: 680px) {
-  .App {
-    width: 680px;
-  }
-}
-@media (max-width: 680px) {
+@media (max-width: 767px) {
   .App {
     width: 90vw;
   }
+}
 
+@media (min-width: 767px) {
+  html {
+    font-size: 16px;
+  }
+  .App {
+    width: 767px;
+  }
 }
