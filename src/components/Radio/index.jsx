@@ -6,7 +6,7 @@ export default function Radio({ children, value, name, defaultChecked, disabled 
   const group = useContext(RadioContext)
 
   return (
-    <label className={$.label} htmlFor={value}>
+    <>
       <input
         className={$.input}
         type="radio"
@@ -18,7 +18,9 @@ export default function Radio({ children, value, name, defaultChecked, disabled 
         checked={group.value !== undefined ? value === group.value : undefined}
         onChange={(e) => group.onChange && group.onChange(e.target.value)}
       />
-      {children}
-    </label>
+      <label className={$.label} htmlFor={value}>
+        {children}
+      </label>
+    </>
   )
 }

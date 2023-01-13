@@ -30,34 +30,34 @@ export default function UserInfo() {
         />
         <Title content="성별" kinds="sub" />
 
-        <RadioGroup label="성별" value={value} onChange={setValue}>
-          <Radio name="sex" value="man" defaultChecked>
+        <RadioGroup label="gender" value={value} onChange={setValue}>
+          <Radio name="gender" value="man" defaultChecked>
             <IconButton kinds="man" />
-            남자
+            <span>남자</span>
           </Radio>
-          <Radio name="sex" value="woman">
+          <Radio name="gender" value="woman">
             <IconButton kinds="woman" />
-            여자
+            <span>여자</span>
           </Radio>
         </RadioGroup>
 
         <Title content="이름" kinds="sub" />
-        <Input placeholder="이름이 무엇인가요?" name="userName" />
+        <Input placeholder="이름이 무엇인가요?" name="userName" value="userName" />
         <Title content="나이" kinds="sub" />
-        <Input placeholder="나이를 입력해주세요" name="userOld" />
+        <Input placeholder="나이를 입력해주세요" name="userOld" value="userOld" />
         <Flex>
           <div className={$.input_box}>
             <Title content="키" kinds="sub" />
-            <Input placeholder="0" name="userOld" />
+            <Input placeholder="0" name="userHeight" value="userHeight" unit="cm" />
           </div>
           <div className={$.input_box}>
-            <Title content="몸무게" kinds="sub" unit="cm" />
-            <Input placeholder="0" name="userOld" unit="kg" />
+            <Title content="몸무게" kinds="sub" />
+            <Input placeholder="0" name="userWeight" value="userWeight" unit="kg" />
           </div>
         </Flex>
 
         <button>{value}다음으로</button>
-        <Button content="다음으로" link="target" />
+        <Button content="다음으로" link="/purpose" />
       </form>
     </Wrapper>
   )
