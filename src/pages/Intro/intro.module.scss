@@ -1,13 +1,18 @@
 @import '@styles/shared.scss';
 .intro_box {
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
   h1 {
     font-size: 3rem;
     font-weight: 900;
   }
   p {
     margin-top: 5px;
-    color: $subTitColor;
+    color: $siteColorSub;
     font-size: 1.3rem;
   }
   img {

@@ -1,8 +1,9 @@
+@import '@styles/shared.scss';
 .purpose_icon {
   text-align: left;
   width: 100%;
   svg {
     font-size: 1.8rem;
-    color: #fff;
+    color: $lineColor1;
   }
 }

@@ -1,11 +1,18 @@
 import React from 'react'
 import $ from './button.module.scss'
-import { Link } from 'react-router-dom'
+import cn from 'classnames'
 
-export default function Button({ content, link }) {
+export default function Button({ content, link, check, onClick }) {
+  const isInfoCheck = check
+
   return (
-    <Link to={link} className={$.button}>
+    <button
+      className={cn($.button, { [$.no_check]: isInfoCheck })}
+      onClick={() => {
+        onClick()
+      }}
+    >
       {content}
-    </Link>
+    </button>
   )
 }
