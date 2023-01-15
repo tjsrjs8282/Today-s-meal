@@ -10,8 +10,13 @@
   line-height: 4rem;
   box-sizing: border-box;
   text-align: center;
-  background: $siteColor1;
+  background: $siteColorMain;
   font-size: 1.2rem;
   border-radius: 15px;
   color: #fff;
+  font-weight: bold;
+
+  &.no_check {
+    background: $lineColor1;
+  }
 }

@@ -1,17 +1,29 @@
 import React, { useState } from 'react'
 import $ from './input.module.scss'
 
-export default function Input({ name, value, placeholder, unit }) {
-  const [inputValue, setInputValue] = useState('')
+export default function Input({
+  type,
+  name,
+  title,
+  value,
+  maxLength,
+  placeholder,
+  unit,
+  inputRef,
+  handleInputChange,
+}) {
   return (
     <div className={$.input_box}>
       <input
-        type="text"
+        type={type}
         name={name}
-        value={inputValue}
+        title={title}
+        value={value}
+        ref={inputRef}
+        maxLength={maxLength}
         placeholder={placeholder}
         onChange={(e) => {
-          setInputValue(e.target.value)
+          handleInputChange(e)
         }}
       />
       <p className={$.unit}>{unit}</p>
