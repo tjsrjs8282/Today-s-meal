@@ -1,4 +1,6 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import './iconButton.module.scss'
 import { HiArrowLeft } from 'react-icons/hi2'
 import {
   AiOutlineCalendar,
@@ -8,20 +10,15 @@ import {
   AiOutlineMan,
   AiOutlineWoman,
 } from 'react-icons/ai'
-import './iconButton.module.scss'
-import { useNavigate } from 'react-router-dom'
 
-export default function IconButton({ kinds }) {
+export default function IconButton({ kinds, onClick }) {
   const navigate = useNavigate()
+  const goBack = () => {
+    navigate(-1)
+  }
   return (
     <>
-      {kinds === 'back' && (
-        <HiArrowLeft
-          onClick={() => {
-            navigate(-1)
-          }}
-        />
-      )}
+      {kinds === 'back' && <HiArrowLeft onClick={goBack} />}
       {kinds === 'calendar' && <AiOutlineCalendar />}
       {kinds === 'close' && <AiOutlineClose />}
       {kinds === 'minus' && <AiOutlineMinus />}

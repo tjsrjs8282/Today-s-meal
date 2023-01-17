@@ -10,7 +10,7 @@ export default function Input({
   placeholder,
   unit,
   inputRef,
-  handleInputChange,
+  onChange,
 }) {
   return (
     <div className={$.input_box}>
@@ -23,7 +23,7 @@ export default function Input({
         maxLength={maxLength}
         placeholder={placeholder}
         onChange={(e) => {
-          handleInputChange(e)
+          onChange(e)
         }}
       />
       <p className={$.unit}>{unit}</p>

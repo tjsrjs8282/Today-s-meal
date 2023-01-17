@@ -1,13 +1,15 @@
 import React from 'react'
 import $ from './button.module.scss'
-import cn from 'classnames'
+import classNames from 'classnames/bind'
 
-export default function Button({ content, link, check, onClick }) {
+const cx = classNames.bind($)
+
+export default function Button({ content, check, onClick }) {
   const isInfoCheck = check
 
   return (
     <button
-      className={cn($.button, { [$.no_check]: isInfoCheck })}
+      className={cx('button', { no_check: isInfoCheck })}
       onClick={() => {
         onClick()
       }}
