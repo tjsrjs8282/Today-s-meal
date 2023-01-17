@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import $ from './search.module.scss'
 import logoBg from '@assets/ic-logo-bg.png'
 import Wrapper from '@components/Wrapper'
@@ -11,16 +11,18 @@ export default function Search() {
   const [value, setValue] = useState('')
   const [searchList, setSearchList] = useState([])
   const [check, setCheck] = useState(false)
+  const inputRef = useRef(null)
 
   const handleInputChange = (e) => {
     setValue(e.target.value)
   }
 
-  const onClick = () => {
+  const handleResetClick = () => {
     setValue('')
+    inputRef.current.focus()
   }
 
-  const onSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault()
     console.log('onSubmit')
   }
@@ -33,14 +35,19 @@ export default function Search() {
             <IconButton kinds={'close'} />
             <TitleBox content={'아침식사'} kinds={'margin'}/>
           </Header>
-          <form className={$.search_form} onSubmit={onSubmit}>
+          <form className={$.search_form} onSubmit={handleFormSubmit}>
             <Input 
               type='text'
               name='search'
               value={value}
               onChange={handleInputChange}
+              inputRef={inputRef}
               unit={
-                value && <IconButton kinds={'closeCircle'} onClick={onClick}/>
+                value
+                && <IconButton
+                  kinds={'closeCircle'}
+                  onClick={handleResetClick}
+                  />
               }
             />
           </form>

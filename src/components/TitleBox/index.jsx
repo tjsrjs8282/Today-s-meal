@@ -2,6 +2,7 @@ import React from 'react'
 import $ from './titleBox.module.scss'
 import classNames from 'classnames/bind'
 const cx = classNames.bind($)
+
 export default function TitleBox({ content, kinds }) {
   const isKinds = kinds === "margin"
   return (
