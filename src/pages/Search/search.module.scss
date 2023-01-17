@@ -1,1 +1,18 @@
 @import '@styles/shared.scss';
+.title_box {
+  margin-left: 1rem;
+  
+  h1 {
+    font-size: 1.6rem;
+    line-height: 1.6rem;
+    color: $siteColorMain;
+    margin-bottom: 0.4rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+    color: $siteColorGray2;
+  }
+  
+}

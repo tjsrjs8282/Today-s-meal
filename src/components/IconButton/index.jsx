@@ -9,6 +9,7 @@ import {
   AiOutlinePlus,
   AiOutlineMan,
   AiOutlineWoman,
+  AiFillCloseCircle,
 } from 'react-icons/ai'
 
 export default function IconButton({ kinds, onClick }) {
@@ -25,6 +26,14 @@ export default function IconButton({ kinds, onClick }) {
       {kinds === 'plus ' && <AiOutlinePlus />}
       {kinds === 'man' && <AiOutlineMan />}
       {kinds === 'woman' && <AiOutlineWoman />}
+      {
+        kinds === 'closeCircle'
+          && <AiFillCloseCircle
+          size='24'
+          color='#dbdbdb'
+          onClick={() => onClick()}
+        />
+      }
     </>
   )
 }
