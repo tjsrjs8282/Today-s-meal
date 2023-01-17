@@ -1,24 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import $ from './userInfo.module.scss'
 import Wrapper from '@components/Wrapper'
-import IconButton from '@components/IconButton'
+import Header from '@components/Header'
+import Flex from '@components/Flex'
 import Title from '@components/Title'
 import RadioGroup from '@components/RadioGroup'
 import Radio from '@components/Radio'
 import Button from '@components/Button'
 import Input from '@components/Input'
-import Flex from '@components/Flex'
-import Header from '@components/Header'
-import { useNavigate } from 'react-router-dom'
+import IconButton from '@components/IconButton'
 
 export default function UserInfo() {
   const navigate = useNavigate()
+
   const [gender, setGender] = useState('man')
-
   const [infoCheck, setInfoCheck] = useState(!false)
-
   const nameInput = useRef([])
-
   const [inputs, setInputs] = useState({
     userName: '',
     userOld: '',
@@ -26,6 +24,7 @@ export default function UserInfo() {
     userWeight: '',
   })
   const { userName, userOld, userHeight, userWeight } = inputs
+
   const handleInputChange = (e) => {
     let result
     const { name } = e.target
@@ -38,10 +37,6 @@ export default function UserInfo() {
     setInputs({ ...inputs, [name]: result })
   }
 
-  useEffect(() => {
-    console.log('nameInputRef:', nameInput)
-  })
-
   const handleOnClick = () => {
     for (let i = 0; i < nameInput.current.length; i++) {
       if (nameInput.current[i].value === '') {
@@ -50,8 +45,16 @@ export default function UserInfo() {
         return false
       }
     }
+    localStorage.removeItem('userInfo')
+    localStorage.removeItem('userGender')
+    localStorage.setItem('userInfo', JSON.stringify(inputs))
+    localStorage.setItem('userGender', JSON.stringify(gender))
+
     navigate('/purpose')
   }
+
+  useEffect(() => {}, [])
+
   return (
     <Wrapper>
       <Header>
@@ -80,7 +83,7 @@ export default function UserInfo() {
         title="이름"
         value={userName}
         inputRef={(el) => (nameInput.current[0] = el)}
-        handleInputChange={handleInputChange}
+        onChange={handleInputChange}
       />
       <Title content="나이" kinds="sub" />
       <Input
@@ -91,7 +94,7 @@ export default function UserInfo() {
         value={userOld}
         inputRef={(el) => (nameInput.current[1] = el)}
         maxLength={3}
-        handleInputChange={handleInputChange}
+        onChange={handleInputChange}
       />
 
       <Flex>
@@ -106,7 +109,7 @@ export default function UserInfo() {
             inputRef={(el) => (nameInput.current[2] = el)}
             maxLength={3}
             unit="cm"
-            handleInputChange={handleInputChange}
+            onChange={handleInputChange}
           />
         </div>
         <div className={$.input_box}>
@@ -120,7 +123,7 @@ export default function UserInfo() {
             inputRef={(el) => (nameInput.current[3] = el)}
             maxLength={3}
             unit="kg"
-            handleInputChange={handleInputChange}
+            onChange={handleInputChange}
           />
         </div>
       </Flex>

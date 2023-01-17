@@ -9,7 +9,11 @@ import { useNavigate } from 'react-router-dom'
 export default function Intro() {
   const navigate = useNavigate()
   const goStart = () => {
-    navigate('start')
+    let userInfoCheck = JSON.parse(localStorage.getItem('userInfo'))
+    let userPurposeCheck = JSON.parse(localStorage.getItem('userPurpose'))
+    if (userInfoCheck && userPurposeCheck) navigate('/today')
+    if (userInfoCheck) navigate('/purpose')
+    navigate('/start')
   }
 
   return (
@@ -23,7 +27,7 @@ export default function Intro() {
         <p>목표를 설정하고 칼로리 계산해보아요</p>
         <img src={introLogo} alt="로고" />
       </div>
-      <Button content="시작하기" link="start" onClick={goStart} />
+      <Button content="시작하기" onClick={goStart} />
     </Wrapper>
   )
 }
