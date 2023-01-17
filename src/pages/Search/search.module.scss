@@ -30,3 +30,12 @@
   }
   
 }
+
+.empty_box {
+  display: flex;
+  justify-content: center;
+  padding-top: 22vh;
+  img {
+    width: 50%;
+  }
+}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import $ from './search.module.scss'
+import logoBg from '@assets/ic-logo-bg.png'
 import Wrapper from '@components/Wrapper'
 import Header from '@components/Header'
 import Title from '@components/Title'
@@ -9,6 +10,7 @@ import Input from '@components/Input'
 export default function Search() {
   const [value, setValue] = useState('')
   const [searchList, setSearchList] = useState([])
+  const [check, setCheck] = useState(false)
 
   const handleInputChange = (e) => {
     setValue(e.target.value)
@@ -47,6 +49,18 @@ export default function Search() {
           </form>
         </Wrapper>
       </div>
+      {
+        check 
+        ? (
+          <Wrapper kinds={'minimal'}>
+            {searchList}
+          </Wrapper>
+        ) 
+        : 
+        <div className={$.empty_box}>
+          <img src={logoBg} alt="빈접시" />
+        </div>
+      }
     </div>
   )
 }
