@@ -1,8 +1,8 @@
 @import '@styles/shared.scss';
 .content {
-  background: $backGroundColor1;
-  height: 100vh;
   overflow: scroll;
+  height: 100vh;
+  background: $backGroundColor1;
   
   .wrap {
     background-color: $siteColorWhite;
@@ -11,24 +11,6 @@
   form {
     margin-bottom: 1rem;
   }
-}
-
-.title_box {
-  margin-left: 1rem;
-  
-  h1 {
-    font-size: 1.6rem;
-    line-height: 1.6rem;
-    color: $siteColorMain;
-    margin-bottom: 0.4rem;
-  }
-
-  p {
-    font-size: 1.2rem;
-    line-height: 1.2rem;
-    color: $siteColorGray2;
-  }
-  
 }
 
 .empty_box {
