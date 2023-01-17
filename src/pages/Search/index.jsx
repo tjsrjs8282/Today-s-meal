@@ -31,7 +31,7 @@ export default function Search() {
         <Wrapper kinds={'minimal'}>
           <Header>
             <IconButton kinds={'close'} />
-            <TitleBox content={'아침식사'} />
+            <TitleBox content={'아침식사'} kinds={'margin'}/>
           </Header>
           <form className={$.search_form} onSubmit={onSubmit}>
             <Input 

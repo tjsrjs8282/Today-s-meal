@@ -1,6 +1,8 @@
 @import '@styles/shared.scss';
 .title_box {
-  margin-left: 1rem;
+  &.margin {
+    margin-left: 1rem;
+  }
   
   h1 {
     margin-bottom: 0.4rem;
