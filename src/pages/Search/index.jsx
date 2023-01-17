@@ -3,7 +3,7 @@ import $ from './search.module.scss'
 import logoBg from '@assets/ic-logo-bg.png'
 import Wrapper from '@components/Wrapper'
 import Header from '@components/Header'
-import Title from '@components/Title'
+import TitleBox from '@components/TitleBox'
 import IconButton from '@components/IconButton'
 import Input from '@components/Input'
 
@@ -31,10 +31,7 @@ export default function Search() {
         <Wrapper kinds={'minimal'}>
           <Header>
             <IconButton kinds={'close'} />
-            <div className={$.title_box} >
-              <h1>아침식사</h1>
-              <p>12월 28일 수요일</p>
-            </div>
+            <TitleBox content={'아침식사'} />
           </Header>
           <form className={$.search_form} onSubmit={onSubmit}>
             <Input 
@@ -56,10 +53,11 @@ export default function Search() {
             {searchList}
           </Wrapper>
         ) 
-        : 
-        <div className={$.empty_box}>
-          <img src={logoBg} alt="빈접시" />
-        </div>
+        : (
+          <div className={$.empty_box}>
+            <img src={logoBg} alt="빈접시" />
+          </div>
+        )
       }
     </div>
   )
