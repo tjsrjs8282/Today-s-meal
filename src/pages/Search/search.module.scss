@@ -1,4 +1,18 @@
 @import '@styles/shared.scss';
+.content {
+  background: $backGroundColor1;
+  height: 100vh;
+  overflow: scroll;
+  
+  .wrap {
+    background-color: $siteColorWhite;
+  }
+
+  form {
+    margin-bottom: 1rem;
+  }
+}
+
 .title_box {
   margin-left: 1rem;
   

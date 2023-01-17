@@ -24,28 +24,29 @@ export default function Search() {
   }
 
   return (
-      <Wrapper>
-        <Header>
-          <IconButton kinds={'close'} />
-          <div className={$.title_box} >
-            <h1>아침식사</h1>
-            <p>12월 28일 수요일</p>
-          </div>
-        </Header>
-        <form className={$.search_form} onSubmit={onSubmit}>
-          <Input 
-            type='text'
-            name='search'
-            value={value}
-            onChange={handleInputChange}
-            unit={
-              value && <IconButton kinds={'closeCircle'} onClick={onClick}/>
-            }
-          />
-        </form>
-        <div>
-          {searchList}
-        </div>
-      </Wrapper>
+    <div className={$.content} >
+      <div className={$.wrap}>
+        <Wrapper kinds={'minimal'}>
+          <Header>
+            <IconButton kinds={'close'} />
+            <div className={$.title_box} >
+              <h1>아침식사</h1>
+              <p>12월 28일 수요일</p>
+            </div>
+          </Header>
+          <form className={$.search_form} onSubmit={onSubmit}>
+            <Input 
+              type='text'
+              name='search'
+              value={value}
+              onChange={handleInputChange}
+              unit={
+                value && <IconButton kinds={'closeCircle'} onClick={onClick}/>
+              }
+            />
+          </form>
+        </Wrapper>
+      </div>
+    </div>
   )
 }
