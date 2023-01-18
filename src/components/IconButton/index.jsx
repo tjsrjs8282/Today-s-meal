@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './iconButton.module.scss'
-import { HiArrowLeft } from 'react-icons/hi2'
+import { HiArrowLeft, HiChevronRight } from 'react-icons/hi2'
 import {
   AiOutlineCalendar,
   AiOutlineClose,
@@ -34,6 +34,7 @@ export default function IconButton({ kinds, onClick }) {
           onClick={() => onClick()}
         />
       }
+      {kinds === 'next' && <HiChevronRight />}
     </>
   )
 }
