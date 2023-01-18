@@ -8,6 +8,7 @@
   padding-bottom: 6rem;
 
   &.minimal {
+    overflow: auto;
     height: auto;
     padding-bottom: 0;
   }
