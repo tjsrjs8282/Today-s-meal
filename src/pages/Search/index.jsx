@@ -3,14 +3,23 @@ import $ from './search.module.scss'
 import logoBg from '@assets/ic-logo-bg.png'
 import Wrapper from '@components/Wrapper'
 import Header from '@components/Header'
+import ListBox from '@components/ListBox'
 import TitleBox from '@components/TitleBox'
 import IconButton from '@components/IconButton'
 import Input from '@components/Input'
 
+const Data = [
+  {
+    name: '바나나',
+    number: 1,
+    size: '중형',
+    kcal: '100kcal',
+  },
+]
 export default function Search() {
   const [value, setValue] = useState('')
-  const [searchList, setSearchList] = useState([])
-  const [check, setCheck] = useState(false)
+  const [searchList, setSearchList] = useState(Data)
+  const [check, setCheck] = useState(true)
   const inputRef = useRef(null)
 
   const handleInputChange = (e) => {
@@ -57,7 +66,9 @@ export default function Search() {
         check 
         ? (
           <Wrapper kinds={'minimal'}>
-            {searchList}
+            {searchList.map((data) => (
+              <ListBox key={data.name} data={data} />
+            ))}
           </Wrapper>
         ) 
         : (
