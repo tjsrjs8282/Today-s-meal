@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import $ from './input.module.scss'
-
+import classNames from 'classnames/bind'
+const cx = classNames.bind($)
 export default function Input({
   type,
   name,
@@ -11,9 +12,12 @@ export default function Input({
   unit,
   inputRef,
   onChange,
+  kinds,
 }) {
+  const isKinds = kinds === 'search'
   return (
     <div className={$.input_box}>
+      {kinds && <span>{kinds}</span>}
       <input
         type={type}
         name={name}
