@@ -13,9 +13,22 @@ const Data = [
     name: '바나나',
     number: 1,
     size: '중형',
-    kcal: '100kcal',
+    kcal: 105,
+  },
+  {
+    name: '바나나',
+    number: 1,
+    size: '소형',
+    kcal: 105,
+  },
+  {
+    name: '바나나우유',
+    number: 1,
+    size: '500ml',
+    kcal: 105,
   },
 ]
+
 export default function Search() {
   const [value, setValue] = useState('')
   const [searchList, setSearchList] = useState(Data)
@@ -51,6 +64,7 @@ export default function Search() {
               value={value}
               onChange={handleInputChange}
               inputRef={inputRef}
+              kinds={<IconButton kinds={'search'} />}
               unit={
                 value
                 && <IconButton
@@ -67,7 +81,7 @@ export default function Search() {
         ? (
           <Wrapper kinds={'minimal'}>
             {searchList.map((data) => (
-              <ListBox key={data.name} data={data} />
+              <ListBox key={data.name + data.size} data={data} />
             ))}
           </Wrapper>
         ) 
