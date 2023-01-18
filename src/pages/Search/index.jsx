@@ -3,7 +3,7 @@ import $ from './search.module.scss'
 import logoBg from '@assets/ic-logo-bg.png'
 import Wrapper from '@components/Wrapper'
 import Header from '@components/Header'
-import ListBox from '@components/ListBox'
+import ListItem from '@components/ListItem'
 import TitleBox from '@components/TitleBox'
 import IconButton from '@components/IconButton'
 import Input from '@components/Input'
@@ -49,6 +49,10 @@ export default function Search() {
     console.log('onSubmit')
   }
 
+  const handleItemClick = () => {
+    console.log('handleItemClick')
+  }
+
   return (
     <div className={$.content} >
       <div className={$.wrap}>
@@ -81,7 +85,11 @@ export default function Search() {
         ? (
           <Wrapper kinds={'minimal'}>
             {searchList.map((data) => (
-              <ListBox key={data.name + data.size} data={data} />
+              <ListItem
+                key={data.name + data.size}
+                data={data}
+                onClick={handleItemClick}
+              />
             ))}
           </Wrapper>
         ) 
