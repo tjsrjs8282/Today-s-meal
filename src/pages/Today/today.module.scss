@@ -1,0 +1,55 @@
+@import '@styles/shared.scss';
+.summary_box {
+  width: 100%;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  border-radius: 15px;
+  box-shadow: $boxShadow;
+  background: $siteColorWhite;
+  h3 {
+    color: $siteColorGray1;
+    font-weight: normal;
+    font-size: 1rem;
+  }
+  h2 {
+    color: $siteColorBlack;
+    font-weight: normal;
+    font-size: 1rem;
+  }
+  p {
+    color: $siteColorBlack;
+    font-size: 1.2rem;
+    margin-top: 5px;
+    font-weight: 600;
+  }
+  span {
+    font-size: 0.9rem;
+    margin-left: 1px;
+  }
+}
+
+.record_box {
+  img {
+    max-width: 55px;
+    width: 3.6rem;
+    margin-right: 1rem;
+  }
+  h2 {
+    color: $siteColorBlack;
+    font-size: 1.4rem;
+  }
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 5px;
+  }
+  p {
+    color: $siteColorGray1;
+    font-size: 1.1rem;
+  }
+  svg {
+    color: $siteColorMain;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+}

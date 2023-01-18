@@ -1,8 +1,53 @@
+@import '@styles/shared.scss';
 .flex {
   display: flex;
   justify-content: center;
   align-items: center;
+  &.start {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
   &.column {
     flex-direction: column;
+  }
+  &.between {
+    justify-content: space-between;
+  }
+  &.around {
+    justify-content: space-around;
+  }
+  &.nowrap {
+    flex-wrap: wrap;
+  }
+  &.width {
+    width: 100%;
+  }
+  &.white {
+    background: $siteColorWhite;
+  }
+  &.gray {
+    background: $lineColor3;
+  }
+  &.radius {
+    border-radius: 15px;
+  }
+  &.shadow {
+    box-shadow: $boxShadow;
+  }
+  &.padding {
+    padding: 1.7rem 1.5rem;
+    box-sizing: border-box;
+  }
+  &.marginRight {
+    margin-right: 15px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  &.marginBottom {
+    margin-bottom: 15px;
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
