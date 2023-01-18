@@ -10,6 +10,7 @@ import {
   AiOutlineMan,
   AiOutlineWoman,
   AiFillCloseCircle,
+  AiOutlineSearch,
 } from 'react-icons/ai'
 
 export default function IconButton({ kinds, onClick }) {
@@ -26,6 +27,7 @@ export default function IconButton({ kinds, onClick }) {
       {kinds === 'plus ' && <AiOutlinePlus />}
       {kinds === 'man' && <AiOutlineMan />}
       {kinds === 'woman' && <AiOutlineWoman />}
+      {kinds === 'search' && <AiOutlineSearch size='20' color='#767676'/>}
       {
         kinds === 'closeCircle'
           && <AiFillCloseCircle
@@ -34,7 +36,7 @@ export default function IconButton({ kinds, onClick }) {
           onClick={() => onClick()}
         />
       }
-      {kinds === 'next' && <HiChevronRight />}
+      {kinds === 'next' && <HiChevronRight size='20' />}
     </>
   )
 }
