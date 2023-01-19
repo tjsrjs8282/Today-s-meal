@@ -6,4 +6,10 @@
   box-sizing: border-box;
   padding: 0px 15px;
   padding-bottom: 6rem;
+
+  &.minimal {
+    overflow: auto;
+    height: auto;
+    padding-bottom: 0;
+  }
 }
