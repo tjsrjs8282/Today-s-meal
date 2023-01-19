@@ -1,6 +1,15 @@
 @import '@styles/shared.scss';
 .input_box {
   position: relative;
+  span {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+  }
   input {
     width: 100%;
     padding: 20px 35px 20px 20px;
@@ -8,6 +17,9 @@
     border-radius: 15px;
     background: $backGroundColor1;
     font-size: 1.2rem;
+    &[name='search'] {
+      text-indent: 1.2rem;
+    }
   }
 }
 .unit {
