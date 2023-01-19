@@ -7,6 +7,7 @@ import ListItem from '@components/ListItem'
 import TitleBox from '@components/TitleBox'
 import IconButton from '@components/IconButton'
 import Input from '@components/Input'
+import InputSearch from '../../components/InputSearch'
 
 const Data = [
   {
@@ -54,51 +55,31 @@ export default function Search() {
   }
 
   return (
-    <div className={$.content} >
-      <div className={$.wrap}>
+    <Wrapper gray>
+      <Header>
+        <IconButton kinds={'close'} />
+        <TitleBox content={'아침식사'} kinds={'margin'} />
+        <InputSearch
+          type="text"
+          name="foodSearch"
+          value={value}
+          placeholder="먹은 음식을 검색해 주세요."
+          onChange={handleInputChange}
+          onClick={handleResetClick}
+        />
+      </Header>
+
+      {check ? (
         <Wrapper kinds={'minimal'}>
-          <Header>
-            <IconButton kinds={'close'} />
-            <TitleBox content={'아침식사'} kinds={'margin'}/>
-          </Header>
-          <form className={$.search_form} onSubmit={handleFormSubmit}>
-            <Input 
-              type='text'
-              name='search'
-              value={value}
-              onChange={handleInputChange}
-              inputRef={inputRef}
-              kinds={<IconButton kinds={'search'} />}
-              unit={
-                value
-                && <IconButton
-                  kinds={'closeCircle'}
-                  onClick={handleResetClick}
-                  />
-              }
-            />
-          </form>
+          {searchList.map((data) => (
+            <ListItem key={data.name + data.size} data={data} onClick={handleItemClick} />
+          ))}
         </Wrapper>
-      </div>
-      {
-        check 
-        ? (
-          <Wrapper kinds={'minimal'}>
-            {searchList.map((data) => (
-              <ListItem
-                key={data.name + data.size}
-                data={data}
-                onClick={handleItemClick}
-              />
-            ))}
-          </Wrapper>
-        ) 
-        : (
-          <div className={$.empty_box}>
-            <img src={logoBg} alt="빈접시" />
-          </div>
-        )
-      }
-    </div>
+      ) : (
+        <div className={$.empty_box}>
+          <img src={logoBg} alt="빈접시" />
+        </div>
+      )}
+    </Wrapper>
   )
 }

@@ -9,6 +9,7 @@ import Button from '@components/Button'
 import RadioGroup from '@components/RadioGroup'
 import Radio from '@components/Radio'
 import { AiFillCheckCircle } from 'react-icons/ai'
+import { USER_GOALS } from './constants'
 
 export default function UserPurpose() {
   const navigate = useNavigate()
@@ -21,8 +22,6 @@ export default function UserPurpose() {
     navigate('/today')
   }
 
-  useEffect(() => {}, [])
-
   return (
     <Wrapper>
       <Header>
@@ -33,34 +32,18 @@ export default function UserPurpose() {
           설정해 주세요."
       />
       <RadioGroup label="purpose" value={purpose} onChange={setPurpose}>
-        <Radio name="purpose" value="maintain">
-          <div className={$.purpose_icon}>
-            <AiFillCheckCircle />
-          </div>
-          <p>탄단지 균형 유지</p>
-          <h3>유지하기</h3>
-        </Radio>
-        <Radio name="purpose" value="muscle">
-          <div className={$.purpose_icon}>
-            <AiFillCheckCircle />
-          </div>
-          <p>단백질량 증가해서</p>
-          <h3>근육 키우기</h3>
-        </Radio>
-        <Radio name="purpose" value="diet">
-          <div className={$.purpose_icon}>
-            <AiFillCheckCircle />
-          </div>
-          <p>균형잡힌 영양소와</p>
-          <h3>체중 감소</h3>
-        </Radio>
-        <Radio name="purpose" value="bulkup">
-          <div className={$.purpose_icon}>
-            <AiFillCheckCircle />
-          </div>
-          <p>균형잡힌 영양소와</p>
-          <h3>체중 증가</h3>
-        </Radio>
+        {USER_GOALS.map((goal) => {
+          const { value, description, title, id } = goal
+          return (
+            <Radio name="purpose" value={value} key={id}>
+              <div className={$.purpose_icon}>
+                <AiFillCheckCircle />
+              </div>
+              <p>{description}</p>
+              <h3>{title}</h3>
+            </Radio>
+          )
+        })}
       </RadioGroup>
       <Button content="확인" link="/today" onClick={handleOnClick} />
     </Wrapper>

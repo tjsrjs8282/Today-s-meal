@@ -12,20 +12,12 @@ export default function Input({
   unit,
   inputRef,
   onChange,
-  kinds,
 }) {
-  const isKinds = kinds === 'search'
   return (
     <div className={$.input_box}>
-      {kinds && <span>{kinds}</span>}
       <input
-        type={type}
-        name={name}
-        title={title}
-        value={value}
         ref={inputRef}
-        maxLength={maxLength}
-        placeholder={placeholder}
+        {...{ type, name, title, value, maxLength, placeholder }}
         onChange={(e) => {
           onChange(e)
         }}

@@ -1,10 +1,9 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './iconButton.module.scss'
-import { HiArrowLeft } from 'react-icons/hi2'
+import { HiArrowLeft, HiChevronRight } from 'react-icons/hi2'
 import { BsPlusSquareFill } from 'react-icons/bs'
 import { VscClose } from 'react-icons/vsc'
-import { HiArrowLeft, HiChevronRight } from 'react-icons/hi2'
 import {
   AiOutlineCalendar,
   AiOutlineClose,
@@ -32,16 +31,18 @@ export default function IconButton({ kinds, onClick }) {
       {kinds === 'man' && <AiOutlineMan />}
       {kinds === 'woman' && <AiOutlineWoman />}
       {kinds === 'add' && <BsPlusSquareFill />}
-      {kinds === 'search' && <AiOutlineSearch size='20' color='#767676'/>}
-      {
-        kinds === 'closeCircle'
-          && <AiFillCloseCircle
-          size='24'
-          color='#dbdbdb'
+      {kinds === 'search' && (
+        <AiOutlineSearch size="20" color="#767676" className="search_button" />
+      )}
+      {kinds === 'closeCircle' && (
+        <AiFillCloseCircle
+          size="24"
+          color="#dbdbdb"
           onClick={() => onClick()}
+          className="close_circle"
         />
-      }
-      {kinds === 'next' && <HiChevronRight size='20' />}
+      )}
+      {kinds === 'next' && <HiChevronRight size="20" />}
     </>
   )
 }

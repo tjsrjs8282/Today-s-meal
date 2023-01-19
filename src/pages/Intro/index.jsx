@@ -5,14 +5,14 @@ import Wrapper from '@components/Wrapper'
 import Flex from '@components/Flex'
 import Button from '@components/Button'
 import { useNavigate } from 'react-router-dom'
-
+import { LOCAL_STORAGE_KEY } from '@constants'
 export default function Intro() {
   const navigate = useNavigate()
   const goStart = () => {
-    let userInfoCheck = JSON.parse(localStorage.getItem('userInfo'))
-    let userPurposeCheck = JSON.parse(localStorage.getItem('userPurpose'))
-    if (userInfoCheck && userPurposeCheck) navigate('/today')
-    if (userInfoCheck) navigate('/purpose')
+    const isUserInfo = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO))
+    const isUserPurpose = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.USER_PURPOSE))
+    if (isUserInfo && isUserPurpose) navigate('/today')
+    if (isUserInfo) navigate('/purpose')
     navigate('/start')
   }
 

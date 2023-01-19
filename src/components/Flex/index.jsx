@@ -22,10 +22,10 @@ export default function Flex({
   return (
     <div
       className={cx('flex', {
-        column: column,
-        width: width,
-        between: between,
-        around: around,
+        column,
+        width,
+        between,
+        around,
         nowrap: nowrap,
         start: start,
         white: white,

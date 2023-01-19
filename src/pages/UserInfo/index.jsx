@@ -10,6 +10,7 @@ import Radio from '@components/Radio'
 import Button from '@components/Button'
 import Input from '@components/Input'
 import IconButton from '@components/IconButton'
+import { LOCAL_STORAGE_KEY } from '@constants'
 
 export default function UserInfo() {
   const navigate = useNavigate()
@@ -26,15 +27,18 @@ export default function UserInfo() {
   const { userName, userOld, userHeight, userWeight } = inputs
 
   const handleInputChange = (e) => {
-    let result
-    const { name } = e.target
-    result = name != 'userName' ? e.target.value.replace(/\D/g, '') : e.target.value
+    const { name, value } = e.target
+    const result = name !== 'userName' ? value.replace(/\D/g, '') : value
+    checkUserInfo()
+    setInputs({ ...inputs, [name]: result })
+  }
+
+  const checkUserInfo = () => {
     if (userName != '' && userOld != '' && userHeight != '' && userWeight != '') {
       setInfoCheck(false)
     } else {
       setInfoCheck(true)
     }
-    setInputs({ ...inputs, [name]: result })
   }
 
   const handleOnClick = () => {
@@ -45,15 +49,13 @@ export default function UserInfo() {
         return false
       }
     }
-    localStorage.removeItem('userInfo')
-    localStorage.removeItem('userGender')
-    localStorage.setItem('userInfo', JSON.stringify(inputs))
-    localStorage.setItem('userGender', JSON.stringify(gender))
+    localStorage.removeItem(LOCAL_STORAGE_KEY.USER_INFO)
+    localStorage.removeItem(LOCAL_STORAGE_KEY.USER_GENDER)
+    localStorage.setItem(LOCAL_STORAGE_KEY.USER_INFO, JSON.stringify(inputs))
+    localStorage.setItem(LOCAL_STORAGE_KEY.USER_GENDER, JSON.stringify(gender))
 
     navigate('/purpose')
   }
-
-  useEffect(() => {}, [])
 
   return (
     <Wrapper>

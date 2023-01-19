@@ -80,7 +80,7 @@ export default function Today() {
   ]
 
   return (
-    <Wrapper color="gray">
+    <Wrapper gray>
       <Header>
         <Flex width between>
           <Flex column start>
