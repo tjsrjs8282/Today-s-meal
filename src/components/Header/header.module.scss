@@ -1,6 +1,17 @@
+@import '@styles/shared.scss';
 .header {
   display: flex;
   align-items: center;
-  height: 60px;
-  line-height: 60px;
+  text-align: left;
+  margin: 0px -1.3rem;
+  padding: 1rem 1.3rem;
+  background: #fff;
+  h2 {
+    font-size: 1.4rem;
+    color: $siteColorMain;
+  }
+  p {
+    font-size: 1rem;
+    color: $siteColorGray2;
+  }
 }

@@ -59,7 +59,7 @@ export default function UserPurpose() {
             <AiFillCheckCircle />
           </div>
           <p>균형잡힌 영양소와</p>
-          <h3>체즁 증가</h3>
+          <h3>체중 증가</h3>
         </Radio>
       </RadioGroup>
       <Button content="확인" link="/today" onClick={handleOnClick} />

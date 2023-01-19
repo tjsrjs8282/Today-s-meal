@@ -1,12 +1,15 @@
+@import '@styles/shared.scss';
 .wrapper {
   position: relative;
   overflow: scroll;
   height: 100vh;
   width: 100%;
   box-sizing: border-box;
-  padding: 0px 15px;
+  padding: 0px 1.3rem;
   padding-bottom: 6rem;
-
+  &.gray {
+    background: $backGroundColor1;
+   }
   &.minimal {
     overflow: auto;
     height: auto;
