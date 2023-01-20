@@ -17,9 +17,12 @@ export default function FoodToday() {
   const goFoodSearch = () => {
     navigate('/search')
   }
+  const goFoodDetail = () => {
+    navigate('detail')
+  }
 
   return (
-    <Wrapper gray>
+    <Wrapper colorGray>
       <Header>
         <Flex width between>
           <Flex column start>
@@ -30,7 +33,7 @@ export default function FoodToday() {
         </Flex>
       </Header>
       <Title content="요약 " sub>
-        <Button content="상세보기" more />
+        <Button content="상세보기" none onClick={goFoodDetail} />
       </Title>
       <div className={$.summary_box}>
         <Flex between>

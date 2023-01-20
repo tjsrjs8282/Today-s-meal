@@ -1,0 +1,56 @@
+@import '@styles/shared.scss';
+.purpose {
+  margin-bottom: 10px;
+  h2 {
+    font-size: 1.3rem;
+  }
+  p {
+    font-size: 1.1rem !important;
+    color: $siteColorGray1 !important;
+  }
+  img {
+    width: 3.2rem;
+    max-width: 60px;
+  }
+  .icon {
+    margin-right: 1rem;
+    border-radius: 50%;
+    width: 5.5rem;
+    height: 5.5rem;
+    background: $lineColor3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.intake_part {
+  h3 {
+    font-size: 1.2rem;
+    color: $siteColorGray1;
+    font-weight: normal;
+  }
+  p {
+    font-size: 1.2rem;
+    color: $siteColorBlack;
+    font-weight: 500;
+  }
+  span {
+    margin-left: 3px;
+    font-size: 1.1rem;
+  }
+}
+
+.intake_total {
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 200;
+  }
+  p {
+    font-size: 1.2rem;
+    font-weight: 200;
+  }
+  span {
+    margin-left: 3px;
+    font-size: 1.1rem;
+  }
+}

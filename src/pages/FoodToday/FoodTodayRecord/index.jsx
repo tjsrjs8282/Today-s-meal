@@ -4,7 +4,7 @@ import Flex from '@components/Flex'
 
 export default function FoodTodayRecord({ name, value, calorie, image, food, onClick, key }) {
   return (
-    <Flex width white radius padding marginBottom column shadow key={key}>
+    <Flex width colorWhite radius padding marginBottom column shadow key={key}>
       <Flex between width marginBottom>
         <Flex>
           <img src={image} alt={name} />
@@ -18,7 +18,7 @@ export default function FoodTodayRecord({ name, value, calorie, image, food, onC
         <IconButton kinds="add" onClick={onClick} />
       </Flex>
       {food && (
-        <Flex gray width radius padding>
+        <Flex colorGray width radius padding>
           <Flex column gray start width>
             <h3>{food.name}</h3>
             <p>

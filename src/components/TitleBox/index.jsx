@@ -1,14 +1,12 @@
 import React from 'react'
-import $ from './titleBox.module.scss'
-import classNames from 'classnames/bind'
-const cx = classNames.bind($)
+import Flex from '@components/Flex'
 
-export default function TitleBox({ content, kinds }) {
-  const isKinds = kinds === "margin"
+export default function TitleBox({ content }) {
   return (
-    <div className={cx('title_box', { margin: isKinds })} >
-      <h1>{content}</h1>
+    <Flex column marginLeft start>
+      <h2>{content}</h2>
       <p>12월 28일 수요일</p>
-  </div>
+      {/* 실시간 날짜 기능 넣기 */}
+    </Flex>
   )
 }

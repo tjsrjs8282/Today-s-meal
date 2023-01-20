@@ -4,6 +4,7 @@ import UserInfo from '@pages/UserInfo'
 import UserPurpose from '@pages/UserPurpose'
 import FoodToday from '@pages/FoodToday'
 import Search from '@pages/Search'
+import FoodTodayDetail from '@pages/FoodTodayDetail'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/purpose" element={<UserPurpose />}></Route>
           <Route path="/today" element={<FoodToday />}></Route>
           <Route path="/search" element={<Search />}></Route>
+          <Route path="/today/detail" element={<FoodTodayDetail />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

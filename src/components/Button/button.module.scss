@@ -19,7 +19,7 @@
   &.check {
     background: $lineColor1;
   }
-  &.more {
+  &.none {
     position: relative;
     left: auto;
     bottom: auto;
@@ -32,5 +32,26 @@
     font-size: 1.1rem;
     color: $siteColorMain;
     font-weight: normal;
+  }
+  &.border {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: auto;
+    transform: none;
+    background: none;
+    height: auto;
+    line-height: initial;
+    font-size: 1rem;
+    color: $siteColorGray1;
+    font-weight: normal;
+    border: 1px solid $lineColor1;
+    border-radius: 30px;
+    padding: 0.5rem 0.9rem;
+  }
+  &.focused {
+    border-color: $siteColorMain;
+    color: $siteColorMain;
+    background: $siteColorSub;
   }
 }
