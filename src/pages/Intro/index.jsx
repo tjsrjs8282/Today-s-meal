@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import introLogo from '@assets/intro-logo.png'
 import $ from './intro.module.scss'
 import Wrapper from '@components/Wrapper'
@@ -11,11 +11,10 @@ export default function Intro() {
   const goStart = () => {
     const isUserInfo = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.USER_INFO))
     const isUserPurpose = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.USER_PURPOSE))
-    if (isUserInfo && isUserPurpose) navigate('/today')
-    if (isUserInfo) navigate('/purpose')
+    if (isUserInfo && isUserPurpose) return navigate('/today')
+    if (isUserInfo) return navigate('/purpose')
     navigate('/start')
   }
-
   return (
     <Wrapper>
       <div className={$.intro_box}>

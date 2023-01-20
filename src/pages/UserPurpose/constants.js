@@ -1,4 +1,4 @@
-export const USER_GOALS = [
+export const USER_PURPOSES = [
   {
     id: 1,
     value: 'maintain',

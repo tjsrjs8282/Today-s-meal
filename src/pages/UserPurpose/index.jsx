@@ -9,15 +9,16 @@ import Button from '@components/Button'
 import RadioGroup from '@components/RadioGroup'
 import Radio from '@components/Radio'
 import { AiFillCheckCircle } from 'react-icons/ai'
-import { USER_GOALS } from './constants'
+import { USER_PURPOSES } from './constants'
+import { LOCAL_STORAGE_KEY } from '@constants'
 
 export default function UserPurpose() {
   const navigate = useNavigate()
   const [purpose, setPurpose] = useState('maintain')
 
   const handleOnClick = () => {
-    localStorage.removeItem('userPurpose')
-    localStorage.setItem('userPurpose', JSON.stringify(purpose))
+    localStorage.removeItem(LOCAL_STORAGE_KEY.USER_PURPOSE)
+    localStorage.setItem(LOCAL_STORAGE_KEY.USER_PURPOSE, JSON.stringify(purpose))
 
     navigate('/today')
   }
@@ -32,8 +33,8 @@ export default function UserPurpose() {
           설정해 주세요."
       />
       <RadioGroup label="purpose" value={purpose} onChange={setPurpose}>
-        {USER_GOALS.map((goal) => {
-          const { value, description, title, id } = goal
+        {USER_PURPOSES.map((purpose) => {
+          const { value, description, title, id } = purpose
           return (
             <Radio name="purpose" value={value} key={id}>
               <div className={$.purpose_icon}>
@@ -45,7 +46,7 @@ export default function UserPurpose() {
           )
         })}
       </RadioGroup>
-      <Button content="확인" link="/today" onClick={handleOnClick} />
+      <Button content="확인" onClick={handleOnClick} />
     </Wrapper>
   )
 }
