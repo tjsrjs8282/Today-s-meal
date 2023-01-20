@@ -1,5 +1,4 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import './iconButton.module.scss'
 import { HiArrowLeft, HiChevronRight } from 'react-icons/hi2'
 import { BsPlusSquareFill } from 'react-icons/bs'
@@ -16,13 +15,9 @@ import {
 } from 'react-icons/ai'
 
 export default function IconButton({ kinds, onClick }) {
-  const navigate = useNavigate()
-  const goBack = () => {
-    navigate(-1)
-  }
   return (
     <>
-      {kinds === 'back' && <HiArrowLeft onClick={goBack} />}
+      {kinds === 'back' && <HiArrowLeft onClick={onClick} />}
       {kinds === 'calendar' && <AiOutlineCalendar size="2.2rem" />}
       {kinds === 'close' && <AiOutlineClose />}
       {kinds === 'close2' && <VscClose size="1.8rem" color="#999" />}
@@ -30,7 +25,7 @@ export default function IconButton({ kinds, onClick }) {
       {kinds === 'plus ' && <AiOutlinePlus />}
       {kinds === 'man' && <AiOutlineMan />}
       {kinds === 'woman' && <AiOutlineWoman />}
-      {kinds === 'add' && <BsPlusSquareFill />}
+      {kinds === 'add' && <BsPlusSquareFill onClick={onClick} />}
       {kinds === 'search' && (
         <AiOutlineSearch size="20" color="#767676" className="search_button" />
       )}

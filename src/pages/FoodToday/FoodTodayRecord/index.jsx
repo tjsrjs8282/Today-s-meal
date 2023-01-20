@@ -1,7 +1,8 @@
 import React from 'react'
 import IconButton from '@components/IconButton'
 import Flex from '@components/Flex'
-export default function TodayRecord({ name, value, calorie, image, food, key }) {
+
+export default function FoodTodayRecord({ name, value, calorie, image, food, onClick, key }) {
   return (
     <Flex width white radius padding marginBottom column shadow key={key}>
       <Flex between width marginBottom>
@@ -14,7 +15,7 @@ export default function TodayRecord({ name, value, calorie, image, food, key }) 
             </p>
           </Flex>
         </Flex>
-        <IconButton kinds="add" />
+        <IconButton kinds="add" onClick={onClick} />
       </Flex>
       {food && (
         <Flex gray width radius padding>

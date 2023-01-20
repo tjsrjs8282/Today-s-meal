@@ -14,9 +14,12 @@ import { LOCAL_STORAGE_KEY } from '@constants'
 
 export default function UserInfo() {
   const navigate = useNavigate()
+  const goBack = () => {
+    navigate(-1)
+  }
 
   const [gender, setGender] = useState('man')
-  const [infoCheck, setInfoCheck] = useState(!false)
+  const [isUserInfo, setIsUserInfo] = useState(!false)
   const nameInput = useRef([])
   const [inputs, setInputs] = useState({
     userName: '',
@@ -35,9 +38,9 @@ export default function UserInfo() {
 
   const checkUserInfo = () => {
     if (userName != '' && userOld != '' && userHeight != '' && userWeight != '') {
-      setInfoCheck(false)
+      setIsUserInfo(false)
     } else {
-      setInfoCheck(true)
+      setIsUserInfo(true)
     }
   }
 
@@ -60,13 +63,13 @@ export default function UserInfo() {
   return (
     <Wrapper>
       <Header>
-        <IconButton kinds="back" />
+        <IconButton kinds="back" onClick={goBack} />
       </Header>
       <Title
         content="회원 정보를 
         입력해 주세요."
       />
-      <Title content="성별" kinds="sub" />
+      <Title content="성별" sub />
       <RadioGroup label="gender" value={gender} onChange={setGender}>
         <Radio name="gender" value="man" defaultChecked>
           <IconButton kinds="man" />
@@ -77,7 +80,7 @@ export default function UserInfo() {
           <span>여자</span>
         </Radio>
       </RadioGroup>
-      <Title content="이름" kinds="sub" />
+      <Title content="이름" sub />
       <Input
         type="text"
         placeholder="이름이 무엇인가요?"
@@ -87,9 +90,9 @@ export default function UserInfo() {
         inputRef={(el) => (nameInput.current[0] = el)}
         onChange={handleInputChange}
       />
-      <Title content="나이" kinds="sub" />
+      <Title content="나이" sub />
       <Input
-        type="tel"
+        type="number"
         placeholder="나이를 입력해주세요"
         name="userOld"
         title="나이"
@@ -101,9 +104,9 @@ export default function UserInfo() {
 
       <Flex>
         <div className={$.input_box}>
-          <Title content="키" kinds="sub" />
+          <Title content="키" sub />
           <Input
-            type="tel"
+            type="number"
             placeholder="0"
             name="userHeight"
             title="키"
@@ -115,9 +118,9 @@ export default function UserInfo() {
           />
         </div>
         <div className={$.input_box}>
-          <Title content="몸무게" kinds="sub" />
+          <Title content="몸무게" sub />
           <Input
-            type="tel"
+            type="number"
             placeholder="0"
             name="userWeight"
             title="몸무게"
@@ -129,7 +132,7 @@ export default function UserInfo() {
           />
         </div>
       </Flex>
-      <Button content="다음으로" link="/purpose" check={infoCheck} onClick={handleOnClick} />
+      <Button content="다음으로" check={isUserInfo} onClick={handleOnClick} />
     </Wrapper>
   )
 }
