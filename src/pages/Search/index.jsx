@@ -4,40 +4,15 @@ import logoBg from '@assets/ic-logo-bg.png'
 import Wrapper from '@components/Wrapper'
 import Header from '@components/Header'
 import ListItem from '@components/ListItem'
-import HeaderTitle from '@components/HeaderTitlefrom
+import HeaderTitle from '@components/HeaderTitle'
 import Input from '@components/Input'
 import InputSearch from '@components/InputSearch'
-
-const Data = [
-  {
-    id: 1,
-    name: '바나나',
-    number: 1,
-    size: '중형',
-    kcal: 105,
-  },
-  {
-    id: 2,
-    name: '바나나',
-    number: 1,
-    size: '소형',
-    kcal: 105,
-  },
-  {
-    id: 3,
-    name: '바나나우유',
-    number: 1,
-    size: '500ml',
-    kcal: 105,
-  },
-]
-
-//해놓은거 참고해서 constants.js 에 넣고 불러오기, contants 변수명은 풀대문자
+import { SEARCH_FOOD } from './constants'
 
 export default function Search() {
   //파일명 FoodSearch 로 변경 , 컴포넌트명도 동일하게
   const [value, setValue] = useState('')
-  const [searchList, setSearchList] = useState(Data)
+  const [searchList, setSearchList] = useState(SEARCH_FOOD)
   const [empty, setEmpty] = useState(true)
   const inputRef = useRef(null)
   //변수 네이밍 수정 (있는지 확인하는거는 is어쩌구
