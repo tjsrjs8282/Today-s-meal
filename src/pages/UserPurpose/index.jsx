@@ -14,8 +14,11 @@ import { LOCAL_STORAGE_KEY } from '@constants'
 
 export default function UserPurpose() {
   const navigate = useNavigate()
-  const [purpose, setPurpose] = useState('maintain')
+  const goBack = () => {
+    navigate(-1)
+  }
 
+  const [purpose, setPurpose] = useState('유지하기')
   const handleOnClick = () => {
     localStorage.removeItem(LOCAL_STORAGE_KEY.USER_PURPOSE)
     localStorage.setItem(LOCAL_STORAGE_KEY.USER_PURPOSE, JSON.stringify(purpose))
@@ -26,7 +29,7 @@ export default function UserPurpose() {
   return (
     <Wrapper>
       <Header>
-        <IconButton kinds="back" />
+        <IconButton kinds="back" onClick={goBack} />
       </Header>
       <Title
         content="귀하의 식단 목표를
@@ -36,12 +39,12 @@ export default function UserPurpose() {
         {USER_PURPOSES.map((purpose) => {
           const { value, description, title, id } = purpose
           return (
-            <Radio name="purpose" value={value} key={id}>
+            <Radio name="purpose" value={value} title={title} key={id}>
               <div className={$.purpose_icon}>
                 <AiFillCheckCircle />
               </div>
               <p>{description}</p>
-              <h3>{title}</h3>
+              <h3>{value}</h3>
             </Radio>
           )
         })}

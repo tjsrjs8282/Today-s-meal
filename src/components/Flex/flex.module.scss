@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
   &.start {
     justify-content: flex-start;
     align-items: flex-start;
@@ -16,18 +17,13 @@
   &.around {
     justify-content: space-around;
   }
-  &.nowrap {
+  &.wrap {
     flex-wrap: wrap;
   }
   &.width {
     width: 100%;
   }
-  &.white {
-    background: $siteColorWhite;
-  }
-  &.gray {
-    background: $lineColor3;
-  }
+
   &.radius {
     border-radius: 15px;
   }
@@ -38,16 +34,62 @@
     padding: 1.7rem 1.5rem;
     box-sizing: border-box;
   }
+  &.fontWhite {
+    color: $siteColorWhite;
+    border-color: #70ad60 !important;
+  }
+
+  &.colorGray {
+    background: $lineColor3;
+  }
+  &.colorWhite {
+    background: $siteColorWhite;
+  }
+  &.colorMain {
+    background: $siteColorMain;
+  }
+  &.colorSub {
+    background: $siteColorSub;
+  }
+  &.marginLeft {
+    margin-left: 0.8rem;
+  }
   &.marginRight {
-    margin-right: 15px;
+    margin-right: 0.8rem;
     &:last-child {
       margin-right: 0;
     }
   }
+  &.marginTop {
+    margin-top: 1rem;
+    &:first-child {
+      margin-top: 1.6rem;
+    }
+  }
   &.marginBottom {
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
     &:last-child {
       margin-bottom: 0;
+    }
+  }
+  &.paddingBottom {
+    padding: 1.3rem 0px;
+    &:first-child {
+      padding-top: 0px;
+    }
+    &:last-child {
+      padding-bottom: 0px;
+    }
+  }
+  &.siteColorMain {
+    background: #000;
+    border-color: #70ad60 !important;
+  }
+
+  &.borderBottom {
+    border-bottom: 1px solid $lineColor1;
+    &:last-child {
+      border-bottom: none;
     }
   }
 }

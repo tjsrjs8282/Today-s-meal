@@ -1,23 +1,14 @@
 @import '@styles/shared.scss';
-.content {
-  overflow: scroll;
-  height: 100vh;
-  background: $backGroundColor1;
 
-  .wrap {
-    background-color: $siteColorWhite;
-  }
-
-  form {
-    margin-bottom: 1rem;
-  }
+.food_list {
+  display: block;
 }
 
 .empty_box {
   display: flex;
   justify-content: center;
   padding-top: 22vh;
-  
+
   img {
     width: 50%;
   }
