@@ -4,8 +4,7 @@ import logoBg from '@assets/ic-logo-bg.png'
 import Wrapper from '@components/Wrapper'
 import Header from '@components/Header'
 import ListItem from '@components/ListItem'
-import TitleBox from '@components/TitleBox'
-import IconButton from '@components/IconButton'
+import HeaderTitle from '@components/HeaderTitlefrom
 import Input from '@components/Input'
 import InputSearch from '@components/InputSearch'
 
@@ -68,7 +67,7 @@ export default function Search() {
           <IconButton kinds="close" />
           {/* useNavigate 해서 onClick 뒤로가기 넣기 ,다른페이지 참고*/}
           {/* 속성값 text면 그냥 대괄호 안넣는걸로 통일 */}
-          <TitleBox content="아침식사" kinds="margin" />
+          <HeaderTitle content="아침식사" />
           {/* 컴포넌트 네이밍 */}
           <InputSearch
             type="text"
