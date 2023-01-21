@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { memo } from 'react'
 import Flex from '@components/Flex'
 
-export default function TitleBox({ content }) {
+const HeaderTitle = memo(({ content }) => {
   return (
     <Flex column marginLeft start>
       <h2>{content}</h2>
@@ -9,4 +9,6 @@ export default function TitleBox({ content }) {
       {/* 실시간 날짜 기능 넣기 */}
     </Flex>
   )
-}
+})
+
+export default HeaderTitle

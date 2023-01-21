@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { memo } from 'react'
 import $ from './flex.module.scss'
 import classNames from 'classnames/bind'
 
 const cx = classNames.bind($)
-export default function Flex({
+const Flex = memo(({
   column,
   between,
   around,
@@ -26,7 +26,8 @@ export default function Flex({
   borderBottom,
   children,
   onClick,
-}) {
+}) => {
+  console.log('Flex')
   return (
     <div
       className={cx('flex', {
@@ -56,4 +57,6 @@ export default function Flex({
       {children}
     </div>
   )
-}
+})
+
+export default Flex

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import './iconButton.module.scss'
 import { HiArrowLeft, HiChevronRight } from 'react-icons/hi2'
 import { BsPlusSquareFill } from 'react-icons/bs'
@@ -14,7 +14,7 @@ import {
   AiOutlineSearch,
 } from 'react-icons/ai'
 
-export default function IconButton({ kinds, onClick }) {
+const IconButton = memo(({ kinds, onClick }) => {
   return (
     <>
       {kinds === 'back' && <HiArrowLeft onClick={onClick} />}
@@ -40,4 +40,6 @@ export default function IconButton({ kinds, onClick }) {
       {kinds === 'next' && <HiChevronRight size="20" />}
     </>
   )
-}
+})
+
+export default IconButton
