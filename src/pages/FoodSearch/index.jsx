@@ -1,28 +1,30 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import $ from './search.module.scss'
 import logoBg from '@assets/ic-logo-bg.png'
 import Wrapper from '@components/Wrapper'
+import Flex from '@components/Flex'
 import Header from '@components/Header'
-import ListItem from '@components/ListItem'
 import HeaderTitle from '@components/HeaderTitle'
-import Input from '@components/Input'
+import IconButton from '@components/IconButton'
 import InputSearch from '@components/InputSearch'
+import FoodSearchListItem from './FoodSearchListItem'
 import { SEARCH_FOOD } from './constants'
 
-export default function Search() {
+export default function FoodSearch() {
   //파일명 FoodSearch 로 변경 , 컴포넌트명도 동일하게
-  const [value, setValue] = useState('')
-  const [searchList, setSearchList] = useState(SEARCH_FOOD)
-  const [empty, setEmpty] = useState(true)
+  const [searchFood, setSearchFood] = useState('')
+  const [isSearchData, setIsSearchData] = useState(true)
   const inputRef = useRef(null)
+  const navigate = useNavigate();
   //변수 네이밍 수정 (있는지 확인하는거는 is어쩌구
 
-  const handleInputChange = (e) => {
-    setValue(e.target.value)
-  }
+  const handleInputChange = useCallback((e) => {
+    setSearchFood(e.target.value)
+  }, [searchFood])
 
   const handleResetClick = () => {
-    setValue('')
+    setSearchFood('')
     inputRef.current.focus()
   }
 
@@ -35,25 +37,36 @@ export default function Search() {
     console.log('handleItemClick')
   }
 
-  if (!empty) {
+  const goBack = () => {
+    navigate('../today')
+  }
+
+  console.log('redered')
+
+  if (!isSearchData) {
     return (
       <Wrapper colorGray>
         <Header>
-          <IconButton kinds="close" />
-          {/* useNavigate 해서 onClick 뒤로가기 넣기 ,다른페이지 참고*/}
-          {/* 속성값 text면 그냥 대괄호 안넣는걸로 통일 */}
-          <HeaderTitle content="아침식사" />
-          {/* 컴포넌트 네이밍 */}
+        <Flex column start width >
+          <Flex >
+            <IconButton kinds="close" onClick={goBack} />
+            <HeaderTitle content="아침식사" />
+          </Flex>
           <InputSearch
             type="text"
             name="foodSearch"
-            value={value}
+            value={searchFood}
+            inputRef={inputRef}
             placeholder="먹은 음식을 검색해 주세요."
             onChange={handleInputChange}
             onClick={handleResetClick}
           />
-          {/* inputSearch 컴포넌트 리펙토링 css */}
-        </Header>
+        </Flex>
+      </Header>
+      {/* useNavigate 해서 onClick 뒤로가기 넣기 ,다른페이지 참고*/}
+      {/* 속성값 text면 그냥 대괄호 안넣는걸로 통일 */}
+      {/* 컴포넌트 네이밍 */}
+      {/* inputSearch 컴포넌트 리펙토링 css */}
 
         <div className={$.empty_box}>
           <img src={logoBg} alt="빈접시" />
@@ -65,22 +78,29 @@ export default function Search() {
   return (
     <Wrapper colorGray>
       <Header>
-        <IconButton kinds="close" />
-        <TitleBox content="아침식사" kinds="margin" />
-        <InputSearch
-          type="text"
-          name="foodSearch"
-          value={value}
-          placeholder="먹은 음식을 검색해 주세요."
-          onChange={handleInputChange}
-          onClick={handleResetClick}
-        />
+        <Flex column start width >
+          <Flex >
+            <IconButton kinds="close" onClick={goBack} />
+            <HeaderTitle content="아침식사" />
+          </Flex>
+          <InputSearch
+            type="text"
+            name="foodSearch"
+            value={searchFood}
+            inputRef={inputRef}
+            placeholder="먹은 음식을 검색해 주세요."
+            onChange={handleInputChange}
+            onClick={handleResetClick}
+          />
+        </Flex>
+          {/* inputSearch 컴포넌트 리펙토링 css */}
       </Header>
 
       <div className={$.food_list}>
-        {searchList.map((data) => (
-          <ListItem key={data.id} data={data} onClick={handleItemClick} />
-        ))}
+        {SEARCH_FOOD.map((foodData) => {
+          const { id } = foodData
+          return <FoodSearchListItem key={id} foodData={foodData} onClick={handleItemClick} />
+        })}
       </div>
       {/* map또는 반복문 돌리는 곳만 제어 용이하게 div 클레스네임 지정해서 감싸기  */}
       {/* constants.js 불러와서 distructuring 해서 */}
