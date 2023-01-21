@@ -19,7 +19,7 @@ export default function IconButton({ kinds, onClick }) {
     <>
       {kinds === 'back' && <HiArrowLeft onClick={onClick} />}
       {kinds === 'calendar' && <AiOutlineCalendar size="2.2rem" />}
-      {kinds === 'close' && <AiOutlineClose />}
+      {kinds === 'close' && <AiOutlineClose onClick={onClick} />}
       {kinds === 'close2' && <VscClose size="1.8rem" color="#999" />}
       {kinds === 'minus' && <AiOutlineMinus />}
       {kinds === 'plus ' && <AiOutlinePlus />}
