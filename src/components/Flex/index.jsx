@@ -13,6 +13,7 @@ export default function Flex({
   colorGray,
   radius,
   width,
+  image,
   shadow,
   padding,
   fontWhite,
@@ -26,6 +27,9 @@ export default function Flex({
   borderBottom,
   children,
   onClick,
+  col4,
+  col3,
+  col2,
 }) {
   return (
     <div
@@ -39,6 +43,7 @@ export default function Flex({
         white,
         colorGray,
         radius,
+        image,
         shadow,
         padding,
         fontWhite,
@@ -50,6 +55,9 @@ export default function Flex({
         marginBottom,
         paddingBottom,
         borderBottom,
+        col4,
+        col3,
+        col2,
       })}
       onClick={onClick}
     >
