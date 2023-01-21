@@ -8,7 +8,7 @@ export default function InputSearch({ type, name, value, placeholder, onChange, 
     <div className="search_box">
       <IconButton kinds={'search'} />
       <Input {...{ type, name, value, placeholder, onChange }} />
-      <IconButton kinds={'closeCircle'} onClick={onClick} />
+      {value && <IconButton kinds={'closeCircle'} onClick={onClick} />}
     </div>
   )
 }
