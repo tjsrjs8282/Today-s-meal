@@ -1,7 +1,7 @@
 import React from 'react'
 import './iconButton.module.scss'
 import { HiArrowLeft, HiChevronRight } from 'react-icons/hi2'
-import { BsPlusSquareFill } from 'react-icons/bs'
+import { BsPlusSquareFill, BsCart2 } from 'react-icons/bs'
 import { VscClose } from 'react-icons/vsc'
 import {
   AiOutlineCalendar,
@@ -38,6 +38,7 @@ export default function IconButton({ kinds, onClick }) {
         />
       )}
       {kinds === 'next' && <HiChevronRight size="20" />}
+      {kinds === 'cart' && <BsCart2 size="2.2rem" />}
     </>
   )
 }
