@@ -1,9 +1,8 @@
-import React, { memo } from 'react'
+import React from 'react'
 import IconButton from '@components/IconButton'
 import Flex from '@components/Flex'
-//경로들은 절대경로로 맞추기 ex: @components/Flex
 
-const FoodSearchListItem = memo(({ foodData, onClick, kinds }) => {
+export default function FoodSearchListItem({ foodData, onClick, kinds }) {
   const { name, number, size, kcal } = foodData
   
   return (
@@ -18,6 +17,5 @@ const FoodSearchListItem = memo(({ foodData, onClick, kinds }) => {
       <IconButton kinds="next" />
     </Flex>
   )
-})
+}
 
-export default FoodSearchListItem

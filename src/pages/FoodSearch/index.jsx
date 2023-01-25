@@ -47,27 +47,22 @@ export default function FoodSearch() {
     return (
       <Wrapper colorGray>
         <Header>
-        <Flex column start width >
-          <Flex >
-            <IconButton kinds="close" onClick={goBack} />
-            <HeaderTitle content="아침식사" />
+          <Flex column start width >
+            <Flex >
+              <IconButton kinds="close" onClick={goBack} />
+              <HeaderTitle content="아침식사" />
+            </Flex>
+            <InputSearch
+              type="text"
+              name="foodSearch"
+              value={searchFood}
+              inputRef={inputRef}
+              placeholder="먹은 음식을 검색해 주세요."
+              onChange={handleInputChange}
+              onClick={handleResetClick}
+            />
           </Flex>
-          <InputSearch
-            type="text"
-            name="foodSearch"
-            value={searchFood}
-            inputRef={inputRef}
-            placeholder="먹은 음식을 검색해 주세요."
-            onChange={handleInputChange}
-            onClick={handleResetClick}
-          />
-        </Flex>
-      </Header>
-      {/* useNavigate 해서 onClick 뒤로가기 넣기 ,다른페이지 참고*/}
-      {/* 속성값 text면 그냥 대괄호 안넣는걸로 통일 */}
-      {/* 컴포넌트 네이밍 */}
-      {/* inputSearch 컴포넌트 리펙토링 css */}
-
+        </Header>
         <div className={$.empty_box}>
           <img src={logoBg} alt="빈접시" />
         </div>
@@ -93,17 +88,13 @@ export default function FoodSearch() {
             onClick={handleResetClick}
           />
         </Flex>
-          {/* inputSearch 컴포넌트 리펙토링 css */}
       </Header>
-
       <div className={$.food_list}>
         {SEARCH_FOOD.map((foodData) => {
           const { id } = foodData
           return <FoodSearchListItem key={id} foodData={foodData} onClick={handleItemClick} />
         })}
       </div>
-      {/* map또는 반복문 돌리는 곳만 제어 용이하게 div 클레스네임 지정해서 감싸기  */}
-      {/* constants.js 불러와서 distructuring 해서 */}
     </Wrapper>
   )
 }
