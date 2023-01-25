@@ -21,4 +21,3 @@ export const SEARCH_FOOD = [
     kcal: 105,
   },
 ]
-//해놓은거 참고해서 constants.js 에 넣고 불러오기, contants 변수명은 풀대문자

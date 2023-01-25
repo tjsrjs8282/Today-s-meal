@@ -5,9 +5,9 @@ const weeks = ['일', '월', '화', '수', '목', '금', '토']
 
 const HeaderTitle = memo(({ content }) => {
   const [today, setToday] = useState(new Date())
-  const [month, setMonth] = useState(0)
-  const [date, setDate] = useState(0)
-  const [week, setWeek] = useState('')
+  const [month, setMonth] = useState(today.getMonth() + 1)
+  const [date, setDate] = useState(today.getDate())
+  const [week, setWeek] = useState(weeks[today.getDay()])
   const intervel = useRef(null)
 
   const handleCheckToday = useCallback(() => {
@@ -18,11 +18,6 @@ const HeaderTitle = memo(({ content }) => {
   }, [month, date, week])
 
   useEffect(() => {
-    handleCheckToday()
-  }, [])
-
-  useEffect(() => {
-    console.log('useEffect')
     intervel.current = setInterval(handleCheckToday, 1000)
 
     return () => {

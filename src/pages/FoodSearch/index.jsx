@@ -12,12 +12,10 @@ import FoodSearchListItem from './FoodSearchListItem'
 import { SEARCH_FOOD } from './constants'
 
 export default function FoodSearch() {
-  //파일명 FoodSearch 로 변경 , 컴포넌트명도 동일하게
   const [searchFood, setSearchFood] = useState('')
   const [isSearchData, setIsSearchData] = useState(true)
   const inputRef = useRef(null)
   const navigate = useNavigate();
-  //변수 네이밍 수정 (있는지 확인하는거는 is어쩌구
 
   const handleInputChange = useCallback((e) => {
     setSearchFood(e.target.value)
@@ -30,7 +28,7 @@ export default function FoodSearch() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault()
-    console.log('onSubmit')
+    console.log('handleFormSubmit')
   }
 
   const handleItemClick = () => {
@@ -40,8 +38,6 @@ export default function FoodSearch() {
   const goBack = () => {
     navigate('../today')
   }
-
-  console.log('redered')
 
   if (!isSearchData) {
     return (
