@@ -1,0 +1,17 @@
+@import '@styles/shared.scss';
+.count_box {
+  border: 1px solid $lineColor1;
+  border-radius: 10px;
+  overflow: hidden;
+
+
+  .count {
+    font-size: 2rem;
+    color: $siteColorMain;
+  }
+
+  button {
+    width: 4rem;
+    height: 4rem;
+  }
+}

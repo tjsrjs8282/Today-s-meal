@@ -6,6 +6,7 @@ import FoodToday from '@pages/FoodToday'
 import Search from '@pages/Search'
 import FoodTodayDetail from '@pages/FoodTodayDetail'
 import Product from '@pages/Product'
+import FoodDetail from '@pages/FoodDetail'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/search" element={<Search />}></Route>
           <Route path="/today/detail" element={<FoodTodayDetail />}></Route>
           <Route path="/product" element={<Product />}></Route>
+          <Route path="/foodDetail" element={<FoodDetail />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
