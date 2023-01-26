@@ -11,16 +11,14 @@ export default function Input({
   placeholder,
   unit,
   inputRef,
+  onKeyPress,
   onChange,
 }) {
   return (
     <div className={$.input_box}>
       <input
         ref={inputRef}
-        {...{ type, name, title, value, maxLength, placeholder }}
-        onChange={(e) => {
-          onChange(e)
-        }}
+        {...{ type, name, title, value, maxLength, placeholder, onKeyPress, onChange }}
       />
       <p className={$.unit}>{unit}</p>
     </div>

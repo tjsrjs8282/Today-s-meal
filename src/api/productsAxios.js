@@ -1,4 +1,5 @@
 import Axios from 'axios'
+
 const axiosInstance = Axios.create({
   baseURL: import.meta.env.VITE_PRODUCTS,
   timeout: 5000,
@@ -8,6 +9,7 @@ const axiosInstance = Axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     //요청 보내기 전에 수행 로직
+
     return config
   },
   (err) => {

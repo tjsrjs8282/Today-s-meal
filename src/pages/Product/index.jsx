@@ -7,25 +7,37 @@ import IconButton from '@components/IconButton'
 import axiosInstance from '@api/productsAxios'
 import InputSearch from '@components/InputSearch'
 import ProductCard from './productCard'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 export default function Product() {
+  const navigate = useNavigate()
+  const [query, setQuery] = useSearchParams()
+  const searchQuery = query.get('q') || ''
   const [searchValue, setSearchValue] = useState('')
   const [productList, setProductList] = useState([])
 
   const handleInputChange = (e) => {
     setSearchValue(e.target.value)
+    console.log(searchValue)
   }
 
   function getProduct() {
     axiosInstance
-      .get()
+      .get(`${import.meta.env.VITE_PRODUCTS}?q=${searchQuery}`)
       .then((res) => setProductList(res))
       .catch((err) => console.log(err))
   }
 
+  const search = (e) => {
+    if (e.key === 'Enter') {
+      let keyword = e.target.value
+      navigate(`/product/?q=${keyword}`)
+    }
+  }
+
   useEffect(() => {
     getProduct()
-  }, [])
+  }, [query])
   return (
     <Wrapper colorGray>
       <Header>
@@ -42,6 +54,7 @@ export default function Product() {
           value={searchValue}
           placeholder="찾으시는 상품을 검색해주세요."
           onChange={handleInputChange}
+          onKeyPress={(e) => search(e)}
         />
       </Header>
 
