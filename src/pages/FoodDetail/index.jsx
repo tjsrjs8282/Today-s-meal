@@ -4,9 +4,16 @@ import Flex from '@components/Flex'
 import Header from '@components/Header'
 import Title from '@components/Title'
 import IconButton from '@components/IconButton'
-import CountBox from '@components/CountBox';
+import CountBox from '@components/CountBox'
+import Button from '@components/Button'
+import FoodDetailInfo from './FoodDetailInfo';
+import { FOOD_DETAIL_INFO } from './FoodDetailInfo/constants'
 
-const index = () => {
+const FoodDetail = () => {
+  const handleClickAdd = () => {
+    console.log('handleClickAdd')
+  }
+  
   return (
     <Wrapper>
       <Header>
@@ -16,13 +23,17 @@ const index = () => {
         content="바나나"
       />
       <CountBox />
-      <div>
-        <div>아이콘</div>
-        <p>칼로리</p>
-        <h3>105<span>kcal</span></h3>
-      </div>
+      <Flex wrap between marginTop  >
+        {
+          FOOD_DETAIL_INFO.map((foodInfo) => {
+            const { id } = foodInfo
+            return <FoodDetailInfo key={id} foodInfo={foodInfo}/>
+          })
+        }
+      </Flex>
+      <Button content='식단추가' onClick={handleClickAdd} />
     </Wrapper>
   );
 };
 
-export default index;
+export default FoodDetail;
