@@ -26,11 +26,6 @@ export default function FoodSearch() {
     inputRef.current.focus()
   }
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault()
-    console.log('handleFormSubmit')
-  }
-
   const handleItemClick = () => {
     console.log('handleItemClick')
   }
@@ -65,7 +60,6 @@ export default function FoodSearch() {
       </Wrapper>
     )
   }
-
   return (
     <Wrapper colorGray>
       <Header>
