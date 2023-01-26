@@ -1,0 +1,38 @@
+@import '@styles/shared.scss';
+.info_box {
+  margin-top: 1rem;
+  padding: 20px 15px;
+  width: calc(50% - 30px - 0.5rem);
+  background-color: $backGroundColor1;
+  border-radius: 15px;
+  
+  .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $siteColorWhite;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1.5rem;
+
+    img {
+      display: block;
+      width: 80%;
+    }
+  }
+
+  p {
+    margin: 2rem 0 0.4rem;
+    font-size: 1.2rem;
+    color: $siteColorGray1;
+  }
+
+  h3 {
+    font-size: 2.25rem;
+    color: $siteColorBlack;
+
+    .unit {
+      font-size: 1.2rem;
+    }
+  }
+}
