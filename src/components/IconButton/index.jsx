@@ -22,7 +22,8 @@ export default function IconButton({ kinds, onClick }) {
       {kinds === 'close' && <AiOutlineClose />}
       {kinds === 'close2' && <VscClose size="1.8rem" color="#999" />}
       {kinds === 'minus' && <AiOutlineMinus />}
-      {kinds === 'plus ' && <AiOutlinePlus />}
+      {kinds === 'minusGray' && <AiOutlineMinus color='#999'/>}
+      {kinds === 'plus' && <AiOutlinePlus />}
       {kinds === 'man' && <AiOutlineMan />}
       {kinds === 'woman' && <AiOutlineWoman />}
       {kinds === 'add' && <BsPlusSquareFill onClick={onClick} />}
@@ -39,6 +40,7 @@ export default function IconButton({ kinds, onClick }) {
       )}
       {kinds === 'next' && <HiChevronRight size="20" />}
       {kinds === 'cart' && <BsCart2 size="2.2rem" />}
+      
     </>
   )
 }
