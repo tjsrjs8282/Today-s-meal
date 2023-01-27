@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"vite --port 3000 \" \"json-server --watch db.json --port 5000\"",
+    "dev": "vite",
+    "test": "concurrently \"vite --port 3000 \" \"json-server --watch db.json --port 5000\"",
     "build": "vite build",
     "preview": "vite preview"
   },
