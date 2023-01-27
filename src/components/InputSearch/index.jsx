@@ -3,6 +3,7 @@ import Input from '@components/Input'
 import IconButton from '@components/IconButton'
 import './inputSearch.scss'
 
+
 export default function InputSearch({
   type,
   name,
@@ -13,10 +14,10 @@ export default function InputSearch({
   onClick,
 }) {
   return (
-    <div className="search_box">
+    <form className="search_box">
       <IconButton kinds={'search'} />
-      <Input {...{ type, name, value, placeholder, onChange, onKeyPress }} />
-      <IconButton kinds={'closeCircle'} onClick={onClick} />
-    </div>
+      <Input {...{ type, name, value, inputRef, placeholder, onChange }} />
+      {value && <IconButton kinds={'closeCircle'} onClick={onClick} />}
+    </form>
   )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import './iconButton.module.scss'
 import { HiArrowLeft, HiChevronRight } from 'react-icons/hi2'
 import { BsPlusSquareFill, BsCart2 } from 'react-icons/bs'
@@ -14,12 +14,12 @@ import {
   AiOutlineSearch,
 } from 'react-icons/ai'
 
-export default function IconButton({ kinds, onClick }) {
+const IconButton = memo(({ kinds, onClick }) => {
   return (
     <>
       {kinds === 'back' && <HiArrowLeft onClick={onClick} />}
       {kinds === 'calendar' && <AiOutlineCalendar size="2.2rem" />}
-      {kinds === 'close' && <AiOutlineClose />}
+      {kinds === 'close' && <AiOutlineClose onClick={onClick} />}
       {kinds === 'close2' && <VscClose size="1.8rem" color="#999" />}
       {kinds === 'minus' && <AiOutlineMinus />}
       {kinds === 'minusGray' && <AiOutlineMinus color='#999'/>}
@@ -43,4 +43,6 @@ export default function IconButton({ kinds, onClick }) {
       
     </>
   )
-}
+})
+
+export default IconButton

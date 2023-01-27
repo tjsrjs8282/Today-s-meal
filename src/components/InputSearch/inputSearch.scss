@@ -1,7 +1,21 @@
 .search_box {
+  margin-top: 1rem;
+  width: 100%;
   position: relative;
-}
-.search_button {
-  position: absolute;
-  top: 40px;
+
+  .search_button {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+
+  .close_circle {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    // left: 1rem;
+    transform: translateY(-50%);
+  }
 }
