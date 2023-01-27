@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import './iconButton.module.scss'
 import { HiArrowLeft, HiChevronRight } from 'react-icons/hi2'
-import { BsPlusSquareFill } from 'react-icons/bs'
+import { BsPlusSquareFill, BsCart2 } from 'react-icons/bs'
 import { VscClose } from 'react-icons/vsc'
 import {
   AiOutlineCalendar,
@@ -22,7 +22,8 @@ const IconButton = memo(({ kinds, onClick }) => {
       {kinds === 'close' && <AiOutlineClose onClick={onClick} />}
       {kinds === 'close2' && <VscClose size="1.8rem" color="#999" />}
       {kinds === 'minus' && <AiOutlineMinus />}
-      {kinds === 'plus ' && <AiOutlinePlus />}
+      {kinds === 'minusGray' && <AiOutlineMinus color='#999'/>}
+      {kinds === 'plus' && <AiOutlinePlus />}
       {kinds === 'man' && <AiOutlineMan />}
       {kinds === 'woman' && <AiOutlineWoman />}
       {kinds === 'add' && <BsPlusSquareFill onClick={onClick} />}
@@ -38,6 +39,8 @@ const IconButton = memo(({ kinds, onClick }) => {
         />
       )}
       {kinds === 'next' && <HiChevronRight size="20" />}
+      {kinds === 'cart' && <BsCart2 size="2.2rem" />}
+      
     </>
   )
 })

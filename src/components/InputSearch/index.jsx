@@ -3,7 +3,16 @@ import Input from '@components/Input'
 import IconButton from '@components/IconButton'
 import './inputSearch.scss'
 
-export default function InputSearch({ type, name, value, placeholder, inputRef, onChange, onClick }) {
+
+export default function InputSearch({
+  type,
+  name,
+  value,
+  placeholder,
+  onChange,
+  onKeyPress,
+  onClick,
+}) {
   return (
     <form className="search_box">
       <IconButton kinds={'search'} />

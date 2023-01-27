@@ -5,11 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "test": "concurrently \"vite --port 3000 \" \"json-server --watch db.json --port 5000\"",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.2.3",
     "classnames": "^2.3.2",
+    "concurrently": "^7.6.0",
     "history": "^5.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
