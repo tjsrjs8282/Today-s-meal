@@ -8,12 +8,15 @@ import Wrapper from '@components/Wrapper'
 import Flex from '@components/Flex'
 import IconPurpose from '@assets/ic-purpose-normal.png'
 import Button from '@components/Button'
-import { USER_INTAKE_TOTAL, USER_INTAKE_PART, FOOD_PART } from './constants'
+import RadioGroup from '@components/RadioGroup'
+import Radio from '@components/Radio'
+import { USER_INTAKE_TOTAL, USER_INTAKE_PART } from './constants'
 import { LOCAL_STORAGE_KEY } from '@constants'
 
 export default function FoodTodayDetail() {
   const isUserPurpose = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY.USER_PURPOSE))
   const [currentTab, SetCurrentTab] = useState(0)
+  const [foodPart, setFoodPart] = useState('아침')
 
   const navigate = useNavigate()
   const goBack = () => {
@@ -70,7 +73,17 @@ export default function FoodTodayDetail() {
 
       <Title content="식사" sub></Title>
 
-      <Flex start>
+      <RadioGroup label="purpose" value={foodPart} onChange={setFoodPart}>
+        {Object.keys(...USER_INTAKE_PART).map((part, index) => {
+          return (
+            <Radio name="purpose" value={part} key={index} tab>
+              <p>{part}</p>
+            </Radio>
+          )
+        })}
+      </RadioGroup>
+
+      {/* <Flex start>
         {FOOD_PART.map((part, index) => {
           return (
             <Flex marginRight marginBottom onClick={() => selectMenuHandler(index)} key={index}>
@@ -78,11 +91,11 @@ export default function FoodTodayDetail() {
             </Flex>
           )
         })}
-      </Flex>
+      </Flex> */}
 
       <div className={$.intake_part}>
         <Flex colorGray radius padding wrap>
-          {USER_INTAKE_PART[currentTab].map((part) => {
+          {USER_INTAKE_PART[0][foodPart].map((part) => {
             const { id, name, value, unit } = part
             return (
               <Flex width between paddingBottom borderBottom>

@@ -26,9 +26,11 @@ const HeaderTitle = memo(({ content }) => {
   }, [month, date, week])
 
   return (
-    <Flex column marginLeft start>
+    <Flex column start>
       <h2>{content}</h2>
-      <p>{month}월 {date}일 {week}요일</p>
+      <p>
+        {month}월 {date}일 {week}요일
+      </p>
     </Flex>
   )
 })

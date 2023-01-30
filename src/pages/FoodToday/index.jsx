@@ -3,6 +3,7 @@ import $ from './foodToday.module.scss'
 import { useNavigate } from 'react-router-dom'
 import Wrapper from '@components/Wrapper'
 import Header from '@components/Header'
+import HaederTitle from '@components/HeaderTitle'
 import IconButton from '@components/IconButton'
 import Flex from '@components/Flex'
 import Title from '@components/Title'
@@ -25,14 +26,11 @@ export default function FoodToday() {
     <Wrapper colorGray>
       <Header>
         <Flex width between>
-          <Flex column start>
-            <h2>오늘의 식단</h2>
-            <p>1월 17일, 수요일</p>
-          </Flex>
+          <HaederTitle content="오늘의 식단"/>
           <IconButton kinds="calendar" />
         </Flex>
       </Header>
-      <Title content="요약 " sub>
+      <Title content="요약" sub>
         <Button content="상세보기" none onClick={goFoodDetail} />
       </Title>
       <div className={$.summary_box}>

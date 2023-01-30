@@ -20,6 +20,23 @@
   &:nth-of-type(2n) {
     margin-right: 0;
   }
+
+  &.tab {
+    width: auto;
+    margin-top: 0px;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    border: 1px solid $lineColor1;
+    background: $siteColorWhite;
+
+    p {
+      margin-top: 0;
+    }
+
+    &:nth-of-type(2n) {
+      margin-right: 2%;
+    }
+  }
   svg {
     font-size: 1.5rem;
   }

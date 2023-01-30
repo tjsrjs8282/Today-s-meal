@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import $ from './search.module.scss'
 import logoBg from '@assets/ic-logo-bg.png'
@@ -10,16 +10,19 @@ import IconButton from '@components/IconButton'
 import InputSearch from '@components/InputSearch'
 import FoodSearchListItem from './FoodSearchListItem'
 import { SEARCH_FOOD } from './constants'
-
+import fatsecretinstance from '@api/fatsecretAxios'
 export default function FoodSearch() {
   const [searchFood, setSearchFood] = useState('')
   const [isSearchData, setIsSearchData] = useState(true)
   const inputRef = useRef(null)
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const handleInputChange = useCallback((e) => {
-    setSearchFood(e.target.value)
-  }, [searchFood])
+  const handleInputChange = useCallback(
+    (e) => {
+      setSearchFood(e.target.value)
+    },
+    [searchFood]
+  )
 
   const handleResetClick = () => {
     setSearchFood('')
@@ -34,14 +37,25 @@ export default function FoodSearch() {
     navigate('../today')
   }
 
+  function getFatsecret() {
+    fatsecretinstance
+      .get()
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
+  }
+
+  useEffect(() => {
+    getFatsecret()
+  }, [])
+
   if (!isSearchData) {
     return (
       <Wrapper colorGray>
         <Header>
-          <Flex column start width >
-            <Flex >
-              <IconButton kinds="close" onClick={goBack} />
+          <Flex column start width>
+            <Flex between>
               <HeaderTitle content="아침식사" />
+              <IconButton kinds="close" onClick={goBack} />
             </Flex>
             <InputSearch
               type="text"
@@ -63,10 +77,10 @@ export default function FoodSearch() {
   return (
     <Wrapper colorGray>
       <Header>
-        <Flex column start width >
-          <Flex >
-            <IconButton kinds="close" onClick={goBack} />
+        <Flex column start width>
+          <Flex between width>
             <HeaderTitle content="아침식사" />
+            <IconButton kinds="close" onClick={goBack} />
           </Flex>
           <InputSearch
             type="text"

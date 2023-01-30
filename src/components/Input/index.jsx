@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import $ from './input.module.scss'
-import classNames from 'classnames/bind'
-const cx = classNames.bind($)
+
 export default function Input({
   type,
   name,

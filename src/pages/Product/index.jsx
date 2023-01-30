@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import $ from './product.module.scss'
 import Wrapper from '@components/Wrapper'
 import Header from '@components/Header'
+import HeaderTitle from '@components/HeaderTitle'
 import Flex from '@components/Flex'
 import IconButton from '@components/IconButton'
 import axiosInstance from '@api/productsAxios'
@@ -11,6 +12,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 
 export default function Product() {
   const navigate = useNavigate()
+  const inputRef = useRef(null)
   const [query, setQuery] = useSearchParams()
   const searchQuery = query.get('q') || ''
   const [searchValue, setSearchValue] = useState('')
@@ -21,9 +23,18 @@ export default function Product() {
     console.log(searchValue)
   }
 
+  const handleResetClick = () => {
+    setSearchValue('')
+    inputRef.current.focus()
+  }
+
   function getProduct() {
     axiosInstance
-      .get(`${import.meta.env.VITE_PRODUCTS}?q=${searchQuery}`)
+      .get('/', {
+        params: {
+          q: searchQuery,
+        },
+      })
       .then((res) => setProductList(res))
       .catch((err) => console.log(err))
   }
@@ -42,10 +53,7 @@ export default function Product() {
     <Wrapper colorGray>
       <Header>
         <Flex width between>
-          <Flex column start>
-            <h2>오늘의 쇼핑</h2>
-            <p>1월 17일, 수요일</p>
-          </Flex>
+          <HeaderTitle content="오늘의 쇼핑" />
           <IconButton kinds="cart" />
         </Flex>
         <InputSearch
@@ -53,6 +61,8 @@ export default function Product() {
           name="productSearch"
           value={searchValue}
           placeholder="찾으시는 상품을 검색해주세요."
+          inputRef={inputRef}
+          onClick={handleResetClick}
           onChange={handleInputChange}
           onKeyPress={(e) => search(e)}
         />
