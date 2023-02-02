@@ -49,24 +49,24 @@
     <td align="center"><a href="https://github.com/dog2789"><sub><b>정우재</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/soomgo-chloe"><sub><b>노기진</b></sub></a><br /></td>
   </tr>
-    <!--  <tr>
+      <tr>
   <td align="center">
     <sub>
-    <a href="">오늘의식단 유선건 소개서</a></sub>
+    <a href="#">오늘의식단 유선건</a></sub>
   </td>
   <td align="center">
     <sub>
-    <a href="">오늘의식단 이도형 소개서</a></sub>
+    <a href="#">오늘의식단 이도형</a></sub>
   </td>
   <td align="center">
     <sub>
-    <a href="">오늘의식단 정우재 소개서</a></sub>
+    <a href="">...👻</a></sub>
   </td>
   <td align="center">
     <sub>
-    <a href="">오늘의식단 노기진 소개서</a></sub>
+    <a href="#">오늘의식단 </a></sub>
   </td>
-  </tr>-->
+  </tr>
 </table>
 
 ---
