@@ -12,6 +12,7 @@ import FoodSearchListItem from './FoodSearchListItem'
 import { SEARCH_FOOD } from './constants'
 import fatsecretinstance from '@api/fatsecretAxios'
 export default function FoodSearch() {
+  const [value, onChange] = useState(new Date())
   const [searchFood, setSearchFood] = useState('')
   const [isSearchData, setIsSearchData] = useState(true)
   const inputRef = useRef(null)
@@ -54,7 +55,7 @@ export default function FoodSearch() {
         <Header>
           <Flex column start width>
             <Flex between>
-              <HeaderTitle content="아침식사" />
+              <HeaderTitle content="아침식사" dates={value} />
               <IconButton kinds="close" onClick={goBack} />
             </Flex>
             <InputSearch
@@ -79,7 +80,7 @@ export default function FoodSearch() {
       <Header>
         <Flex column start width>
           <Flex between width>
-            <HeaderTitle content="아침식사" />
+            <HeaderTitle content="아침식사" dates={value} />
             <IconButton kinds="close" onClick={goBack} />
           </Flex>
           <InputSearch

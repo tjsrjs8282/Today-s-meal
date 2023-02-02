@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import $ from './foodToday.module.scss'
+import '@styles/calendar.scss'
 import { useNavigate } from 'react-router-dom'
 import Wrapper from '@components/Wrapper'
 import Header from '@components/Header'
@@ -8,17 +9,21 @@ import IconButton from '@components/IconButton'
 import Flex from '@components/Flex'
 import Title from '@components/Title'
 import Button from '@components/Button'
+import Calendar from 'react-calendar'
+import moment from 'moment'
 import { FOOD_TODAY_SUMMARY } from './FoodTodaySummary/constants'
 import { FOOD_TODAY_RECORD } from './FoodTodayRecord/constants'
 import FoodTodaySummary from './FoodTodaySummary'
 import FoodTodayRecord from './FoodTodayRecord'
-import Calendar from 'react-calendar'
-import moment from 'moment'
-import 'react-calendar/dist/Calendar.css'
 
 export default function FoodToday() {
   const [value, onChange] = useState(new Date())
+  let [calendarOpen, setCalendarOpen] = useState(false)
+  const modalRaf = useRef()
   const navigate = useNavigate()
+
+  const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
+
   const goFoodSearch = () => {
     navigate('/search')
   }
@@ -26,28 +31,49 @@ export default function FoodToday() {
     navigate('detail')
   }
 
-  const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
+  const openCalendarHandler = () => {
+    setCalendarOpen(!calendarOpen)
+  }
+
+  useEffect(() => {
+    const clickOutside = (e) => {
+      // 모달이 열려 있고 모달의 바깥쪽을 눌렀을 때 창 닫기
+      if (calendarOpen && modalRaf.current && !modalRaf.current.contains(e.target)) {
+        setCalendarOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', clickOutside)
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener('mousedown', clickOutside)
+    }
+  }, [calendarOpen])
 
   return (
-    <Wrapper colorGray>
+    <Wrapper colorGray thisRef={modalRaf}>
       <Header>
         <Flex width between>
           <HaederTitle content="오늘의 식단" dates={value} />
-          <IconButton kinds="calendar" />
+          <IconButton kinds="calendar" onClick={openCalendarHandler} />
         </Flex>
+        {calendarOpen && (
+          <Calendar
+            onChange={onChange}
+            value={value}
+            onFocus={() => {
+              setCalendarOpen(true)
+            }}
+            tileClassName={({ date, view }) => {
+              if (marks.find((x) => x === moment(date).format('DD-MM-YYYY'))) {
+                return 'highlight'
+              }
+            }}
+          />
+        )}
       </Header>
-      <div>
-        <Calendar
-          onChange={onChange}
-          value={value}
-          tileClassName={({ date, view }) => {
-            if (marks.find((x) => x === moment(date).format('DD-MM-YYYY'))) {
-              return 'highlight'
-            }
-          }}
-        />
-      </div>
-      {value.getMonth() + 1}
+
       <Title content="요약" sub>
         <Button content="상세보기" none onClick={goFoodDetail} />
       </Title>

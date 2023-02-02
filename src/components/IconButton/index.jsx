@@ -14,15 +14,17 @@ import {
   AiOutlineSearch,
 } from 'react-icons/ai'
 
-const IconButton = memo(({ kinds, onClick }) => {
+const IconButton = memo(({ kinds, onClick, onFocus }) => {
   return (
     <>
       {kinds === 'back' && <HiArrowLeft onClick={onClick} />}
-      {kinds === 'calendar' && <AiOutlineCalendar size="2.2rem" />}
+      {kinds === 'calendar' && (
+        <AiOutlineCalendar size="2.2rem" onClick={onClick} onFocus={onFocus} />
+      )}
       {kinds === 'close' && <AiOutlineClose onClick={onClick} />}
       {kinds === 'close2' && <VscClose size="1.8rem" color="#999" />}
       {kinds === 'minus' && <AiOutlineMinus />}
-      {kinds === 'minusGray' && <AiOutlineMinus color='#999'/>}
+      {kinds === 'minusGray' && <AiOutlineMinus color="#999" />}
       {kinds === 'plus' && <AiOutlinePlus />}
       {kinds === 'man' && <AiOutlineMan />}
       {kinds === 'woman' && <AiOutlineWoman />}
@@ -40,7 +42,6 @@ const IconButton = memo(({ kinds, onClick }) => {
       )}
       {kinds === 'next' && <HiChevronRight size="20" />}
       {kinds === 'cart' && <BsCart2 size="2.2rem" />}
-      
     </>
   )
 })
