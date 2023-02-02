@@ -1,11 +1,14 @@
 <h1 align='middle'><a href='https://react-diet.vercel.app'>🏠react-diet.vercel.app</a></h1>
 <br/>
-### 프로젝트 간략소개
+
+## 프로젝트 간략소개
 > 오늘의 식단은 다이어트를 도와줄 유저 맞춤형 다이어트 플랫폼이에요. <br/>
 > 체중감량부터 벌크업까지 다이어트 목적을 선택 유저가 선택 할 수 있어요. <br/>
 > 식단을 추가하면서 하루 총 탄단지 비율을 통해 체킹하고 관리 할 수 있어요.<br/><br/>
 > 오늘의 식단으로 더 효율적인 다이어트를 진행해보세요! 😊
 <br/>
+
+
 ---
 
 📚[위키](https://github.com/tjsrjs8282/react_diet/wiki)
