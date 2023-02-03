@@ -1,13 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import $ from './countBox.module.scss'
 import Flex from '@components/Flex'
 import IconButton from '@components/IconButton';
+import { useRef } from 'react';
+import { useCallback } from 'react';
 
 const CountBox = () => {
   const [foodCount, setFoodCount] = useState(1)
   const [minusColor, setMinusColor] = useState('minusGray')
+  const inputRef = useRef(null)
 
-  const handleClickButton = (sign) => {
+  useEffect(() => {
+    if (foodCount > 1) {
+      setMinusColor('minus')
+    } else {
+      setMinusColor('minusGray')
+    }
+  }, [foodCount])
+
+  const handleChangeInput = useCallback((e) => {
+    setFoodCount(Number(e.target.value))
+  }, [])
+
+  const handleInputCheck = useCallback((e) => {
+    e.preventDefault()
+    if(inputRef.current.value === '') {
+      setFoodCount(1)
+    }
+    inputRef.current.blur()
+  }, [])
+
+  const handleClickButton = useCallback((sign) => {
     if (sign === 'minus') {      
       setFoodCount((prevFoodCount) => {
         return prevFoodCount === 1 ? prevFoodCount : prevFoodCount - 1
@@ -15,7 +38,7 @@ const CountBox = () => {
     } else if (sign === 'plus') {
       setFoodCount((prevFoodCount) => prevFoodCount + 1)
     } 
-  }
+  }, [])
 
   return (
     <div className={$.count_box}>
@@ -23,7 +46,15 @@ const CountBox = () => {
         <button onClick={() => handleClickButton('minus')}>
           <IconButton kinds={minusColor} />
         </button>
-        <div className={$.count}>{foodCount}</div>        
+        <form onSubmit={handleInputCheck}>
+          <input
+            type="number"
+            className={$.count}
+            value={foodCount || ''}
+            ref={inputRef}
+            onChange={handleChangeInput}
+          />
+        </form>
         <button onClick={() => handleClickButton('plus')}>
           <IconButton kinds={'plus'} />
         </button>

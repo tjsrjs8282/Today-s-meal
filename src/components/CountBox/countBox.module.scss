@@ -5,8 +5,15 @@
   border-radius: 10px;
 
   .count {
+    width: 100%;
     font-size: 2rem;
     color: $siteColorMain;
+    text-align: center;
+    outline: none;
+
+    &:focus {
+      outline: none;
+  }
   }
 
   button {
