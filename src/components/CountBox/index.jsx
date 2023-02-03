@@ -3,6 +3,7 @@ import $ from './countBox.module.scss'
 import Flex from '@components/Flex'
 import IconButton from '@components/IconButton';
 import { useRef } from 'react';
+import { useCallback } from 'react';
 
 const CountBox = () => {
   const [foodCount, setFoodCount] = useState(1)
@@ -17,19 +18,19 @@ const CountBox = () => {
     }
   }, [foodCount])
 
-  const handleChangeInput = (e) => {
+  const handleChangeInput = useCallback((e) => {
     setFoodCount(Number(e.target.value))
-  }
+  }, [])
 
-  const handleInputCheck = (e) => {
+  const handleInputCheck = useCallback((e) => {
     e.preventDefault()
     if(inputRef.current.value === '') {
       setFoodCount(1)
     }
     inputRef.current.blur()
-  }
+  }, [])
 
-  const handleClickButton = (sign) => {
+  const handleClickButton = useCallback((sign) => {
     if (sign === 'minus') {      
       setFoodCount((prevFoodCount) => {
         return prevFoodCount === 1 ? prevFoodCount : prevFoodCount - 1
@@ -37,7 +38,7 @@ const CountBox = () => {
     } else if (sign === 'plus') {
       setFoodCount((prevFoodCount) => prevFoodCount + 1)
     } 
-  }
+  }, [])
 
   return (
     <div className={$.count_box}>
