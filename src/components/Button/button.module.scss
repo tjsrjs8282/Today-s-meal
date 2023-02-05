@@ -13,7 +13,7 @@
   background: $siteColorMain;
   font-size: 1.2rem;
   border-radius: 15px;
-  color: #fff;
+  color: $siteColorWhite;
   font-weight: bold;
 
   &.check {
@@ -53,5 +53,23 @@
     border-color: $siteColorMain;
     color: $siteColorMain;
     background: $siteColorSub;
+  }
+  &.nonefixed {
+    height: 4rem;
+    line-height: 4rem;
+    position: relative;
+    background: $siteColorMain;
+    font-size: 1.2rem;
+    border-radius: 15px;
+    color: $siteColorWhite;
+    font-weight: bold;
+    padding: 0;
+    width: 100%;
+    bottom: 0;
+  }
+  &.noneBackground {
+    background: none;
+    border: 1px solid $lineColor1;
+    color: $siteColorGray1;
   }
 }

@@ -1,0 +1,41 @@
+@import '@styles/shared.scss';
+.modal_wrap {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: $deviceWidth;
+  height: 100%;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.6);
+}
+.modal_box {
+  position: absolute;
+  width: 90%;
+  max-width: 580px;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  h2 {
+    color: $siteColorBlack;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 5px;
+  }
+  p {
+    color: $siteColorGray2;
+    font-size: 1.1rem;
+    white-space: pre-line;
+    margin-bottom: 1.5rem;
+  }
+}

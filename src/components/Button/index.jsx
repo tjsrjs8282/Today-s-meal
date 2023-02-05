@@ -4,9 +4,28 @@ import classNames from 'classnames/bind'
 
 const cx = classNames.bind($)
 
-export default function Button({ content, className, check, onClick, none, border }) {
+export default function Button({
+  content,
+  className,
+  check,
+  onClick,
+  none,
+  border,
+  nonefixed,
+  noneBackground,
+}) {
   return (
-    <button className={cx('button', { focused: className, check, none, border })} onClick={onClick}>
+    <button
+      className={cx('button', {
+        focused: className,
+        check,
+        none,
+        border,
+        nonefixed,
+        noneBackground,
+      })}
+      onClick={onClick}
+    >
       {content}
     </button>
   )
