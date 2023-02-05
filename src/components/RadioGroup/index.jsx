@@ -1,7 +1,7 @@
 import RadioContext from '@components/RadioContext'
 import $ from './radioGroup.module.scss'
 
-function RadioGroup({ label, children, ...rest }) {
+export default function RadioGroup({ label, children, ...rest }) {
   return (
     <fieldset className={$.fieldset}>
       <legend>{label}</legend>
@@ -9,5 +9,3 @@ function RadioGroup({ label, children, ...rest }) {
     </fieldset>
   )
 }
-
-export default RadioGroup

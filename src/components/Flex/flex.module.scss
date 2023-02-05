@@ -75,7 +75,11 @@
   }
   &.fontWhite {
     color: $siteColorWhite;
-    border-color: #70ad60 !important;
+    border-color: $siteColorMain !important;
+  }
+
+  &.fontMain {
+    color: $siteColorMain;
   }
 
   &.colorGray {
@@ -122,7 +126,7 @@
   }
   &.siteColorMain {
     background: #000;
-    border-color: #70ad60 !important;
+    border-color: $siteColorMain !important;
   }
 
   &.borderBottom {
@@ -130,5 +134,11 @@
     &:last-child {
       border-bottom: none;
     }
+  }
+  &.active {
+    color: $siteColorMain;
+  }
+  &.path {
+    cursor: pointer;
   }
 }

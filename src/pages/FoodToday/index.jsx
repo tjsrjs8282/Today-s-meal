@@ -15,7 +15,7 @@ import { FOOD_TODAY_SUMMARY } from './FoodTodaySummary/constants'
 import { FOOD_TODAY_RECORD } from './FoodTodayRecord/constants'
 import FoodTodaySummary from './FoodTodaySummary'
 import FoodTodayRecord from './FoodTodayRecord'
-
+import FloatMenu from '@components/FloatMenu'
 export default function FoodToday() {
   const [value, onChange] = useState(new Date())
   let [calendarOpen, setCalendarOpen] = useState(false)
@@ -104,6 +104,7 @@ export default function FoodToday() {
           })}
         </Flex>
       </div>
+      <FloatMenu />
     </Wrapper>
   )
 }
