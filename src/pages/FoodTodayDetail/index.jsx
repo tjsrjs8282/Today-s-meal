@@ -10,6 +10,7 @@ import IconPurpose from '@assets/ic-purpose-normal.png'
 import Button from '@components/Button'
 import RadioGroup from '@components/RadioGroup'
 import Radio from '@components/Radio'
+import FloatMenu from '@components/FloatMenu'
 import { USER_INTAKE_TOTAL, USER_INTAKE_PART } from './constants'
 import { LOCAL_STORAGE_KEY } from '@constants'
 
@@ -109,6 +110,8 @@ export default function FoodTodayDetail() {
           })}
         </Flex>
       </div>
+
+      <FloatMenu />
     </Wrapper>
   )
 }

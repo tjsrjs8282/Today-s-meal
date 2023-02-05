@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import $ from './product.module.scss'
 import Wrapper from '@components/Wrapper'
 import Header from '@components/Header'
@@ -8,15 +9,25 @@ import IconButton from '@components/IconButton'
 import axiosInstance from '@api/productsAxios'
 import InputSearch from '@components/InputSearch'
 import ProductCard from './productCard'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-
+import FloatMenu from '@components/FloatMenu'
+import Calendar from 'react-calendar'
+import moment from 'moment'
 export default function Product() {
+  const [value, onChange] = useState(new Date())
+  let [calendarOpen, setCalendarOpen] = useState(false)
+
   const navigate = useNavigate()
   const inputRef = useRef(null)
   const [query, setQuery] = useSearchParams()
   const searchQuery = query.get('q') || ''
   const [searchValue, setSearchValue] = useState('')
   const [productList, setProductList] = useState([])
+
+  const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
+
+  const openCalendarHandler = () => {
+    setCalendarOpen(!calendarOpen)
+  }
 
   const handleInputChange = (e) => {
     setSearchValue(e.target.value)
@@ -53,9 +64,24 @@ export default function Product() {
     <Wrapper colorGray>
       <Header>
         <Flex width between>
-          <HeaderTitle content="오늘의 쇼핑" />
-          <IconButton kinds="cart" />
+          <HeaderTitle content="쇼핑" dates={value} />
+          <IconButton kinds="calendar" onClick={openCalendarHandler} />
         </Flex>
+        {calendarOpen && (
+          <Calendar
+            onChange={onChange}
+            value={value}
+            onFocus={() => {
+              setCalendarOpen(true)
+            }}
+            tileClassName={({ date, view }) => {
+              if (marks.find((x) => x === moment(date).format('DD-MM-YYYY'))) {
+                return 'highlight'
+              }
+            }}
+          />
+        )}
+
         <InputSearch
           type="text"
           name="productSearch"
@@ -75,6 +101,8 @@ export default function Product() {
           })}
         </Flex>
       </div>
+
+      <FloatMenu />
     </Wrapper>
   )
 }

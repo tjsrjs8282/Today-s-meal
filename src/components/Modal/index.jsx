@@ -2,7 +2,7 @@ import $ from './modal.module.scss'
 import Flex from '@components/Flex'
 import Button from '@components/Button'
 
-function Modal({ title, content, onClick, onClose }) {
+export default function Modal({ title, content, onClick, onClose }) {
   return (
     <div className={$.modal_wrap}>
       <div className={$.modal_box}>
@@ -25,5 +25,3 @@ function Modal({ title, content, onClick, onClose }) {
     </div>
   )
 }
-
-export default Modal

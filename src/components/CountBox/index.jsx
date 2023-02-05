@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import $ from './countBox.module.scss'
 import Flex from '@components/Flex'
-import IconButton from '@components/IconButton';
-import { useRef } from 'react';
-import { useCallback } from 'react';
+import IconButton from '@components/IconButton'
+import { useRef } from 'react'
+import { useCallback } from 'react'
 
-const CountBox = () => {
+export default function CountBox() {
   const [foodCount, setFoodCount] = useState(1)
   const [minusColor, setMinusColor] = useState('minusGray')
   const inputRef = useRef(null)
@@ -24,20 +24,20 @@ const CountBox = () => {
 
   const handleInputCheck = useCallback((e) => {
     e.preventDefault()
-    if(inputRef.current.value === '') {
+    if (inputRef.current.value === '') {
       setFoodCount(1)
     }
     inputRef.current.blur()
   }, [])
 
   const handleClickButton = useCallback((sign) => {
-    if (sign === 'minus') {      
+    if (sign === 'minus') {
       setFoodCount((prevFoodCount) => {
         return prevFoodCount === 1 ? prevFoodCount : prevFoodCount - 1
       })
     } else if (sign === 'plus') {
       setFoodCount((prevFoodCount) => prevFoodCount + 1)
-    } 
+    }
   }, [])
 
   return (
@@ -59,8 +59,6 @@ const CountBox = () => {
           <IconButton kinds={'plus'} />
         </button>
       </Flex>
-    </div> 
-  );
-};
-
-export default CountBox;
+    </div>
+  )
+}

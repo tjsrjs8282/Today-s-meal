@@ -1,9 +1,10 @@
 import React from 'react'
 import $ from './flex.module.scss'
 import classNames from 'classnames/bind'
+import { useLocation } from 'react-router-dom'
 
 const cx = classNames.bind($)
-export default function Flex ({
+export default function Flex({
   column,
   between,
   around,
@@ -19,6 +20,7 @@ export default function Flex ({
   fontWhite,
   colorWhite,
   colorMain,
+  fontMain,
   marginTop,
   marginLeft,
   marginRight,
@@ -30,7 +32,10 @@ export default function Flex ({
   col4,
   col3,
   col2,
+  path,
 }) {
+  const loacation = useLocation()
+  const this_pathName = loacation.pathname
   return (
     <div
       className={cx('flex', {
@@ -49,6 +54,7 @@ export default function Flex ({
         fontWhite,
         colorWhite,
         colorMain,
+        fontMain,
         marginTop,
         marginLeft,
         marginRight,
@@ -58,6 +64,8 @@ export default function Flex ({
         col4,
         col3,
         col2,
+        active: this_pathName === path,
+        path,
       })}
       onClick={onClick}
     >
