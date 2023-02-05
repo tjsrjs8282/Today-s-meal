@@ -11,6 +11,7 @@ import Button from '@components/Button'
 import Input from '@components/Input'
 import IconButton from '@components/IconButton'
 import { LOCAL_STORAGE_KEY } from '@constants'
+import Modal from '@components/Modal'
 
 export default function UserInfo() {
   const navigate = useNavigate()
@@ -20,6 +21,10 @@ export default function UserInfo() {
 
   const [gender, setGender] = useState('man')
   const [isUserInfo, setIsUserInfo] = useState(!false)
+  const [modal, setModal] = useState(false)
+  const [modalTitle, setModalTitle] = useState('')
+  const [modalContent, setModalContent] = useState('')
+
   const nameInput = useRef([])
   const [inputs, setInputs] = useState({
     userName: '',
@@ -47,7 +52,13 @@ export default function UserInfo() {
   const handleOnClick = () => {
     for (let i = 0; i < nameInput.current.length; i++) {
       if (nameInput.current[i].value === '') {
-        alert(nameInput.current[i].title + '는(은) 필수 입력사항입니다.')
+        setModalTitle(nameInput.current[i].title + ' 을(를) 입력해주세요!')
+        setModalContent(
+          `귀하의 ${nameInput.current[i].title} 을(를) 입력해주셔야만
+             다음으로 진행이 될 수 있습니다.`
+        )
+        setModal(!modal)
+
         nameInput.current[i].focus()
         return false
       }
@@ -62,6 +73,8 @@ export default function UserInfo() {
 
   return (
     <Wrapper>
+      {modal && <Modal title={modalTitle} content={modalContent} onClick={handleOnClick}></Modal>}
+
       <Header>
         <IconButton kinds="back" onClick={goBack} />
       </Header>

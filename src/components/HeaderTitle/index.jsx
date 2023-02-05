@@ -15,7 +15,7 @@ const HeaderTitle = memo(({ content, dates }) => {
     setMonth(dates.getMonth() + 1)
     setDate(dates.getDate())
     setWeek(weeks[dates.getDay()])
-    console.log(dates)
+    // console.log(dates)
   }, [dates])
 
   // useEffect(() => {
