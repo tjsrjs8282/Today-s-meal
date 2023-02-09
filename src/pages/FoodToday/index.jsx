@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react'
 import $ from './foodToday.module.scss'
 import '@styles/calendar.scss'
 import { useNavigate } from 'react-router-dom'
@@ -17,7 +17,9 @@ import FoodTodaySummary from './FoodTodaySummary'
 import FoodTodayRecord from './FoodTodayRecord'
 import FloatMenu from '@components/FloatMenu'
 import dayjs from 'dayjs'
+import { ThemeDispatchContext } from '../../App'
 export default function FoodToday() {
+  const themeDispatch = useContext(ThemeDispatchContext)
   const [date, onDate] = useState(new Date())
   let [calendarOpen, setCalendarOpen] = useState(false)
   const modalRaf = useRef()
@@ -56,6 +58,7 @@ export default function FoodToday() {
   return (
     <Wrapper colorGray thisRef={modalRaf}>
       <Header>
+        <button onClick={() => themeDispatch({ type: 'TOGGLE' })}>dddddddddd</button>
         <Flex width between>
           <HaederTitle content="오늘의 식단" />
           <IconButton kinds="calendar" onClick={openCalendarHandler} />
