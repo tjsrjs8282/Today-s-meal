@@ -10,8 +10,9 @@ import Button from '@components/Button'
 import FloatMenu from '@components/FloatMenu'
 import Calendar from 'react-calendar'
 import moment from 'moment'
+import axios from 'axios'
 export default function Health() {
-  const [value, onChange] = useState(new Date())
+  const [date, onDate] = useState(new Date())
   let [calendarOpen, setCalendarOpen] = useState(false)
 
   const openCalendarHandler = () => {
@@ -20,17 +21,22 @@ export default function Health() {
 
   const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
 
+  const getWeather = () => {
+    axios.get('https://dev-server2.cmi.kro.kr/weather').then((res) => console.log(res.data))
+  }
+
+  getWeather()
   return (
     <Wrapper colorGray>
       <Header>
         <Flex width between>
-          <HaederTitle content="운동일지 " dates={value} />
+          <HaederTitle content="운동일지 " />
           <IconButton kinds="calendar" onClick={openCalendarHandler} />
         </Flex>
         {calendarOpen && (
           <Calendar
-            onChange={onChange}
-            value={value}
+            onChange={onDate}
+            value={date}
             onFocus={() => {
               setCalendarOpen(true)
             }}

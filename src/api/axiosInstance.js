@@ -1,7 +1,7 @@
 import Axios from 'axios'
 
-const fatsecretInstance = Axios.create({
-  baseURL: import.meta.env.VITE_FATSECRET,
+export const fatsecretInstance = Axios.create({
+  baseURL: '/api/rest/server.api',
   headers: { Authorization: 'Bearer ' + import.meta.env.VITE_FATSECRET_TOKEN },
   timeout: 5000,
   params: {
@@ -34,4 +34,8 @@ fatsecretInstance.interceptors.response.use(
     return Promise.reject(err)
   }
 )
-export default fatsecretInstance
+
+export const priductInstance = Axios.create({
+  baseURL: import.meta.env.VITE_PRODUCTS,
+  timeout: 5000,
+})

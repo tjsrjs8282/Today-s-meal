@@ -75,7 +75,7 @@ export default function FoodTodayDetail() {
       <Title content="식사" sub></Title>
 
       <RadioGroup label="purpose" value={foodPart} onChange={setFoodPart}>
-        {Object.keys(...USER_INTAKE_PART).map((part, index) => {
+        {['아침', '점심', '저녁', '간식'].map((part, index) => {
           return (
             <Radio name="purpose" value={part} key={index} tab>
               <p>{part}</p>

@@ -10,7 +10,8 @@ import IconButton from '@components/IconButton'
 import InputSearch from '@components/InputSearch'
 import FoodSearchListItem from './FoodSearchListItem'
 import { SEARCH_FOOD } from './constants'
-import fatsecretinstance from '@api/fatsecretAxios'
+import { fatsecretInstance } from '@api/axiosInstance'
+import axios from 'axios'
 export default function FoodSearch() {
   const [value, onChange] = useState(new Date())
   const [searchFood, setSearchFood] = useState('')
@@ -39,10 +40,11 @@ export default function FoodSearch() {
   }
 
   function getFatsecret() {
-    fatsecretinstance
+    fatsecretInstance
       .get()
-      .then((res) => console.log(res))
+      .then((res) => console.log(res.data))
       .catch((err) => console.log(err))
+    // fatsecretInstance.then((res) => console.log(res)).catch((err) => console.log(err))
   }
 
   useEffect(() => {

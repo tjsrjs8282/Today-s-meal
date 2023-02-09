@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "test": "concurrently \"vite --port 3000 \" \"json-server --watch db.json --port 5000\"",
+    "test": "concurrently \"vite --port 3000 \" \"json-server --watch db.json --port 5000\" ",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -13,6 +13,7 @@
     "axios": "^1.2.3",
     "classnames": "^2.3.2",
     "concurrently": "^7.6.0",
+    "dayjs": "^1.11.7",
     "history": "^5.3.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
@@ -20,6 +21,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.6.1",
+    "recoil": "^0.7.6",
     "sass": "^1.57.1",
     "styled-components": "^5.3.6"
   },
@@ -36,5 +38,6 @@
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
     "vite": "^4.0.0"
-  }
+  },
+  "proxy": "https://platform.fatsecret.com/"
 }

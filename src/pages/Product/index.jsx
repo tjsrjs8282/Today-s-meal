@@ -6,12 +6,13 @@ import Header from '@components/Header'
 import HeaderTitle from '@components/HeaderTitle'
 import Flex from '@components/Flex'
 import IconButton from '@components/IconButton'
-import axiosInstance from '@api/productsAxios'
+import { priductInstance } from '@api/axiosInstance'
 import InputSearch from '@components/InputSearch'
 import ProductCard from './productCard'
 import FloatMenu from '@components/FloatMenu'
 import Calendar from 'react-calendar'
 import moment from 'moment'
+
 export default function Product() {
   const [value, onChange] = useState(new Date())
   let [calendarOpen, setCalendarOpen] = useState(false)
@@ -40,13 +41,13 @@ export default function Product() {
   }
 
   function getProduct() {
-    axiosInstance
+    priductInstance
       .get('/', {
         params: {
           q: searchQuery,
         },
       })
-      .then((res) => setProductList(res))
+      .then((res) => setProductList(res.data))
       .catch((err) => console.log(err))
   }
 
