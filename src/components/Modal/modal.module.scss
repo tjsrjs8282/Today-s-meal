@@ -5,7 +5,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  max-width: $deviceWidth;
+  max-width: var(--deviceWidth);
   height: 100%;
   z-index: 100;
   background: rgba(0, 0, 0, 0.6);
@@ -18,12 +18,13 @@
   left: 50%;
   text-align: center;
   transform: translate(-50%, -50%);
-  background: #fff;
+  background: var(--siteColorWhite);
   border-radius: 15px;
   padding: 1.5rem;
   box-sizing: border-box;
+  box-shadow: var(--boxShadow);
   h2 {
-    color: $siteColorBlack;
+    color: var(--siteColorBlack);
     font-size: 1.5rem;
     margin-bottom: 1rem;
   }
@@ -33,7 +34,7 @@
     margin-bottom: 5px;
   }
   p {
-    color: $siteColorGray2;
+    color: var(--siteColorGray2);
     font-size: 1.1rem;
     white-space: pre-line;
     margin-bottom: 1.5rem;

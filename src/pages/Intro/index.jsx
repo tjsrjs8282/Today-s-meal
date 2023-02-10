@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import introLogo from '@assets/intro-logo.png'
 import $ from './intro.module.scss'
+import introLogo from '@assets/intro-logo.png'
 import Wrapper from '@components/Wrapper'
 import Flex from '@components/Flex'
 import Button from '@components/Button'

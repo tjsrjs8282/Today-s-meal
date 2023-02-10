@@ -2,11 +2,12 @@
 .purpose {
   margin-bottom: 10px;
   h2 {
+    color: var(--siteColorBlack);
     font-size: 1.3rem;
   }
   p {
     font-size: 1.1rem !important;
-    color: $siteColorGray1 !important;
+    color: var(--siteColorGray1) !important;
   }
   img {
     width: 3.2rem;
@@ -17,7 +18,7 @@
     border-radius: 50%;
     width: 5.5rem;
     height: 5.5rem;
-    background: $lineColor3;
+    background: var(--lineColor3);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,12 +28,12 @@
   margin-top: 1rem;
   h3 {
     font-size: 1.2rem;
-    color: $siteColorGray1;
+    color: var(--siteColorGray1);
     font-weight: normal;
   }
   p {
     font-size: 1.2rem;
-    color: $siteColorBlack;
+    color: var(--siteColorBlack);
     font-weight: 500;
   }
   span {
@@ -43,14 +44,17 @@
 
 .intake_total {
   h3 {
+    color: var(--siteColorSub);
     font-size: 1.2rem;
-    font-weight: 200;
+    font-weight: 400;
   }
   p {
+    color: var(--siteColorSub);
     font-size: 1.2rem;
-    font-weight: 200;
+    font-weight: 400;
   }
   span {
+    color: var(--siteColorSub);
     margin-left: 3px;
     font-size: 1.1rem;
   }

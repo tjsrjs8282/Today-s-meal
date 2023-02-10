@@ -1,18 +1,11 @@
 import Axios from 'axios'
 
-export const fatsecretInstance = Axios.create({
-  baseURL: '/api/rest/server.api',
-  headers: { Authorization: 'Bearer ' + import.meta.env.VITE_FATSECRET_TOKEN },
+export const axiosInstance = Axios.create({
   timeout: 5000,
-  params: {
-    mathod: 'food.get.v2',
-    food_id: 1000,
-    format: 'json',
-  },
 })
 
 //요청 인터셉터
-fatsecretInstance.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   (config) => {
     //요청 보내기 전에 수행 로직
 
@@ -25,7 +18,7 @@ fatsecretInstance.interceptors.request.use(
 )
 
 //응답 인터셉터
-fatsecretInstance.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (config) => {
     //응답에 대한 로직
     return config
@@ -35,7 +28,11 @@ fatsecretInstance.interceptors.response.use(
   }
 )
 
-export const priductInstance = Axios.create({
-  baseURL: import.meta.env.VITE_PRODUCTS,
-  timeout: 5000,
-})
+export const fatsecretInstance = axiosInstance
+fatsecretInstance.defaults.baseURL = '/api/rest/server.api'
+fatsecretInstance.defaults.headers = {
+  Authorization: 'Bearer ' + import.meta.env.VITE_FATSECRET_TOKEN,
+}
+
+export const priductInstance = axiosInstance
+priductInstance.defaults.baseURL = import.meta.env.VITE_PRODUCTS

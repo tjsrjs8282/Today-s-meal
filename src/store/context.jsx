@@ -2,13 +2,14 @@ import { createContext, useReducer } from 'react'
 
 const initialTheme = 'dark'
 
-export const ThemeContext = createContext()
-export const ThemeDispatchContext = createContext()
-
 function themeReducer(state, action) {
   switch (action.type) {
     case 'TOGGLE':
-      return state === 'light' ? 'dark' : 'light'
+      const systemPreference = window.matchMedia('(prefers-color-scheme: dark)')
+      if (systemPreference.matches) {
+        return 'dark'
+      }
+      return 'light'
     case 'DARK':
       return 'dark'
     case 'LIGHT':
@@ -17,6 +18,8 @@ function themeReducer(state, action) {
       throw new Error(`Unknown action type: ${action.type}`)
   }
 }
+export const ThemeContext = createContext()
+export const ThemeDispatchContext = createContext()
 
 export function GlobalContextProvider({ children }) {
   const [theme, themeDispatch] = useReducer(themeReducer, initialTheme)

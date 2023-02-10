@@ -7,11 +7,7 @@
       "price": 99900,
       "choice": true,
       "new": true,
-      "size": [
-        "S",
-        "M",
-        "L"
-      ]
+      "size": ["S", "M", "L"]
     },
     {
       "id": 1,
@@ -20,11 +16,7 @@
       "price": 29900,
       "choice": true,
       "new": true,
-      "size": [
-        "S",
-        "M",
-        "L"
-      ]
+      "size": ["S", "M", "L"]
     },
     {
       "id": 2,
@@ -33,11 +25,7 @@
       "price": 39900,
       "choice": false,
       "new": true,
-      "size": [
-        "S",
-        "M",
-        "L"
-      ]
+      "size": ["S", "M", "L"]
     },
     {
       "id": 3,
@@ -46,11 +34,7 @@
       "price": 39900,
       "choice": false,
       "new": true,
-      "size": [
-        "S",
-        "M",
-        "L"
-      ]
+      "size": ["S", "M", "L"]
     },
     {
       "id": 4,
@@ -59,11 +43,7 @@
       "price": 29900,
       "choice": true,
       "new": false,
-      "size": [
-        "S",
-        "M",
-        "L"
-      ]
+      "size": ["S", "M", "L"]
     },
     {
       "id": 5,
@@ -72,11 +52,7 @@
       "price": 39900,
       "choice": false,
       "new": false,
-      "size": [
-        "S",
-        "M",
-        "L"
-      ]
+      "size": ["S", "M", "L"]
     },
     {
       "id": 6,
@@ -85,11 +61,7 @@
       "price": 39900,
       "choice": true,
       "new": false,
-      "size": [
-        "S",
-        "M",
-        "L"
-      ]
+      "size": ["S", "M", "L"]
     },
     {
       "id": 7,
@@ -98,11 +70,7 @@
       "price": 99900,
       "choice": false,
       "new": true,
-      "size": [
-        "S",
-        "M",
-        "L"
-      ]
+      "size": ["S", "M", "L"]
     },
     {
       "id": 8,
@@ -111,11 +79,7 @@
       "price": 14900,
       "choice": true,
       "new": true,
-      "size": [
-        "S",
-        "M",
-        "L"
-      ]
+      "size": ["S", "M", "L"]
     },
     {
       "id": 9,
@@ -124,11 +88,7 @@
       "price": 19900,
       "choice": false,
       "new": true,
-      "size": [
-        "S",
-        "M",
-        "L"
-      ]
+      "size": ["S", "M", "L"]
     },
     {
       "id": 10,
@@ -137,11 +97,7 @@
       "price": 19900,
       "choice": true,
       "new": false,
-      "size": [
-        "S",
-        "M",
-        "L"
-      ]
+      "size": ["S", "M", "L"]
     },
     {
       "id": 11,
@@ -150,11 +106,7 @@
       "price": 29900,
       "choice": true,
       "new": true,
-      "size": [
-        "S",
-        "M",
-        "L"
-      ]
+      "size": ["S", "M", "L"]
     },
     {
       "id": 12,
@@ -163,11 +115,7 @@
       "price": 14900,
       "choice": true,
       "new": true,
-      "size": [
-        "S",
-        "M",
-        "L"
-      ]
+      "size": ["S", "M", "L"]
     },
     {
       "id": 13,
@@ -176,17 +124,7 @@
       "price": 29900,
       "choice": false,
       "new": false,
-      "size": [
-        "S",
-        "M",
-        "L"
-      ]
-    },
-    {
-      "params": {
-        "q": ""
-      },
-      "id": 14
+      "size": ["S", "M", "L"]
     }
   ]
 }

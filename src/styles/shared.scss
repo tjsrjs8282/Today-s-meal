@@ -1,18 +1,57 @@
 @charset "utf-8";
 
 // siteColor
-$siteColorMain: #4c9838;
-$siteColorSub: #edf5eb;
-$siteColorBlack: #000;
-$siteColorWhite: #fff;
-$siteColorGray1: #767676;
-$siteColorGray2: #999;
-// lineColor
-$lineColor1: #dbdbdb;
-$lineColor2: #e6e6e6;
-$lineColor3: #f7f7f8;
-// bgColor
-$backGroundColor1: #f2f4f6;
-$boxShadow: 0px 2px 5px 0px rgb(0 0 0 / 3%);
+// $siteColorMain: #4c9838;
+// $siteColorSub: #edf5eb;
+// $siteColorBlack: #000;
+// $siteColorWhite: #fff;
+// $siteColorGray1: #767676;
+// $siteColorGray2: #999;
+// // lineColor
+// $lineColor1: #dbdbdb;
+// $lineColor2: #e6e6e6;
+// $lineColor3: #f7f7f8;
+// // bgColor
 
-$deviceWidth: 767px;
+// $backGroundColor1: #f2f4f6;
+// $boxShadow: 0px 2px 5px 0px rgb(0 0 0 / 3%);
+
+// $deviceWidth: 767px;
+
+html {
+  --siteColorMain: #4c9838;
+  --siteColorSub: #edf5eb;
+  --siteColorBlack: #444;
+  --siteColorWhite: #fff;
+  --siteColorGray1: #767676;
+  --siteColorGray2: #999;
+
+  // lineColor
+  --lineColor1: #dbdbdb;
+  --lineColor2: #e6e6e6;
+  --lineColor3: #f7f7f8;
+  // bgColor
+  --backGroundColor1: #f2f4f6;
+  --boxShadow: 0px 2px 5px 0px rgb(0 0 0 / 3%);
+
+  --deviceWidth: 767px;
+}
+
+html[data-theme='DARK'] {
+  --siteColorMain: #4c9838;
+  --siteColorSub: #edf5eb;
+  --siteColorBlack: #e6e6e6;
+  --siteColorWhite: #2a2b2e;
+  --siteColorGray1: #a9a9a9;
+  --siteColorGray2: #bbb;
+
+  // lineColor
+  --lineColor1: #dbdbdb;
+  --lineColor2: #e6e6e6;
+  --lineColor3: #343539;
+  // bgColor
+  --backGroundColor1: #1e1f21;
+  --boxShadow: 1px 2px 2px 0px rgba(255, 255, 255, 0.2);
+
+  --deviceWidth: 767px;
+}

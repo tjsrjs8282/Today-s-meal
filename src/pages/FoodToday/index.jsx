@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect, useContext } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import $ from './foodToday.module.scss'
 import '@styles/calendar.scss'
-import { useNavigate } from 'react-router-dom'
 import Wrapper from '@components/Wrapper'
 import Header from '@components/Header'
 import HaederTitle from '@components/HeaderTitle'
@@ -11,20 +11,21 @@ import Title from '@components/Title'
 import Button from '@components/Button'
 import Calendar from 'react-calendar'
 import moment from 'moment'
-import { FOOD_TODAY_SUMMARY } from './FoodTodaySummary/constants'
-import { FOOD_TODAY_RECORD } from './FoodTodayRecord/constants'
 import FoodTodaySummary from './FoodTodaySummary'
 import FoodTodayRecord from './FoodTodayRecord'
 import FloatMenu from '@components/FloatMenu'
 import dayjs from 'dayjs'
-import { ThemeDispatchContext } from '../../App'
+import { FOOD_TODAY_SUMMARY } from './FoodTodaySummary/constants'
+import { FOOD_TODAY_RECORD } from './FoodTodayRecord/constants'
+import { themeState } from '@store'
+import { useRecoilState } from 'recoil'
+
 export default function FoodToday() {
-  const themeDispatch = useContext(ThemeDispatchContext)
+  const [theme, setTheme] = useRecoilState(themeState)
   const [date, onDate] = useState(new Date())
   let [calendarOpen, setCalendarOpen] = useState(false)
   const modalRaf = useRef()
   const navigate = useNavigate()
-  console.log
 
   const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
 
@@ -38,6 +39,20 @@ export default function FoodToday() {
   const openCalendarHandler = () => {
     setCalendarOpen(!calendarOpen)
   }
+
+  const handleChangeTheme = useCallback(() => {
+    if (theme === 'DARK') {
+      localStorage.setItem('theme', 'LIGHT')
+      document.documentElement.setAttribute('data-theme', 'LIGHT')
+      setTheme('LIGHT')
+      return
+    }
+    localStorage.setItem('THEME', 'DARK')
+    document.documentElement.setAttribute('data-theme', 'DARK')
+    setTheme('DARK')
+  }, [theme])
+
+  console.log(theme)
 
   useEffect(() => {
     const clickOutside = (e) => {
@@ -58,7 +73,7 @@ export default function FoodToday() {
   return (
     <Wrapper colorGray thisRef={modalRaf}>
       <Header>
-        <button onClick={() => themeDispatch({ type: 'TOGGLE' })}>dddddddddd</button>
+        <button onClick={handleChangeTheme}>dddddddddd</button>
         <Flex width between>
           <HaederTitle content="오늘의 식단" />
           <IconButton kinds="calendar" onClick={openCalendarHandler} />
@@ -94,7 +109,8 @@ export default function FoodToday() {
       <div className={$.record_box}>
         <Flex wrap column>
           {FOOD_TODAY_RECORD.map((record) => {
-            const { name, value, calorie, image, food, id } = record
+            const { name, value, calorie, image, darkImage, food, id } = record
+
             return (
               <FoodTodayRecord
                 name={name}

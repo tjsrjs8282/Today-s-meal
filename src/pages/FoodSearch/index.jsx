@@ -41,7 +41,7 @@ export default function FoodSearch() {
 
   function getFatsecret() {
     fatsecretInstance
-      .get()
+      .get('/?method=food.get.v2&food_id=1000&format=json')
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err))
     // fatsecretInstance.then((res) => console.log(res)).catch((err) => console.log(err))

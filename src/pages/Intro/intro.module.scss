@@ -6,13 +6,15 @@
   align-items: center;
   flex-direction: column;
   height: 100%;
+
+  color: var(--siteColorBlack);
   h1 {
     font-size: 3rem;
     font-weight: 900;
   }
   p {
     margin-top: 5px;
-    color: $siteColorGray2;
+    color: var(--siteColorGray2);
     font-size: 1.2rem;
   }
   img {

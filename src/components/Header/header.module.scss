@@ -4,13 +4,13 @@
   position: relative;
   margin: 0px -1.3rem;
   padding: 1rem 1.3rem;
-  background: #fff;
+  background: var(--siteColorWhite);
   h2 {
     font-size: 1.6rem;
-    color: $siteColorMain;
+    color: var(--siteColorMain);
   }
   p {
     font-size: 1rem;
-    color: $siteColorGray2;
+    color: var(--siteColorGray2);
   }
 }

@@ -8,6 +8,6 @@
   padding: 0px 1.3rem;
   padding-bottom: 8rem;
   &.colorGray {
-    background: $backGroundColor1;
+    background: var(--backGroundColor1);
   }
 }
