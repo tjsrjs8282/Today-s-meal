@@ -4,9 +4,9 @@ import Flex from '@components/Flex'
 
 export default function FoodSearchListItem({ foodData, onClick }) {
   const { name, number, size, kcal } = foodData
-  
+
   return (
-    <Flex between marginTop marginBottom padding wrap radius colorWhite onClick={onClick}>
+    <Flex shadow between marginTop marginBottom padding wrap radius colorWhite onClick={onClick}>
       <Flex column start>
         <h2>{name}</h2>
         <p>
@@ -17,4 +17,3 @@ export default function FoodSearchListItem({ foodData, onClick }) {
     </Flex>
   )
 }
-

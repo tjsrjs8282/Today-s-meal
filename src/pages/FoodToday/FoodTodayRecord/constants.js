@@ -2,6 +2,11 @@ import Morning from '@assets/ic-morning-normal.png'
 import Lunch from '@assets/ic-lunch-normal.png'
 import Dinner from '@assets/ic-dinner-normal.png'
 import Snack from '@assets/ic-snack-normal.png'
+import DarkMorning from '@assets/ic-morning-white.png'
+import DarkLunch from '@assets/ic-lunch-white.png'
+import DarkDinner from '@assets/ic-dinner-white.png'
+import DarkSnack from '@assets/ic-snack-white.png'
+
 export const FOOD_TODAY_RECORD = [
   {
     id: 1,
@@ -15,6 +20,7 @@ export const FOOD_TODAY_RECORD = [
       calorie: 0,
     },
     image: Morning,
+    darkImage: DarkMorning,
   },
   {
     id: 2,
@@ -22,6 +28,7 @@ export const FOOD_TODAY_RECORD = [
     value: 0,
     calorie: 0,
     image: Lunch,
+    darkImage: DarkLunch,
   },
   {
     id: 3,
@@ -35,6 +42,7 @@ export const FOOD_TODAY_RECORD = [
       calorie: 0,
     },
     image: Dinner,
+    darkImage: DarkDinner,
   },
   {
     id: 4,
@@ -42,5 +50,6 @@ export const FOOD_TODAY_RECORD = [
     value: 0,
     calorie: 0,
     image: Snack,
+    darkImage: DarkSnack,
   },
 ]

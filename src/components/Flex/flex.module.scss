@@ -75,7 +75,7 @@
   }
   &.fontWhite {
     color: var(--siteColorWhite);
-    border-color: var(--siteColorMain) !important;
+    border-color: var(--siteColorSub) !important;
   }
 
   &.fontMain {
@@ -137,6 +137,9 @@
   }
   &.active {
     color: var(--siteColorMain);
+    svg {
+      color: var(--siteColorMain);
+    }
   }
   &.path {
     cursor: pointer;

@@ -13,7 +13,7 @@
   background: var(--siteColorMain);
   font-size: 1.2rem;
   border-radius: 15px;
-  color: var(--siteColorWhite);
+  color: var(--siteColorSub);
   font-weight: bold;
 
   &.check {
@@ -61,7 +61,7 @@
     background: var(--siteColorMain);
     font-size: 1.2rem;
     border-radius: 15px;
-    color: var(--siteColorWhite);
+    color: var(--siteColorSub);
     font-weight: bold;
     padding: 0;
     width: 100%;

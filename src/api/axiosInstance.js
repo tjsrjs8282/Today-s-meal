@@ -34,7 +34,5 @@ fatsecretInstance.defaults.headers = {
   Authorization: 'Bearer ' + import.meta.env.VITE_FATSECRET_TOKEN,
 }
 
-export const priductInstance = Axios.create({
-  baseURL: import.meta.env.VITE_PRODUCTS,
-  timeout: 5000,
-})
+export const priductInstance = axiosInstance
+priductInstance.defaults.baseURL = import.meta.env.VITE_PRODUCTS

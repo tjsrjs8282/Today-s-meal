@@ -9,7 +9,7 @@
   margin-top: 15px;
   padding: 20px 15px;
   box-sizing: border-box;
-  background: var(--backGroundColor1);
+  background: var(--siteColorWhite);
   border-radius: 15px;
   font-weight: 500;
   color: #777;
@@ -50,7 +50,7 @@
     width: 100%;
     box-sizing: border-box;
     text-align: left;
-    color: #000;
+    color: var(--siteColorBlack);
     font-size: 1.4rem;
     margin-top: 2px;
   }
@@ -60,6 +60,7 @@
     box-sizing: border-box;
     text-align: left;
     font-size: 1rem;
+    color: var(--siteColorBlack);
   }
 }
 .input[type='radio'] {
@@ -68,8 +69,9 @@
   opacity: 0;
   width: 0;
   &:checked + label {
-    background-color: var(--siteColorSub);
+    background-color: var(--siteColorBlack);
     border: 1px solid var(--siteColorMain);
+    color: var(--siteColorMain);
     svg {
       color: var(--siteColorMain);
     }
@@ -77,6 +79,9 @@
       color: var(--siteColorMain);
     }
     span {
+      color: var(--siteColorMain);
+    }
+    p {
       color: var(--siteColorMain);
     }
   }

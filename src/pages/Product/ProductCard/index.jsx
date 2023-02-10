@@ -4,7 +4,7 @@ import Flex from '@components/Flex'
 
 export default function ProductCard({ data }) {
   return (
-    <Flex column colorWhite radius marginBottom padding shadow col3 start>
+    <Flex column radius marginBottom padding shadow col3 start colorWhite fontWhite>
       <Flex image radius marginBottom>
         <img src={data?.img} alt={data?.title} />
       </Flex>
