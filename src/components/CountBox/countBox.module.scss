@@ -1,19 +1,19 @@
 @import '@styles/shared.scss';
 .count_box {
   overflow: hidden;
-  border: 1px solid $lineColor1;
+  border: 1px solid var(--lineColor1);
   border-radius: 10px;
 
   .count {
     width: 100%;
     font-size: 2rem;
-    color: $siteColorMain;
+    color: var(--siteColorMain);
     text-align: center;
     outline: none;
 
     &:focus {
       outline: none;
-  }
+    }
   }
 
   button {

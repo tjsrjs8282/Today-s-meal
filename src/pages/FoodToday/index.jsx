@@ -17,14 +17,16 @@ import FoodTodaySummary from './FoodTodaySummary'
 import FoodTodayRecord from './FoodTodayRecord'
 import FloatMenu from '@components/FloatMenu'
 import dayjs from 'dayjs'
-import { ThemeDispatchContext } from '../../App'
+import { ThemeDispatchContext } from '../../context'
+import { ThemeContext } from '../../context'
 export default function FoodToday() {
   const themeDispatch = useContext(ThemeDispatchContext)
+  const theme = useContext(ThemeContext)
   const [date, onDate] = useState(new Date())
   let [calendarOpen, setCalendarOpen] = useState(false)
   const modalRaf = useRef()
   const navigate = useNavigate()
-  console.log
+  console.log(theme)
 
   const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
 

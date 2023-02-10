@@ -7,6 +7,7 @@
 
 html {
   font-size: 62.5%;
+  transition: 0.2s ease;
 }
 body {
   -webkit-font-smoothing: antialiased;
@@ -16,11 +17,12 @@ body {
   align-items: center;
   margin: 0;
   min-height: 100vh;
-  background: $lineColor3;
+  background: var(--lineColor3);
+  transition: 0.2s ease;
   font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
 }
 #root {
-  background: $siteColorWhite;
+  background: var(--siteColorWhite);
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
@@ -28,7 +30,7 @@ body {
   box-sizing: border-box;
   position: relative;
   min-height: 100vh;
-  background: $siteColorWhite;
+  background: var(--siteColorWhite);
 }
 
 input,

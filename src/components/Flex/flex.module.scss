@@ -67,32 +67,32 @@
     border-radius: 15px;
   }
   &.shadow {
-    box-shadow: $boxShadow;
+    box-shadow: var(--boxShadow);
   }
   &.padding {
     padding: 1.7rem 1.5rem;
     box-sizing: border-box;
   }
   &.fontWhite {
-    color: $siteColorWhite;
-    border-color: $siteColorMain !important;
+    color: var(--siteColorWhite);
+    border-color: var(--siteColorMain) !important;
   }
 
   &.fontMain {
-    color: $siteColorMain;
+    color: var(--siteColorMain);
   }
 
   &.colorGray {
-    background: $lineColor3;
+    background: var(--lineColor3);
   }
   &.colorWhite {
-    background: $siteColorWhite;
+    background: var(--siteColorWhite);
   }
   &.colorMain {
-    background: $siteColorMain;
+    background: var(--siteColorMain);
   }
   &.colorSub {
-    background: $siteColorSub;
+    background: var(--siteColorSub);
   }
   &.marginLeft {
     margin-left: 0.8rem;
@@ -126,17 +126,17 @@
   }
   &.siteColorMain {
     background: #000;
-    border-color: $siteColorMain !important;
+    border-color: var(--siteColorMain) !important;
   }
 
   &.borderBottom {
-    border-bottom: 1px solid $lineColor1;
+    border-bottom: 1px solid var(--lineColor1);
     &:last-child {
       border-bottom: none;
     }
   }
   &.active {
-    color: $siteColorMain;
+    color: var(--siteColorMain);
   }
   &.path {
     cursor: pointer;

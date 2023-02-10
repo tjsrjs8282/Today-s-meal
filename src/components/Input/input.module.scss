@@ -15,7 +15,7 @@
     padding: 20px 35px 20px 20px;
     box-sizing: border-box;
     border-radius: 15px;
-    background: $backGroundColor1;
+    background: var(--backGroundColor1);
     font-size: 1.2rem;
   }
 }
@@ -25,5 +25,5 @@
   right: 15px;
   transform: translate(0, -50%);
   font-size: 14px;
-  color: $siteColorGray2;
+  color: var(--siteColorGray2);
 }

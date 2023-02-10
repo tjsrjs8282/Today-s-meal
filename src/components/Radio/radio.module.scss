@@ -9,7 +9,7 @@
   margin-top: 15px;
   padding: 20px 15px;
   box-sizing: border-box;
-  background: $backGroundColor1;
+  background: var(--backGroundColor1);
   border-radius: 15px;
   font-weight: 500;
   color: #777;
@@ -26,8 +26,8 @@
     margin-top: 0px;
     padding: 0.5rem 1rem;
     border-radius: 30px;
-    border: 1px solid $lineColor1;
-    background: $siteColorWhite;
+    border: 1px solid var(--lineColor1);
+    background: var(--siteColorWhite);
 
     p {
       margin-top: 0;
@@ -68,16 +68,16 @@
   opacity: 0;
   width: 0;
   &:checked + label {
-    background-color: $siteColorSub;
-    border: 1px solid $siteColorMain;
+    background-color: var(--siteColorSub);
+    border: 1px solid var(--siteColorMain);
     svg {
-      color: $siteColorMain;
+      color: var(--siteColorMain);
     }
     h3 {
-      color: $siteColorMain;
+      color: var(--siteColorMain);
     }
     span {
-      color: $siteColorMain;
+      color: var(--siteColorMain);
     }
   }
 }

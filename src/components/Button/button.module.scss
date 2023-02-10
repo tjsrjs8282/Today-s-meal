@@ -10,14 +10,14 @@
   line-height: 4rem;
   box-sizing: border-box;
   text-align: center;
-  background: $siteColorMain;
+  background: var(--siteColorMain);
   font-size: 1.2rem;
   border-radius: 15px;
-  color: $siteColorWhite;
+  color: var(--siteColorWhite);
   font-weight: bold;
 
   &.check {
-    background: $lineColor1;
+    background: var(--lineColor1);
   }
   &.none {
     position: relative;
@@ -30,7 +30,7 @@
     height: auto;
     line-height: initial;
     font-size: 1.1rem;
-    color: $siteColorMain;
+    color: var(--siteColorMain);
     font-weight: normal;
   }
   &.border {
@@ -43,25 +43,25 @@
     height: auto;
     line-height: initial;
     font-size: 1rem;
-    color: $siteColorGray1;
+    color: var(--siteColorGray1);
     font-weight: normal;
-    border: 1px solid $lineColor1;
+    border: 1px solid var(--lineColor1);
     border-radius: 30px;
     padding: 0.5rem 0.9rem;
   }
   &.focused {
-    border-color: $siteColorMain;
-    color: $siteColorMain;
-    background: $siteColorSub;
+    border-color: var(--siteColorMain);
+    color: var(--siteColorMain);
+    background: var(--siteColorSub);
   }
   &.nonefixed {
     height: 4rem;
     line-height: 4rem;
     position: relative;
-    background: $siteColorMain;
+    background: var(--siteColorMain);
     font-size: 1.2rem;
     border-radius: 15px;
-    color: $siteColorWhite;
+    color: var(--siteColorWhite);
     font-weight: bold;
     padding: 0;
     width: 100%;
@@ -69,7 +69,7 @@
   }
   &.noneBackground {
     background: none;
-    border: 1px solid $lineColor1;
-    color: $siteColorGray1;
+    border: 1px solid var(--lineColor1);
+    color: var(--siteColorGray1);
   }
 }
