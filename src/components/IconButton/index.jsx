@@ -40,7 +40,7 @@ const IconButton = memo(({ kinds, onClick, onFocus }) => {
           className="close_circle"
         />
       )}
-      {kinds === 'next' && <HiChevronRight size="20" />}
+      {kinds === 'next' && <HiChevronRight size="2rem" onClick={onClick} />}
       {kinds === 'cart' && <BsCart2 size="2.2rem" />}
     </>
   )

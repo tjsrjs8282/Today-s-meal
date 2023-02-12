@@ -58,8 +58,10 @@
   &.col2 {
     width: 49%;
     margin-right: 2%;
+
     &:nth-child(2n) {
       margin-right: 0;
+      margin-bottom: 1rem !important;
     }
   }
 
@@ -76,6 +78,10 @@
   &.fontWhite {
     color: var(--siteColorWhite);
     border-color: var(--siteColorSub) !important;
+  }
+
+  &.fontBlack {
+    color: var(--siteColorBlack);
   }
 
   &.fontMain {

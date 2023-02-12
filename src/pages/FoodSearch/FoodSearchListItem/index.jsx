@@ -3,17 +3,16 @@ import IconButton from '@components/IconButton'
 import Flex from '@components/Flex'
 
 export default function FoodSearchListItem({ foodData, onClick }) {
-  const { name, number, size, kcal } = foodData
+  const { food_id, food_name, food_description, food_type } = foodData
 
   return (
-    <Flex shadow between marginTop marginBottom padding wrap radius colorWhite onClick={onClick}>
+    <Flex shadow between marginTop marginBottom padding radius colorWhite onClick={onClick}>
       <Flex column start>
-        <h2>{name}</h2>
-        <p>
-          {number}개 {size} / {kcal} kcal
-        </p>
+        <h2>{food_name}</h2>
+        <h3>{food_type}</h3>
+        <p>{food_description}</p>
       </Flex>
-      <IconButton kinds="next" />
+      <IconButton kinds="next" onClick={onClick} />
     </Flex>
   )
 }

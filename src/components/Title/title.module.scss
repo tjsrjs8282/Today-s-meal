@@ -1,6 +1,4 @@
 .title {
-  font-weight: bold;
-  font-size: 2rem;
   margin: 20px 0px 30px 0px;
   white-space: pre-line;
   color: var(--siteColorBlack);
@@ -9,5 +7,14 @@
     margin-top: 30px;
     font-weight: 400;
     font-size: 1.1rem;
+  }
+  h2 {
+    font-weight: bold;
+    font-size: 2rem;
+    color: var(--siteColorBlack);
+  }
+  p {
+    font-size: 1.2rem;
+    color: var(--siteColorGray1);
   }
 }

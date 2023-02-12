@@ -34,10 +34,10 @@ export default function Layout() {
         <Route path="/start" element={<UserInfo />}></Route>
         <Route path="/purpose" element={<UserPurpose />}></Route>
         <Route path="/today" element={<FoodToday />}></Route>
-        <Route path="/search" element={<FoodSearch />}></Route>
+        <Route path="/search/" element={<FoodSearch />}></Route>
+        <Route path="/search/:id" element={<FoodDetail />}></Route>
         <Route path="/today/detail" element={<FoodTodayDetail />}></Route>
         <Route path="/product" element={<Product />}></Route>
-        <Route path="/foodDetail" element={<FoodDetail />}></Route>
         {/* 오늘의 운동페이지 */}
         <Route path="/health" element={<Health />}></Route>
       </Routes>
