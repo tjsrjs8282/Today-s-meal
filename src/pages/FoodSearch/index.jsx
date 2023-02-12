@@ -9,13 +9,12 @@ import HeaderTitle from '@components/HeaderTitle'
 import IconButton from '@components/IconButton'
 import InputSearch from '@components/InputSearch'
 import FoodSearchListItem from './FoodSearchListItem'
-import { SEARCH_FOOD } from './constants'
 import { fatsecretInstance } from '@api/axiosInstance'
-import axios from 'axios'
 export default function FoodSearch() {
   const [value, onChange] = useState(new Date())
   const [searchFood, setSearchFood] = useState('')
   const [isSearchData, setIsSearchData] = useState(true)
+  const [foodList, setFoodList] = useState([])
   const inputRef = useRef(null)
   const navigate = useNavigate()
 
@@ -31,24 +30,48 @@ export default function FoodSearch() {
     inputRef.current.focus()
   }
 
-  const handleItemClick = () => {
-    console.log('handleItemClick')
+  const handleItemClick = (id) => {
+    navigate(`../search/${id}`)
   }
 
   const goBack = () => {
     navigate('../today')
   }
 
-  function getFatsecret() {
+  const randomFootList = [
+    'Beans',
+    'Milk',
+    'Breads',
+    'Fast',
+    'Fruit',
+    'Meat',
+    'Salads',
+    'Pasta',
+    'Desserts',
+    'Snacks',
+  ]
+
+  const search = (e) => {
+    if (e.key === 'Enter') {
+      let keyword = e.target.value
+    }
+  }
+
+  function getFatsecret(keyword) {
     fatsecretInstance
-      .get('/?method=food.get.v2&food_id=1000&format=json')
-      .then((res) => console.log(res.data))
+      .get(
+        `?method=foods.search&format=json&search_expression=${keyword}&page_number=0&max_results=10`
+      )
+      .then((res) => setFoodList(res.data.foods.food))
       .catch((err) => console.log(err))
     // fatsecretInstance.then((res) => console.log(res)).catch((err) => console.log(err))
   }
 
+  console.log(foodList)
+
   useEffect(() => {
-    getFatsecret()
+    let keyword = randomFootList[~~(Math.random() * 10)]
+    getFatsecret(keyword)
   }, [])
 
   if (!isSearchData) {
@@ -68,6 +91,7 @@ export default function FoodSearch() {
               placeholder="먹은 음식을 검색해 주세요."
               onChange={handleInputChange}
               onClick={handleResetClick}
+              onKeyPress={(e) => search(e)}
             />
           </Flex>
         </Header>
@@ -93,13 +117,21 @@ export default function FoodSearch() {
             placeholder="먹은 음식을 검색해 주세요."
             onChange={handleInputChange}
             onClick={handleResetClick}
+            onKeyPress={(e) => search(e)}
           />
         </Flex>
       </Header>
       <div className={$.food_list}>
-        {SEARCH_FOOD.map((foodData) => {
-          const { id } = foodData
-          return <FoodSearchListItem key={id} foodData={foodData} onClick={handleItemClick} />
+        {foodList.map((foodData) => {
+          const { food_id } = foodData
+          console.log(food_id)
+          return (
+            <FoodSearchListItem
+              key={food_id}
+              foodData={foodData}
+              onClick={() => handleItemClick(food_id)}
+            />
+          )
         })}
       </div>
     </Wrapper>

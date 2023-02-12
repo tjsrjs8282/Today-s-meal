@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import $ from './product.module.scss'
 import Wrapper from '@components/Wrapper'
@@ -6,7 +6,7 @@ import Header from '@components/Header'
 import HeaderTitle from '@components/HeaderTitle'
 import Flex from '@components/Flex'
 import IconButton from '@components/IconButton'
-import { priductInstance } from '@api/axiosInstance'
+import { productInstance } from '@api/axiosInstance'
 import InputSearch from '@components/InputSearch'
 import ProductCard from './productCard'
 import FloatMenu from '@components/FloatMenu'
@@ -30,10 +30,13 @@ export default function Product() {
     setCalendarOpen(!calendarOpen)
   }
 
-  const handleInputChange = (e) => {
-    setSearchValue(e.target.value)
-    console.log(searchValue)
-  }
+  const handleInputChange = useCallback(
+    (e) => {
+      setSearchValue(e.target.value)
+      console.log(searchValue)
+    },
+    [searchValue]
+  )
 
   const handleResetClick = () => {
     setSearchValue('')
@@ -41,7 +44,7 @@ export default function Product() {
   }
 
   function getProduct() {
-    priductInstance
+    productInstance
       .get('/', {
         params: {
           q: searchQuery,

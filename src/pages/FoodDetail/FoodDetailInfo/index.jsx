@@ -1,5 +1,5 @@
-import React from 'react';
-import $ from './foodDetailInfo.module.scss'
+import React from 'react'
+import $ from '../foodDetail.module.scss'
 
 const FoodDetailInfo = ({ foodInfo }) => {
   const { name, icon, value, unit } = foodInfo
@@ -9,9 +9,12 @@ const FoodDetailInfo = ({ foodInfo }) => {
         <img src={icon} />
       </div>
       <p>{name}</p>
-      <h3>{value}<span className={$.unit}>{unit}</span></h3>
+      <h3>
+        {value}
+        <span className={$.unit}>{unit}</span>
+      </h3>
     </div>
-  );
-};
+  )
+}
 
-export default FoodDetailInfo;
+export default FoodDetailInfo

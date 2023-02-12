@@ -3,13 +3,15 @@
   overflow: hidden;
   border: 1px solid var(--lineColor1);
   border-radius: 10px;
+  margin-bottom: 1.5rem;
 
   .count {
     width: 100%;
     font-size: 2rem;
-    color: var(--siteColorMain);
+    color: var(--siteColorBlack);
     text-align: center;
     outline: none;
+    background: var(--siteColorWhite);
 
     &:focus {
       outline: none;
