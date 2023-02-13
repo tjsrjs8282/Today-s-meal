@@ -10,6 +10,7 @@
   padding: 20px 15px;
   box-sizing: border-box;
   background: var(--siteColorWhite);
+  border: 1px solid #eee;
   border-radius: 15px;
   font-weight: 500;
   color: #777;
@@ -67,9 +68,10 @@
   position: absolute;
   left: -9999px;
   opacity: 0;
+
   width: 0;
   &:checked + label {
-    background-color: var(--siteColorBlack);
+    background-color: var(--siteColorSub);
     border: 1px solid var(--siteColorMain);
     color: var(--siteColorMain);
     svg {
