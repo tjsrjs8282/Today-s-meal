@@ -1,0 +1,14 @@
+article {
+  background-color: #fff;
+
+  .sub_info {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba($color: #000000, $alpha: 0.2);
+
+    li {
+      width: 33.33%; 
+      text-align: center;
+    }
+  }
+}

@@ -11,6 +11,8 @@ import FloatMenu from '@components/FloatMenu'
 import Calendar from 'react-calendar'
 import moment from 'moment'
 import axios from 'axios'
+import HealthWeatherInfoBox from './HealthWeatherInfoBox'
+// import { weatherInstance } from '@api/axiosInstance'
 export default function Health() {
   const [date, onDate] = useState(new Date())
   let [calendarOpen, setCalendarOpen] = useState(false)
@@ -22,10 +24,21 @@ export default function Health() {
   const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
 
   const getWeather = () => {
-    axios.get('https://dev-server2.cmi.kro.kr/weather').then((res) => console.log(res.data))
-  }
+  //   axios.get('/weather/data/2.5/weather?lat=44.34&lon=10.99&appid=b1881980ee6e26b7b5169e5eaec251e7').then((res) => console.log(res))
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=b1881980ee6e26b7b5169e5eaec251e7&units=metric`
+  
+    fetch(url).then((response) => response.json()).then((data) => {
+        console.log(data)
+      });
+    }
+  
 
-  getWeather()
+  
+
+  useEffect(() => {
+    getWeather()
+  }, [])
+
   return (
     <Wrapper colorGray>
       <Header>
@@ -46,8 +59,15 @@ export default function Health() {
               }
             }}
           />
-        )}
+        )} 
       </Header>
+      <ul onClick={(e) => console.log(e)}>
+        <li id='1' value="a">1</li>
+        <li id='2' value="b">2</li>
+        <li id='3' value="c">3</li>
+      </ul>
+      <HealthWeatherInfoBox />
+
       <FloatMenu />
     </Wrapper>
   )
