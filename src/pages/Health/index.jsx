@@ -18,6 +18,7 @@ export default function Health() {
   const [weatherData, setWeatherData] = useState(null)
   let [calendarOpen, setCalendarOpen] = useState(false)
   const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_KEY
+  const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
 
   const openCalendarHandler = () => {
     setCalendarOpen(!calendarOpen)
@@ -32,8 +33,6 @@ export default function Health() {
   function onGeoError() {
     console.log("위치를 찾지 못했습니다.")
   }  
-
-  const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
 
   const getWeather = async (lat, lng) => {
     const response = await weatherInstance(`/weather?lat=${lat}&lon=${lng}&appid=${WEATHER_API_KEY}`)
@@ -78,8 +77,12 @@ export default function Health() {
       {
         weatherData && <HealthWeatherInfoBox data={weatherData} />
       }
+      <Title content={"오늘의 운동"} sub >
+        <Button content={"수정 및 추가하기"} none />
+      </Title>
+      <div>
 
-      <Title sub content={"오늘의 운동"} />
+      </div>
 
       <FloatMenu />
     </Wrapper>
