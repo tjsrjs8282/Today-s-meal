@@ -42,7 +42,7 @@ export default function FoodToday() {
 
   const handleChangeTheme = useCallback(() => {
     if (theme === 'DARK') {
-      localStorage.setItem('theme', 'LIGHT')
+      localStorage.setItem('THEME', 'LIGHT')
       document.documentElement.setAttribute('data-theme', 'LIGHT')
       setTheme('LIGHT')
       return
@@ -116,7 +116,7 @@ export default function FoodToday() {
                 name={name}
                 value={value}
                 calorie={calorie}
-                image={image}
+                image={theme === 'LIGHT' ? image : darkImage}
                 food={food}
                 onClick={goFoodSearch}
                 key={id}

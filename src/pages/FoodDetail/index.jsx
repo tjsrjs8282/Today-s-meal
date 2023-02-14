@@ -22,38 +22,12 @@ import fatIcon from '@assets/ic-fat-normal.png'
 const FoodDetail = () => {
   const navigate = useNavigate()
   const [foodList, setFoodList] = useState([])
-  const [foodServingList, setFoodServingList] = useState([])
-  const [foodServing, setFoodServing] = useState('')
+  const [foodServingData, setFoodServingData] = useState([])
+  const [foodServingList, setFoodServingList] = useState({})
+  const [foodMeasurement, setFoodMeasurement] = useState('')
+  const [foodServingId, setFoodServingId] = useState(0)
   const [loading, setLoading] = useState(false)
-  const nameRadio = useRef([])
   const { id } = useParams()
-  console.log(foodServingList)
-  const test = [
-    {
-      id: 1,
-      name: '칼로리',
-      icon: kcalIcon,
-      unit: 'kcal',
-    },
-    {
-      id: 2,
-      name: '탄수화물',
-      icon: carbohydrateIcon,
-      unit: 'g',
-    },
-    {
-      id: 3,
-      name: '단백질',
-      icon: proteinIcon,
-      unit: 'g',
-    },
-    {
-      id: 4,
-      name: '지방',
-      icon: fatIcon,
-      unit: 'g',
-    },
-  ]
 
   const handleClickAdd = () => {
     console.log('handleClickAdd')
@@ -65,23 +39,29 @@ const FoodDetail = () => {
 
   async function getFatsecret() {
     setLoading(true)
-    await fatsecretInstance
-      .get(`?method=food.get.v2&format=json&food_id=${id}`)
-      .then((res) => {
-        setFoodList(res.data.food)
-        setFoodServingList(res.data.food.servings.serving)
-        // setFoodServing(res.data.food.servings.serving[0].measurement_description)
-      })
-      .catch((err) => console.log(err))
+    let res = await fatsecretInstance.get(`?method=food.get.v2&format=json&food_id=${id}`)
+    if (res.err) {
+      console.log(err)
+    }
+    const servingData = res.data.food.servings.serving
+    let arrCheck = Array.isArray(servingData) ? servingData : [servingData]
+    setFoodList(res.data.food)
+    setFoodServingData(arrCheck)
+    setFoodMeasurement(arrCheck[0].measurement_description)
+    setFoodServingList({
+      calories: arrCheck[0].calories,
+      carbohydrate: arrCheck[0].calories,
+      protein: arrCheck[0].protein,
+      fat: arrCheck[0].fat,
+    })
+    setFoodServingId(arrCheck[0].calories)
+
     setLoading(false)
   }
-
-  function filtergg(e) {
-    let filter = foodServingList.filter((v) => {
-      v.measurement_description === foodServing
-    })
-    console.log(foodServing)
-    // setFoodServingList(filter)
+  const handleInputChange = async (servingId) => {
+    let servingFilter = await foodServingData.filter((v) => v.serving_id === servingId)
+    let removeArray = { ...servingFilter[0] }
+    setFoodServingList(removeArray)
   }
 
   useEffect(() => {
@@ -93,28 +73,25 @@ const FoodDetail = () => {
       <Header>
         <IconButton kinds={'close'} onClick={goBack} />
       </Header>
-      <Title content={foodList.food_name} subContent={foodServing.serving_amount} />
+      <Title content={foodList.food_name} subContent={foodMeasurement} />
       <CountBox />
 
-      {Array.isArray(foodServingList) ? (
-        <RadioGroup label="surving" value={foodServing} onChange={setFoodServing}>
-          {foodServingList.map((surving, index) => {
-            return (
-              <Radio
-                name="surving"
-                value={surving.measurement_description}
-                key={index}
-                radioRef={(el) => (nameRadio.current[index] = el)}
-                tab
-              >
-                <p>{surving.measurement_description}</p>
-              </Radio>
-            )
-          })}
-        </RadioGroup>
-      ) : null}
-
-      {/*  */}
+      <RadioGroup label="surving" value={foodMeasurement} onChange={setFoodMeasurement}>
+        {foodServingData.map((surving, index) => {
+          return (
+            <Radio
+              name="surving"
+              value={surving.measurement_description}
+              servingId={surving.serving_id}
+              key={surving.index}
+              onClick={() => handleInputChange(surving.serving_id)}
+              tab
+            >
+              <p>{surving.measurement_description}</p>
+            </Radio>
+          )
+        })}
+      </RadioGroup>
 
       {loading ? (
         <Flex fontWhite whdth padding>
@@ -126,27 +103,6 @@ const FoodDetail = () => {
       ) : (
         <div className={$.info_box}>
           <Flex wrap between>
-            {/* {FOOD_DETAIL_INFO.map((foodInfo) => {
-            const { id } = foodInfo
-            return <FoodDetailInfo key={id} foodInfo={foodInfo} />
-          })} */}
-            {/* {test.map((data, index) => {
-            return (
-              <Flex padding radius shadow column start colorWhite whdth fontBlack marginBottom col2>
-                <Flex paddingBottom>
-                  <img src={data.icon} alt={data.name} />
-                </Flex>
-                <Flex marginTop column start>
-                  <p>{data.name}</p>
-                  <h2>
-                    {data.calories}
-                    <span className={$.unit}> {data.unit}</span>
-                  </h2>
-                </Flex>
-              </Flex>
-            )
-          })} */}
-
             <Flex padding radius shadow column start colorWhite whdth fontBlack marginBottom col2>
               <Flex paddingBottom>
                 <img src={kcalIcon} alt="칼로리" />
@@ -155,11 +111,7 @@ const FoodDetail = () => {
                 <p>칼로리</p>
 
                 <h2>
-                  {Array.isArray(foodServingList) ? (
-                    <>{foodServingList.calories}</>
-                  ) : (
-                    <>{foodServingList.calories}</>
-                  )}
+                  {foodServingList.calories}
                   <span className={$.unit}>kcal</span>
                 </h2>
               </Flex>
@@ -204,7 +156,6 @@ const FoodDetail = () => {
           </Flex>
         </div>
       )}
-      {/* {foodServing === '' && <p>단위를 선택해주세요.</p>} */}
       <Button content="식단추가" onClick={handleClickAdd} />
     </Wrapper>
   )
