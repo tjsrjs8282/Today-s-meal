@@ -13,6 +13,7 @@ import moment from 'moment'
 // import axios from 'axios'
 import HealthWeatherInfoBox from './HealthWeatherInfoBox'
 import { weatherInstance } from '@api/axiosInstance'
+import logoBg from '@assets/ic-logo-bg.png'
 export default function Health() {
   const [date, onDate] = useState(new Date())
   const [weatherData, setWeatherData] = useState(null)
@@ -37,7 +38,7 @@ export default function Health() {
   const getWeather = async (lat, lng) => {
     const response = await weatherInstance(`/weather?lat=${lat}&lon=${lng}&appid=${WEATHER_API_KEY}`)
     setWeatherData(response.data)
-    console.log(weatherData)
+    // console.log(weatherData)
 
     /**
      const url = `https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=b1881980ee6e26b7b5169e5eaec251e7&units=metric`
@@ -57,7 +58,10 @@ export default function Health() {
       <Header>
         <Flex width between>
           <HaederTitle content="운동일지 " />
-          <IconButton kinds="calendar" onClick={openCalendarHandler} />
+          <div className={$.header_icon_btn}>
+            <IconButton kinds="calendar" onClick={openCalendarHandler} />
+            <IconButton kinds={"plus"}/>
+          </div>
         </Flex>
         {calendarOpen && (
           <Calendar
@@ -73,6 +77,7 @@ export default function Health() {
             }}
           />
         )} 
+        
       </Header>
       {
         weatherData && <HealthWeatherInfoBox data={weatherData} />
@@ -80,9 +85,9 @@ export default function Health() {
       <Title content={"오늘의 운동"} sub >
         <Button content={"수정 및 추가하기"} none />
       </Title>
-      <div>
-
-      </div>
+      <ul className={$.health_list}>
+        <li className={$.empty_list}><img src={logoBg} alt="빈 접시" /></li>
+      </ul>
 
       <FloatMenu />
     </Wrapper>

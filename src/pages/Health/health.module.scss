@@ -1,1 +1,29 @@
 @import '@styles/shared.scss';
+.header_icon_btn {
+  svg {
+    margin-left: 1rem;
+  }
+}
+
+.health_list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: #fff;
+  border-radius: 15px;
+
+  li {
+    padding: 2rem;
+
+    &:not(.empty_list) {
+      width: 100%;
+    }
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+  }
+}
