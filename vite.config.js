@@ -12,13 +12,6 @@ export default defineConfig({
         secure: false,
         ws: true,
       },
-      '/weather': {
-        target: 'https://api.openweathermap.org/',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-        secure: false,
-        ws: true,
-      },
     },
   },
   resolve: {

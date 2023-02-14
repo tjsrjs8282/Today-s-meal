@@ -12,31 +12,45 @@ import Calendar from 'react-calendar'
 import moment from 'moment'
 import axios from 'axios'
 import HealthWeatherInfoBox from './HealthWeatherInfoBox'
-// import { weatherInstance } from '@api/axiosInstance'
+import { weatherInstance } from '@api/axiosInstance'
 export default function Health() {
   const [date, onDate] = useState(new Date())
+  const [weatherData, setWeatherData] = useState()
   let [calendarOpen, setCalendarOpen] = useState(false)
+  const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_KEY
 
   const openCalendarHandler = () => {
     setCalendarOpen(!calendarOpen)
   }
 
+  function onGeoOk(poistion) {
+    const lat = poistion.coords.latitude;
+    const lng = poistion.coords.longitude;
+    getWeather(lat, lng)
+  }
+  
+  function onGeoError() {
+    console.log("위치를 찾지 못했습니다.")
+  }  
+
   const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
 
-  const getWeather = () => {
-  //   axios.get('/weather/data/2.5/weather?lat=44.34&lon=10.99&appid=b1881980ee6e26b7b5169e5eaec251e7').then((res) => console.log(res))
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=b1881980ee6e26b7b5169e5eaec251e7&units=metric`
-  
-    fetch(url).then((response) => response.json()).then((data) => {
-        console.log(data)
-      });
-    }
-  
-
-  
+  const getWeather = async (lat, lng) => {
+    const response = await weatherInstance(`/weather?lat=${lat}&lon=${lng}&appid=${WEATHER_API_KEY}`)
+    console.log(response.data)
+    setWeatherData(response.data)
+    
+    /**
+     const url = `https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=b1881980ee6e26b7b5169e5eaec251e7&units=metric`
+     fetch(url).then((response) => response.json()).then((data) => {
+         console.log(data)
+       });
+     }
+     */
+  }
 
   useEffect(() => {
-    getWeather()
+    navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError)
   }, [])
 
   return (
