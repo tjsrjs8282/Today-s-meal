@@ -54,10 +54,12 @@ export default function FoodSearch() {
   const search = (e) => {
     if (e.key === 'Enter') {
       let keyword = e.target.value
+      getFatsecret(keyword)
     }
   }
 
   function getFatsecret(keyword) {
+    console.log('api')
     fatsecretInstance
       .get(
         `?method=foods.search&format=json&search_expression=${keyword}&page_number=0&max_results=10`
