@@ -10,22 +10,48 @@ import Button from '@components/Button'
 import FloatMenu from '@components/FloatMenu'
 import Calendar from 'react-calendar'
 import moment from 'moment'
-import axios from 'axios'
+// import axios from 'axios'
+import HealthWeatherInfoBox from './HealthWeatherInfoBox'
+import { weatherInstance } from '@api/axiosInstance'
 export default function Health() {
   const [date, onDate] = useState(new Date())
+  const [weatherData, setWeatherData] = useState(null)
   let [calendarOpen, setCalendarOpen] = useState(false)
+  const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_KEY
+  const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
 
   const openCalendarHandler = () => {
     setCalendarOpen(!calendarOpen)
   }
 
-  const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
+  function onGeoOk(poistion) {
+    const lat = poistion.coords.latitude;
+    const lng = poistion.coords.longitude;
+    getWeather(lat, lng)
+  }
+  
+  function onGeoError() {
+    console.log("위치를 찾지 못했습니다.")
+  }  
 
-  const getWeather = () => {
-    axios.get('https://dev-server2.cmi.kro.kr/weather').then((res) => console.log(res.data))
+  const getWeather = async (lat, lng) => {
+    const response = await weatherInstance(`/weather?lat=${lat}&lon=${lng}&appid=${WEATHER_API_KEY}`)
+    setWeatherData(response.data)
+    console.log(weatherData)
+
+    /**
+     const url = `https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=b1881980ee6e26b7b5169e5eaec251e7&units=metric`
+     fetch(url).then((response) => response.json()).then((data) => {
+         console.log(data)
+       });
+     }
+     */
   }
 
-  getWeather()
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError)
+  }, [])
+
   return (
     <Wrapper colorGray>
       <Header>
@@ -46,8 +72,18 @@ export default function Health() {
               }
             }}
           />
-        )}
+        )} 
       </Header>
+      {
+        weatherData && <HealthWeatherInfoBox data={weatherData} />
+      }
+      <Title content={"오늘의 운동"} sub >
+        <Button content={"수정 및 추가하기"} none />
+      </Title>
+      <div>
+
+      </div>
+
       <FloatMenu />
     </Wrapper>
   )

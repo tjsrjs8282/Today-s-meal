@@ -150,4 +150,10 @@
   &.path {
     cursor: pointer;
   }
+  &.order1 {
+    order: 1;
+  }
+  &.order2 {
+    order: 2;
+  }
 }

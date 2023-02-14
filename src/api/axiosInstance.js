@@ -38,3 +38,8 @@ fatsecretInstance.defaults.baseURL = '/api/rest/server.api'
 fatsecretInstance.defaults.headers = {
   Authorization: 'Bearer ' + import.meta.env.VITE_FATSECRET_TOKEN,
 }
+
+export const weatherInstance = Axios.create({
+  baseURL: 'https://api.openweathermap.org/data/2.5',
+  timeout: 5000,
+})

@@ -1,0 +1,33 @@
+article {
+  overflow: hidden;
+  margin-top: 2rem;
+  background: linear-gradient(90deg, #1AB42C 0%, #56D34C 100%);;
+  border-radius: 15px;
+  color: #fff;
+
+  .temp {
+    font-size: 5rem;
+    font-weight: 200;
+    line-height: 1;
+  }
+
+  .sub_info {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba($color: #000000, $alpha: 0.2);
+
+    li {
+      padding: 1rem;
+      width: 33.33%; 
+      text-align: center;
+      color: #fff;
+      border-right: 1px solid rgba($color: #000000, $alpha: 0.1);
+
+      &:last-child {
+        border: none;
+      }
+    }
+  }
+}
+
+// 1AB42C - 56D34C
