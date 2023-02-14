@@ -79,6 +79,8 @@ export default function Health() {
         weatherData && <HealthWeatherInfoBox data={weatherData} />
       }
 
+      <Title sub content={"오늘의 운동"} />
+
       <FloatMenu />
     </Wrapper>
   )

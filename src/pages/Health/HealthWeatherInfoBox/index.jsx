@@ -30,15 +30,18 @@ function HealthWeatherInfoBox ({ data }) {
   
   return (
     <article>
-      <Flex>
-        <Flex column>
-          <h2 className='blind'>오늘의 날씨</h2>
-          <IconButton kinds={"sun"} />
-          <p>{main}</p>
-        </Flex>
-        <Flex>
-          <h3><span className='blind'>현재 온도</span>{Math.round(temp - WEATHER_STANDARD)}°</h3>
-          <p>운동하기 너무 좋은 날씨입니다. 오늘은 야외 운동을 추천해요!</p>
+      <Flex column>
+        <Flex between padding width>
+          <Flex column order2>
+            <h2 className='blind'>오늘의 날씨</h2>
+            <IconButton kinds={"sun"} />
+            <p>{main}</p>
+          </Flex>
+          <Flex column start order1>
+            <h3 className={$.temp}><span className='blind'>현재 온도</span>{Math.round(temp - WEATHER_STANDARD)}°</h3>
+            <p>운동하기 너무 좋은 날씨입니다.</p>
+            <p>오늘은 야외 운동을 추천해요!</p>
+          </Flex>
         </Flex>
       </Flex>
       
