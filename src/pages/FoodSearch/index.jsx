@@ -17,6 +17,18 @@ export default function FoodSearch() {
   const [foodList, setFoodList] = useState([])
   const inputRef = useRef(null)
   const navigate = useNavigate()
+  const randomFootList = [
+    'Beans',
+    'Milk',
+    'Breads',
+    'Fast',
+    'Fruit',
+    'Meat',
+    'Salads',
+    'Pasta',
+    'Desserts',
+    'Snacks',
+  ]
 
   const handleInputChange = useCallback(
     (e) => {
@@ -38,19 +50,6 @@ export default function FoodSearch() {
     navigate('../today')
   }
 
-  const randomFootList = [
-    'Beans',
-    'Milk',
-    'Breads',
-    'Fast',
-    'Fruit',
-    'Meat',
-    'Salads',
-    'Pasta',
-    'Desserts',
-    'Snacks',
-  ]
-
   const search = (e) => {
     if (e.key === 'Enter') {
       let keyword = e.target.value
@@ -58,22 +57,21 @@ export default function FoodSearch() {
     }
   }
 
-  function getFatsecret(keyword) {
+  function getFatsecret(a) {
     console.log('api')
     fatsecretInstance
-      .get(
-        `?method=foods.search&format=json&search_expression=${keyword}&page_number=0&max_results=10`
-      )
+      .get(`?method=foods.search&format=json&search_expression=${a}&page_number=0&max_results=10`)
       .then((res) => setFoodList(res.data.foods.food))
       .catch((err) => console.log(err))
+    setSearchFood(a)
     // fatsecretInstance.then((res) => console.log(res)).catch((err) => console.log(err))
   }
 
   console.log(foodList)
 
   useEffect(() => {
-    let keyword = randomFootList[~~(Math.random() * 10)]
-    getFatsecret(keyword)
+    let a = randomFootList[~~(Math.random() * 10)]
+    getFatsecret(a)
   }, [])
 
   if (!isSearchData) {
@@ -126,7 +124,7 @@ export default function FoodSearch() {
       <div className={$.food_list}>
         {foodList.map((foodData) => {
           const { food_id } = foodData
-          console.log(food_id)
+          // console.log(food_id)
           return (
             <FoodSearchListItem
               key={food_id}
