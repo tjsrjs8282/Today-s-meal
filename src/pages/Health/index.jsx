@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import $ from './health.module.scss'
 import Wrapper from '@components/Wrapper'
 import Flex from '@components/Flex'
@@ -14,24 +15,26 @@ import moment from 'moment'
 import HealthWeatherInfoBox from './HealthWeatherInfoBox'
 import { weatherInstance } from '@api/axiosInstance'
 import logoBg from '@assets/ic-logo-bg.png'
+
 export default function Health() {
   const [date, onDate] = useState(new Date())
   const [weatherData, setWeatherData] = useState(null)
   let [calendarOpen, setCalendarOpen] = useState(false)
   const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_KEY
+  const navigate = useNavigate()
   const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
 
   const openCalendarHandler = () => {
     setCalendarOpen(!calendarOpen)
   }
 
-  function onGeoOk(poistion) {
+  const onGeoOk = (poistion) => {
     const lat = poistion.coords.latitude;
     const lng = poistion.coords.longitude;
     getWeather(lat, lng)
   }
   
-  function onGeoError() {
+  const onGeoError = () => {
     console.log("위치를 찾지 못했습니다.")
   }  
 
@@ -53,6 +56,10 @@ export default function Health() {
     navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError)
   }, [])
 
+  const goHealthAdd = () => {
+    navigate('add')
+  }
+
   return (
     <Wrapper colorGray>
       <Header>
@@ -60,7 +67,7 @@ export default function Health() {
           <HaederTitle content="운동일지 " />
           <div className={$.header_icon_btn}>
             <IconButton kinds="calendar" onClick={openCalendarHandler} />
-            <IconButton kinds={"plus"}/>
+            <IconButton kinds={"plus"} onClick={goHealthAdd}/>
           </div>
         </Flex>
         {calendarOpen && (
@@ -83,7 +90,7 @@ export default function Health() {
         weatherData && <HealthWeatherInfoBox data={weatherData} />
       }
       <Title content={"오늘의 운동"} sub >
-        <Button content={"수정 및 추가하기"} none />
+        <Button content={"수정 및 추가하기"} none onClick={goHealthAdd} />
       </Title>
       <ul className={$.health_list}>
         <li className={$.empty_list}><img src={logoBg} alt="빈 접시" /></li>
