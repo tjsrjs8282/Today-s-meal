@@ -8,15 +8,18 @@ import Header from '@components/Header'
 import HeaderTitle from '@components/HeaderTitle'
 import IconButton from '@components/IconButton'
 import InputSearch from '@components/InputSearch'
+import RadioGroup from '@components/RadioGroup'
+import Radio from '@components/Radio'
 import FoodSearchListItem from './FoodSearchListItem'
 import { fatsecretInstance } from '@api/axiosInstance'
+
 export default function FoodSearch() {
-  const [value, onChange] = useState(new Date())
+  const [date, setDate] = useState(new Date())
   const [searchFood, setSearchFood] = useState('')
-  const [isSearchData, setIsSearchData] = useState(true)
   const [foodList, setFoodList] = useState([])
   const inputRef = useRef(null)
   const navigate = useNavigate()
+  const [clickable, setClickable] = useState(true)
   const randomFootList = [
     'Beans',
     'Milk',
@@ -57,30 +60,47 @@ export default function FoodSearch() {
     }
   }
 
-  function getFatsecret(a) {
-    console.log('api')
-    fatsecretInstance
-      .get(`?method=foods.search&format=json&search_expression=${a}&page_number=0&max_results=10`)
-      .then((res) => setFoodList(res.data.foods.food))
-      .catch((err) => console.log(err))
-    setSearchFood(a)
+  const handleRadioChange = async (e) => {
+    if (clickable) {
+      setClickable(false)
+      const setValue = await e.target.value
+      getFatsecret(setValue)
+      setTimeout(() => {
+        setClickable(true)
+      }, 1000)
+    }
+    return
+  }
+
+  async function getFatsecret(keword) {
+    let res = await fatsecretInstance.get(
+      `?method=foods.search&format=json&search_expression=${keword}&page_number=0&max_results=15`
+    )
+    if (res.err) {
+      console.log(err)
+      return
+    }
+    setFoodList(res.data.foods.food)
+    setSearchFood(keword)
+
     // fatsecretInstance.then((res) => console.log(res)).catch((err) => console.log(err))
   }
 
   console.log(foodList)
-
+  console.log(searchFood)
   useEffect(() => {
-    let a = randomFootList[~~(Math.random() * 10)]
-    getFatsecret(a)
+    let randomKeyword = randomFootList[~~(Math.random() * 10)]
+
+    getFatsecret(randomKeyword)
   }, [])
 
-  if (!isSearchData) {
+  if (!foodList) {
     return (
       <Wrapper colorGray>
         <Header>
           <Flex column start width>
             <Flex between>
-              <HeaderTitle content="아침식사" dates={value} />
+              <HeaderTitle content="아침식사" date={date} />
               <IconButton kinds="close" onClick={goBack} />
             </Flex>
             <InputSearch
@@ -95,8 +115,26 @@ export default function FoodSearch() {
             />
           </Flex>
         </Header>
+        <Flex marginTop>
+          <RadioGroup label="surving" value={searchFood} onChange={setSearchFood}>
+            {randomFootList.map((surving, index) => {
+              return (
+                <Radio
+                  name="surving"
+                  value={surving}
+                  key={index}
+                  onClick={(e) => handleRadioChange(e)}
+                  tab
+                >
+                  <p>{surving}</p>
+                </Radio>
+              )
+            })}
+          </RadioGroup>
+        </Flex>
         <div className={$.empty_box}>
           <img src={logoBg} alt="빈접시" />
+          <p>검색명과 일치하는 음식이 없습니다.</p>
         </div>
       </Wrapper>
     )
@@ -106,7 +144,7 @@ export default function FoodSearch() {
       <Header>
         <Flex column start width>
           <Flex between width>
-            <HeaderTitle content="아침식사" dates={value} />
+            <HeaderTitle content="아침식사" dates={date} />
             <IconButton kinds="close" onClick={goBack} />
           </Flex>
           <InputSearch
@@ -121,6 +159,23 @@ export default function FoodSearch() {
           />
         </Flex>
       </Header>
+      <Flex marginTop>
+        <RadioGroup label="surving" value={searchFood} onChange={setSearchFood}>
+          {randomFootList.map((surving, index) => {
+            return (
+              <Radio
+                name="surving"
+                value={surving}
+                key={index}
+                onClick={(e) => handleRadioChange(e)}
+                tab
+              >
+                <p>{surving}</p>
+              </Radio>
+            )
+          })}
+        </RadioGroup>
+      </Flex>
       <div className={$.food_list}>
         {foodList.map((foodData) => {
           const { food_id } = foodData

@@ -42,6 +42,7 @@ const FoodDetail = () => {
     let res = await fatsecretInstance.get(`?method=food.get.v2&format=json&food_id=${id}`)
     if (res.err) {
       console.log(err)
+      return
     }
     const servingData = res.data.food.servings.serving
     let arrCheck = Array.isArray(servingData) ? servingData : [servingData]
