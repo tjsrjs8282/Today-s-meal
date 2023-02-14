@@ -10,12 +10,12 @@ import Button from '@components/Button'
 import FloatMenu from '@components/FloatMenu'
 import Calendar from 'react-calendar'
 import moment from 'moment'
-import axios from 'axios'
+// import axios from 'axios'
 import HealthWeatherInfoBox from './HealthWeatherInfoBox'
 import { weatherInstance } from '@api/axiosInstance'
 export default function Health() {
   const [date, onDate] = useState(new Date())
-  const [weatherData, setWeatherData] = useState()
+  const [weatherData, setWeatherData] = useState(null)
   let [calendarOpen, setCalendarOpen] = useState(false)
   const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_KEY
 
@@ -37,9 +37,9 @@ export default function Health() {
 
   const getWeather = async (lat, lng) => {
     const response = await weatherInstance(`/weather?lat=${lat}&lon=${lng}&appid=${WEATHER_API_KEY}`)
-    console.log(response.data)
     setWeatherData(response.data)
-    
+    console.log(weatherData)
+
     /**
      const url = `https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=b1881980ee6e26b7b5169e5eaec251e7&units=metric`
      fetch(url).then((response) => response.json()).then((data) => {
@@ -75,12 +75,9 @@ export default function Health() {
           />
         )} 
       </Header>
-      <ul onClick={(e) => console.log(e)}>
-        <li id='1' value="a">1</li>
-        <li id='2' value="b">2</li>
-        <li id='3' value="c">3</li>
-      </ul>
-      <HealthWeatherInfoBox />
+      {
+        weatherData && <HealthWeatherInfoBox data={weatherData} />
+      }
 
       <FloatMenu />
     </Wrapper>

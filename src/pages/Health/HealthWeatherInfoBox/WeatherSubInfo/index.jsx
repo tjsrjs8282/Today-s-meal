@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-export default function WeatherSubInfo () {
+function WeatherSubInfo ({ weather }) {
+  const {title, data} = weather
+  console.log(weather)
   return (
     <li>
-      <p>체감온도</p>
-      <span>20</span>
-  </li>
+      <p>{title}</p>
+      <span>{data}</span>
+    </li>
   );
 };
+export default memo(WeatherSubInfo)
