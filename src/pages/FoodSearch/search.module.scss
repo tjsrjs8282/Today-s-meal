@@ -8,8 +8,14 @@
 .empty_box {
   display: flex;
   justify-content: center;
-  padding-top: 22vh;
-
+  align-items: center;
+  flex-direction: column;
+  padding-top: 18vh;
+  p {
+    color: var(--siteColorBlack);
+    margin-top: 2rem;
+    font-size: 1.2rem;
+  }
   img {
     width: 50%;
   }

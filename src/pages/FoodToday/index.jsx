@@ -14,22 +14,82 @@ import moment from 'moment'
 import FoodTodaySummary from './FoodTodaySummary'
 import FoodTodayRecord from './FoodTodayRecord'
 import FloatMenu from '@components/FloatMenu'
-import dayjs from 'dayjs'
+
+import Morning from '@assets/ic-morning-normal.png'
+import Lunch from '@assets/ic-lunch-normal.png'
+import Dinner from '@assets/ic-dinner-normal.png'
+import Snack from '@assets/ic-snack-normal.png'
+import DarkMorning from '@assets/ic-morning-white.png'
+import DarkLunch from '@assets/ic-lunch-white.png'
+import DarkDinner from '@assets/ic-dinner-white.png'
+import DarkSnack from '@assets/ic-snack-white.png'
+
 import { FOOD_TODAY_SUMMARY } from './FoodTodaySummary/constants'
 import { FOOD_TODAY_RECORD } from './FoodTodayRecord/constants'
-import { themeState } from '@store'
+import { themeState, dateState, partState } from '@store'
 import { useRecoilState } from 'recoil'
+import { localStorageService } from '@utils/localStorage.service'
 
 export default function FoodToday() {
   const [theme, setTheme] = useRecoilState(themeState)
-  const [date, onDate] = useState(new Date())
+  const [date, setDate] = useRecoilState(dateState)
+  const [partRecoil, setPartRecoil] = useRecoilState(partState)
+  const [todayFoods, setTodayFoods] = useState([
+    [
+      {
+        calories: 0,
+        carbohydrate: 0,
+        date: 'Loding...',
+        fat: 0,
+        name: 'Loding...',
+        part: 'Loding...',
+        protein: 0,
+      },
+    ],
+    [
+      {
+        calories: 0,
+        carbohydrate: 0,
+        date: 'Loding...',
+        fat: 0,
+        name: 'Loding...',
+        part: 'Loding...',
+        protein: 0,
+      },
+    ],
+    [
+      {
+        calories: 0,
+        carbohydrate: 0,
+        date: 'Loding...',
+        fat: 0,
+        name: 'Loding...',
+        part: 'Loding...',
+        protein: 0,
+      },
+    ],
+    [
+      {
+        calories: 0,
+        carbohydrate: 0,
+        date: 'Loding...',
+        fat: 0,
+        name: 'Loding...',
+        part: 'Loding...',
+        protein: 0,
+      },
+    ],
+  ])
   let [calendarOpen, setCalendarOpen] = useState(false)
   const modalRaf = useRef()
   const navigate = useNavigate()
 
+  const parts = ['아침 식사', '점심 식사', '저녁 식사', '간식']
   const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
 
-  const goFoodSearch = () => {
+  const goFoodSearch = (name) => {
+    setPartRecoil(name)
+    localStorageService().set('PART', name)
     navigate('/search')
   }
   const goFoodDetail = () => {
@@ -42,17 +102,36 @@ export default function FoodToday() {
 
   const handleChangeTheme = useCallback(() => {
     if (theme === 'DARK') {
-      localStorage.setItem('THEME', 'LIGHT')
+      localStorageService().set('THEME', 'LIGHT')
       document.documentElement.setAttribute('data-theme', 'LIGHT')
       setTheme('LIGHT')
       return
     }
-    localStorage.setItem('THEME', 'DARK')
+    localStorageService().set('THEME', 'DARK')
     document.documentElement.setAttribute('data-theme', 'DARK')
     setTheme('DARK')
   }, [theme])
 
+  async function sessionFoodsList() {
+    let partFoodArray = []
+    const session = await localStorageService().get('FOODS')
+    // let monigFilter = await session.filter((data) => data.part === '아침 식사')
+    // let LunchFilter = await session.filter((data) => data.part === '점심 식사')
+    // let DinnerFilter = await session.filter((data) => data.part === '저녁 식사')
+    // let SnackFilter = await session.filter((data) => data.part === '간식')
+    // setTodayFoods([monigFilter, LunchFilter, DinnerFilter, SnackFilter])
+    for (let i = 0; i < parts.length; i++) {
+      let partFilter = session.filter((data) => data.part === parts[i])
+      partFoodArray.push(partFilter)
+      setTodayFoods(partFoodArray)
+    }
+  }
+  console.log(todayFoods)
+
   console.log(theme)
+  useEffect(() => {
+    sessionFoodsList()
+  }, [])
 
   useEffect(() => {
     const clickOutside = (e) => {
@@ -80,7 +159,7 @@ export default function FoodToday() {
         </Flex>
         {calendarOpen && (
           <Calendar
-            onChange={onDate}
+            onChange={setDate}
             value={date}
             onFocus={() => {
               setCalendarOpen(true)
@@ -108,7 +187,7 @@ export default function FoodToday() {
       <Title content="기록" sub />
       <div className={$.record_box}>
         <Flex wrap column>
-          {FOOD_TODAY_RECORD.map((record) => {
+          {/* {FOOD_TODAY_RECORD.map((record) => {
             const { name, value, calorie, image, darkImage, food, id } = record
 
             return (
@@ -118,11 +197,127 @@ export default function FoodToday() {
                 calorie={calorie}
                 image={theme === 'LIGHT' ? image : darkImage}
                 food={food}
-                onClick={goFoodSearch}
+                onClick={() => goFoodSearch(name)}
                 key={id}
               />
             )
-          })}
+          })} */}
+
+          <Flex width colorWhite radius padding marginBottom column shadow>
+            <Flex between width marginBottom>
+              <Flex>
+                <img src={theme === `LIGHT` ? Morning : DarkMorning} alt="아침식사" />
+                <Flex column start>
+                  <h2>아침 식사</h2>
+                  <p>총 개수 : 1 개 | 총 칼로리 : 1 kcal</p>
+                </Flex>
+              </Flex>
+              <IconButton kinds="add" onClick={() => goFoodSearch()} />
+            </Flex>
+            {todayFoods[0].map((foods) => {
+              return (
+                <Flex colorGray width radius padding marginBottom>
+                  <Flex column gray start width>
+                    <h3>{foods.name}</h3>
+                    <p>
+                      갯수 : 1 개 | 사이즈 : slice
+                      <br />
+                      칼로리 : {foods.calories} kcal | 탄수화물 : {foods.carbohydrate} g<br />
+                      단백질 : {foods.protein} g | 지방 : {foods.calories} kcal
+                    </p>
+                  </Flex>
+                  <IconButton kinds="close2" />
+                </Flex>
+              )
+            })}
+          </Flex>
+
+          <Flex width colorWhite radius padding marginBottom column shadow>
+            <Flex between width marginBottom>
+              <Flex>
+                <img src={theme === `LIGHT` ? Lunch : DarkLunch} alt="점심 식사" />
+                <Flex column start>
+                  <h2>점심 식사</h2>
+                  <p>총 개수 : 1 개 | 총 칼로리 : 1 kcal</p>
+                </Flex>
+              </Flex>
+              <IconButton kinds="add" onClick={() => goFoodSearch()} />
+            </Flex>
+            {todayFoods[1].map((foods) => {
+              return (
+                <Flex colorGray width radius padding marginBottom>
+                  <Flex column gray start width>
+                    <h3>{foods.name}</h3>
+                    <p>
+                      갯수 : 1 개 | 사이즈 : slice
+                      <br />
+                      칼로리 : {foods.calories} kcal | 탄수화물 : {foods.carbohydrate} g<br />
+                      단백질 : {foods.protein} g | 지방 : {foods.calories} kcal
+                    </p>
+                  </Flex>
+                  <IconButton kinds="close2" />
+                </Flex>
+              )
+            })}
+          </Flex>
+
+          <Flex width colorWhite radius padding marginBottom column shadow>
+            <Flex between width marginBottom>
+              <Flex>
+                <img src={theme === `LIGHT` ? Dinner : DarkDinner} alt="저녁 식사" />
+                <Flex column start>
+                  <h2>저녁 식사</h2>
+                  <p>총 개수 : 1 개 | 총 칼로리 : 1 kcal</p>
+                </Flex>
+              </Flex>
+              <IconButton kinds="add" onClick={() => goFoodSearch('저녁 식사')} />
+            </Flex>
+            {todayFoods[2].map((foods) => {
+              return (
+                <Flex colorGray width radius padding marginBottom>
+                  <Flex column gray start width>
+                    <h3>{foods.name}</h3>
+                    <p>
+                      갯수 : 1 개 | 사이즈 : slice
+                      <br />
+                      칼로리 : {foods.calories} kcal | 탄수화물 : {foods.carbohydrate} g<br />
+                      단백질 : {foods.protein} g | 지방 : {foods.calories} kcal
+                    </p>
+                  </Flex>
+                  <IconButton kinds="close2" />
+                </Flex>
+              )
+            })}
+          </Flex>
+
+          <Flex width colorWhite radius padding marginBottom column shadow>
+            <Flex between width marginBottom>
+              <Flex>
+                <img src={theme === `LIGHT` ? Snack : DarkSnack} alt="간식" />
+                <Flex column start>
+                  <h2>간식</h2>
+                  <p>총 개수 : 1 개 | 총 칼로리 : 1 kcal</p>
+                </Flex>
+              </Flex>
+              <IconButton kinds="add" onClick={() => goFoodSearch('간식')} />
+            </Flex>
+            {todayFoods[3].map((foods) => {
+              return (
+                <Flex colorGray width radius padding marginBottom>
+                  <Flex column gray start width>
+                    <h3>{foods.name}</h3>
+                    <p>
+                      갯수 : 1 개 | 사이즈 : slice
+                      <br />
+                      칼로리 : {foods.calories} kcal | 탄수화물 : {foods.carbohydrate} g<br />
+                      단백질 : {foods.protein} g | 지방 : {foods.calories} kcal
+                    </p>
+                  </Flex>
+                  <IconButton kinds="close2" />
+                </Flex>
+              )
+            })}
+          </Flex>
         </Flex>
       </div>
       <FloatMenu />
