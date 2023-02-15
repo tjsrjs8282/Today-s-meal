@@ -4,7 +4,17 @@ import $ from './radio.module.scss'
 import classNames from 'classnames/bind'
 const cx = classNames.bind($)
 
-export default function Radio({ children, value, tab, name, title, onClick, radioRef, disabled }) {
+export default function Radio({
+  children,
+  value,
+  tab,
+  name,
+  servingId,
+  title,
+  onClick,
+  radioRef,
+  disabled,
+}) {
   const group = useContext(RadioContext)
 
   return (
@@ -16,6 +26,7 @@ export default function Radio({ children, value, tab, name, title, onClick, radi
         value={value}
         title={title}
         name={name}
+        servingId={servingId}
         ref={radioRef}
         onClick={onClick}
         disabled={disabled || group.disabled}

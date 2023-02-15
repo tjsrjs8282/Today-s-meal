@@ -100,7 +100,7 @@ export default function FoodSearch() {
         <Header>
           <Flex column start width>
             <Flex between>
-              <HeaderTitle content="아침식사" date={date} />
+              <HeaderTitle />
               <IconButton kinds="close" onClick={goBack} />
             </Flex>
             <InputSearch
@@ -144,7 +144,7 @@ export default function FoodSearch() {
       <Header>
         <Flex column start width>
           <Flex between width>
-            <HeaderTitle content="아침식사" dates={date} />
+            <HeaderTitle />
             <IconButton kinds="close" onClick={goBack} />
           </Flex>
           <InputSearch
