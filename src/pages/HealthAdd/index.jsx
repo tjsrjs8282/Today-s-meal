@@ -10,16 +10,23 @@ import IconButton from '@components/IconButton'
 import Input from '@components/Input'
 import { HEALTH_INFO } from './constants'
 import HealthCheckBox from './HealthCheckBox'
+import Healthform from './HealthForm'
 
 const initialState = {
+  // 횟수, 무게, 세트, 시간
   tabData: [true, false, false, false],
+  count: 0,
+  weight: 0,
+  set: 0,
+  time: ''
 }
 
-export const OPEN_TAB = "OPEN_TAB"
+export const CHANGE_TAB = "CHANGE_TAB"
+export const ADD_EXERCISE = "ADD_EXERCISE"
 
 const reducer = (state, action) => {
   switch(action.type) {
-    case OPEN_TAB: {
+    case CHANGE_TAB: {
       const tabData = [...state.tabData]
       tabData[action.index] = action.checked;
       return {
@@ -27,20 +34,28 @@ const reducer = (state, action) => {
         tabData
       }
     }
+    case ADD_EXERCISE: {
+      console.log(state)
+      const count = action.count
+      const weight = action.weight
+      const set = action.set
+      const time = action.time
+      return {
+        ...state,
+        count,
+        weight,
+        set,
+        time
+      }
+    }
   }
 }
 
 export default function HealthAdd() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [inputs, setInputs] = useState({
-    exerciseName: '',
-    count: '',
-    weight: '',
-    set: '',
-    time: ''
-  })
+  const [exerciseName, setExerciseName] = useState('')
+  console.log(state)
 
-  const { exerciseName, count, weight, set, time } = inputs
   const navigate = useNavigate()
   // const checkRef = useRef(null)
 
@@ -49,9 +64,8 @@ export default function HealthAdd() {
   }, [])
 
   const handleInputChange = useCallback((e) => {
-    const { name, value } = e.target
-    setInputs({ ...inputs, [name]: value })
-  }, [inputs])
+    setExerciseName(e.target.value)
+  }, [])
 
   return (
       <Wrapper colorGray>
@@ -73,7 +87,7 @@ export default function HealthAdd() {
             onChange={handleInputChange}
             unit={<IconButton kinds={'closeCircle'} onClick={() => {}} />}
           />
-            <Flex>
+            <Flex start marginTop>
               {
                 HEALTH_INFO.map((healthInfo, idx) => (
                   <HealthCheckBox
@@ -83,39 +97,10 @@ export default function HealthAdd() {
                     index={idx}
                     isCheck={state.tabData[idx]}
                   />
-                )
-                )
+                ))
               }
             </Flex>
-
-            <Flex width between>
-              <div>
-                <Title content="횟수" sub />
-                <Input
-                  type="number"
-                  placeholder="0"
-                  name="count"
-                  title="횟수"
-                  value={count}
-                  // inputRef={(el) => (nameInput.current[0] = el)}
-                  onChange={handleInputChange}
-                  unit={"kg"}
-                />
-              </div>
-              <div>
-                <Title content="무게" sub />
-                <Input
-                  type="number"
-                  placeholder="0"
-                  name="weight"
-                  title="무게"
-                  value={weight}
-                  // inputRef={(el) => (nameInput.current[0] = el)}
-                  onChange={handleInputChange}
-                  unit={"kg"}
-                />
-              </div>
-            </Flex>          
+            <Healthform state={state} dispatch={dispatch} onChange={handleInputChange} />
         </div>
       </Wrapper>
   )
