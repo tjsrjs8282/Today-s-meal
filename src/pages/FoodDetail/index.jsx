@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import $ from './foodDetail.module.scss'
 import Wrapper from '@components/Wrapper'
@@ -108,13 +108,18 @@ const FoodDetail = () => {
     getFatsecret()
   }, [])
 
+  const handleChangeInput = useCallback((e) => {
+    setFoodCount(Number(e.target.value))
+  }, [])
+
+
   return (
     <Wrapper>
       <Header>
         <IconButton kinds={'close'} onClick={goBack} />
       </Header>
       <Title content={foodList.food_name} subContent={foodMeasurement} />
-      <CountBox />
+      <CountBox onChange={handleChangeInput}/>
 
       <RadioGroup label="surving" value={foodMeasurement} onChange={setFoodMeasurement}>
         {foodServingData.map((surving, index) => {

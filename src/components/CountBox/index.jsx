@@ -5,7 +5,7 @@ import IconButton from '@components/IconButton'
 import { useRef } from 'react'
 import { useCallback } from 'react'
 
-export default function CountBox() {
+export default function CountBox({onChange}) {
   const [foodCount, setFoodCount] = useState(1)
   const [minusColor, setMinusColor] = useState('minusGray')
   const inputRef = useRef(null)
@@ -17,10 +17,6 @@ export default function CountBox() {
       setMinusColor('minusGray')
     }
   }, [foodCount])
-
-  const handleChangeInput = useCallback((e) => {
-    setFoodCount(Number(e.target.value))
-  }, [])
 
   const handleInputCheck = useCallback((e) => {
     e.preventDefault()
@@ -52,7 +48,7 @@ export default function CountBox() {
             className={$.count}
             value={foodCount || ''}
             ref={inputRef}
-            onChange={handleChangeInput}
+            onChange={onChange}
           />
         </form>
         <button onClick={() => handleClickButton('plus')}>
