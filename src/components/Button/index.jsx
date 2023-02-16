@@ -13,6 +13,7 @@ export default function Button({
   border,
   nonefixed,
   noneBackground,
+  marginTop
 }) {
   return (
     <button
@@ -23,6 +24,7 @@ export default function Button({
         border,
         nonefixed,
         noneBackground,
+        marginTop
       })}
       onClick={onClick}
     >
