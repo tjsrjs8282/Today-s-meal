@@ -41,7 +41,6 @@ export default function Health() {
   const getWeather = async (lat, lng) => {
     const response = await weatherInstance(`/weather?lat=${lat}&lon=${lng}&appid=${WEATHER_API_KEY}`)
     setWeatherData(response.data)
-    // console.log(weatherData)
 
     /**
      const url = `https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=b1881980ee6e26b7b5169e5eaec251e7&units=metric`
