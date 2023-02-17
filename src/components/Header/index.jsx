@@ -1,6 +1,17 @@
-import React from 'react'
+import React, { createRef, useRef } from 'react'
 import $ from './header.module.scss'
 
 export default function Header({ children }) {
-  return <div className={$.header}>{children}</div>
+  const headers = useRef()
+
+  // console.log(headers.current.offsetHeight)
+
+  return (
+    <>
+      <div className={$.header} ref={headers}>
+        {children}
+      </div>
+      <div></div>
+    </>
+  )
 }

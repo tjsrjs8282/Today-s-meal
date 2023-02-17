@@ -206,13 +206,13 @@ export default function FoodToday() {
           <Flex width colorWhite radius padding marginBottom column shadow>
             <Flex between width marginBottom>
               <Flex>
-                <img src={theme === `LIGHT` ? Morning : DarkMorning} alt="아침식사" />
+                <img src={theme === `LIGHT` ? Morning : DarkMorning} alt="아침 식사" />
                 <Flex column start>
                   <h2>아침 식사</h2>
                   <p>총 개수 : 1 개 | 총 칼로리 : 1 kcal</p>
                 </Flex>
               </Flex>
-              <IconButton kinds="add" onClick={() => goFoodSearch()} />
+              <IconButton kinds="add" onClick={() => goFoodSearch('아침 식사')} />
             </Flex>
             {todayFoods[0].map((foods) => {
               return (
@@ -241,7 +241,7 @@ export default function FoodToday() {
                   <p>총 개수 : 1 개 | 총 칼로리 : 1 kcal</p>
                 </Flex>
               </Flex>
-              <IconButton kinds="add" onClick={() => goFoodSearch()} />
+              <IconButton kinds="add" onClick={() => goFoodSearch('점심 식사')} />
             </Flex>
             {todayFoods[1].map((foods) => {
               return (
