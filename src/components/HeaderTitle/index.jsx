@@ -7,7 +7,7 @@ import { localStorageService } from '@utils/localStorage.service'
 
 const weeks = ['일', '월', '화', '수', '목', '금', '토']
 
-const HeaderTitle = memo(({ content }) => {
+const HeaderTitle = memo(({ content, subContent }) => {
   const dateRecoil = useRecoilValue(dateState)
   const partRecoil = useRecoilValue(partState)
   const date = dayjs(dateRecoil).format(`MM월 DD일 ${weeks[dayjs(dateRecoil).get('d')]}요일`)
@@ -24,7 +24,7 @@ const HeaderTitle = memo(({ content }) => {
     <Flex column start>
       {content ? <h2>{content}</h2> : <h2>{partRecoil}</h2>}
 
-      <p>{date}</p>
+      {subContent ? <p>{subContent}</p> : <p>{date}</p>}
     </Flex>
   )
 })
