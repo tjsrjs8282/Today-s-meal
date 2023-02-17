@@ -5,13 +5,19 @@ import Input from "@components/Input"
 import CountBox from "@components/CountBox"
 
 export default function HealthInput ({title, name, value, onChange, isCount, count, isTime, dispatch }) {
-  // dispatch({type: CHANGE_COUNT, count: foodCount})
+  const [minute, setMinute] = useState(0)
+  const [second, setSecond] = useState(0)
   
+
   if (isTime) {
     return (
       <div className={$.input_box}>
         <Title content={title} sub />
-        <CountBox count={count}/>
+        <div className={$.time_box}>
+          <input type="number" value={minute}/>
+          <span>:</span>
+          <input type="number" value={second}/>
+        </div>
       </div> 
     )
   }
