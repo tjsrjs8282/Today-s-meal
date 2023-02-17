@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import HealthInput from "../HealthInput"
 import Button from "@components/Button";
 import Flex from "@components/Flex"
@@ -10,22 +10,29 @@ export default function Healthform ({state, dispatch}) {
     count: 0,
     weight: 0,
     set: 0,
-    time: ''
+    minute: "00",
+    second: "00",
   })
-
-  const { count, weight, set, time } = inputs
+  const { count, weight, set, minute, second } = inputs
 
   const handleClickButton = useCallback(() => {
-    console.log(count, weight, set, time)
-    dispatch({ type: ADD_EXERCISE, count: count, weight: weight, set: set, time: time})
-
-  }, [count, weight, set, time])
+    console.log(`count: ${count}`)
+    console.log(`weight: ${weight}`)
+    console.log(`set: ${set}`)
+    console.log(`time: ${minute} : ${second}`)
+    dispatch({ type: ADD_EXERCISE, count: count, weight: weight, set: set, minute: minute, second: second })
+  }, [count, weight, set, minute, second])
 
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target
+    console.log(name)
+    if(name === "minute" || name === "second") {
+      setInputs({ ...inputs, [name]: value.padStart(2, '0') })
+      return
+    }
+    // console.log(value.padStart(2, '0'))
     setInputs({ ...inputs, [name]: Number(value) })
   }, [inputs])
-
 
   return (
     <Flex wrap width between >
@@ -48,7 +55,6 @@ export default function Healthform ({state, dispatch}) {
           name={"weight"}
           value={weight}
           onChange={handleInputChange}
-          isCount={false}
           dispatch={dispatch}
         />
       }
@@ -64,7 +70,13 @@ export default function Healthform ({state, dispatch}) {
       {
         // 시간
         tabData[3] &&
-        <HealthInput title={"시간"} isTime={true} />
+        <HealthInput
+          title={"시간"}
+          isTime={true}
+          minute={minute}
+          second={second}
+          onChange={handleInputChange}
+        />
       }
       <Button content={"추가하기"} onClick={handleClickButton} nonefixed marginTop />
     </Flex>          
