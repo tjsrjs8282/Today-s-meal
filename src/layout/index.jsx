@@ -9,6 +9,7 @@ import FoodTodayDetail from '@pages/FoodTodayDetail'
 import Product from '@pages/Product'
 import FoodDetail from '@pages/FoodDetail'
 import Health from '@pages/Health'
+import HealthAdd from '@pages/HealthAdd'
 import { themeState } from '@store'
 import { useRecoilState } from 'recoil'
 
@@ -40,6 +41,7 @@ export default function Layout() {
         <Route path="/product" element={<Product />}></Route>
         {/* 오늘의 운동페이지 */}
         <Route path="/health" element={<Health />}></Route>
+        <Route path="/health/add" element={<HealthAdd />}></Route>
       </Routes>
     </BrowserRouter>
   )

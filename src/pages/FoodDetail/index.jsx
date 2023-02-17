@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import $ from './foodDetail.module.scss'
 import Wrapper from '@components/Wrapper'
@@ -31,6 +31,7 @@ const FoodDetail = () => {
   const [foodServingList, setFoodServingList] = useState([{}])
   const [foodMeasurement, setFoodMeasurement] = useState('')
   const [loading, setLoading] = useState(false)
+  const [foodCount, setFoodCount] = useState(1)
   const { id } = useParams()
   const weeks = ['일', '월', '화', '수', '목', '금', '토']
   const date = dayjs(dateRecoil).format(`MM월 DD일 ${weeks[dayjs(dateRecoil).get('d')]}요일`)

@@ -1,0 +1,15 @@
+@import '@styles/shared.scss';
+.check_box {
+  width: auto;
+  margin-right: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  border: 1px solid var(--lineColor1);
+  background: var(--siteColorWhite);
+
+  &.check {
+    background-color: var(--siteColorSub);
+    border: 1px solid var(--siteColorMain);
+    color: var(--siteColorMain);
+  }
+}

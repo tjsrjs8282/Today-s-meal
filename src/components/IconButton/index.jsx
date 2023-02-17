@@ -25,7 +25,7 @@ const IconButton = memo(({ kinds, onClick, onFocus }) => {
       {kinds === 'close2' && <VscClose size="1.8rem" color="#999" />}
       {kinds === 'minus' && <AiOutlineMinus />}
       {kinds === 'minusGray' && <AiOutlineMinus color="#999" />}
-      {kinds === 'plus' && <AiOutlinePlus />}
+      {kinds === 'plus' && <AiOutlinePlus onClick={onClick} />}
       {kinds === 'man' && <AiOutlineMan />}
       {kinds === 'woman' && <AiOutlineWoman />}
       {kinds === 'add' && <BsPlusSquareFill onClick={onClick} />}

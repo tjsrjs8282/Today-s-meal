@@ -5,6 +5,10 @@
   border-radius: 10px;
   margin-bottom: 1.5rem;
 
+  form {
+    width: calc(100% - 8rem);
+  }
+
   .count {
     width: 100%;
     font-size: 2rem;

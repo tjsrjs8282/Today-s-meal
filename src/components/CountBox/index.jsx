@@ -18,10 +18,6 @@ export default function CountBox() {
     }
   }, [foodCount])
 
-  const handleChangeInput = useCallback((e) => {
-    setFoodCount(Number(e.target.value))
-  }, [])
-
   const handleInputCheck = useCallback((e) => {
     e.preventDefault()
     if (inputRef.current.value === '') {
@@ -38,6 +34,10 @@ export default function CountBox() {
     } else if (sign === 'plus') {
       setFoodCount((prevFoodCount) => prevFoodCount + 1)
     }
+  }, [])
+
+  const handleChangeInput = useCallback((e) => {
+    setFoodCount(Number(e.target.value))
   }, [])
 
   return (
