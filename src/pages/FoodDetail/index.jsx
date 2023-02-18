@@ -31,7 +31,6 @@ const FoodDetail = () => {
   const [foodServingList, setFoodServingList] = useState([{}])
   const [foodMeasurement, setFoodMeasurement] = useState('')
   const [loading, setLoading] = useState(false)
-  const [foodCount, setFoodCount] = useState(1)
   const { id } = useParams()
   const weeks = ['일', '월', '화', '수', '목', '금', '토']
   const date = dayjs(dateRecoil).format(`MM월 DD일 ${weeks[dayjs(dateRecoil).get('d')]}요일`)
@@ -55,29 +54,33 @@ const FoodDetail = () => {
     setFoodMeasurement(arrCheck[0].measurement_description)
     setFoodServingList([
       {
+        id: res.data.food.food_id,
+        name: res.data.food.food_name,
+        date: date,
+        part: partRecoil,
+        measurement: arrCheck[0].measurement_description,
         calories: arrCheck[0].calories,
         carbohydrate: arrCheck[0].calories,
         protein: arrCheck[0].protein,
         fat: arrCheck[0].fat,
-        name: res.data.food.food_name,
-        date: date,
-        part: partRecoil,
       },
     ])
 
-    if (!sesstionFoods) {
-      localStorageService().set('FOODS', [
-        {
-          calories: arrCheck[0].calories,
-          carbohydrate: arrCheck[0].calories,
-          protein: arrCheck[0].protein,
-          fat: arrCheck[0].fat,
-          name: res.data.food.food_name,
-          date: date,
-          part: partRecoil,
-        },
-      ])
-    }
+    // if (!sesstionFoods) {
+    //   localStorageService().set('FOODS', [
+    //     {
+    //       id: res.data.food.food_id,
+    //       name: res.data.food.food_name,
+    //       date: date,
+    //       part: partRecoil,
+    //       measurement: arrCheck[0].measurement_description,
+    //       calories: arrCheck[0].calories,
+    //       carbohydrate: arrCheck[0].calories,
+    //       protein: arrCheck[0].protein,
+    //       fat: arrCheck[0].fat,
+    //     },
+    //   ])
+    // }
 
     setLoading(false)
   }
@@ -85,23 +88,35 @@ const FoodDetail = () => {
     let servingFilter = await foodServingData.filter((v) => v.serving_id === servingId)
     let removeArray = [
       {
+        id: foodList.food_id,
+        name: foodList.food_name,
+        date: date,
+        part: partRecoil,
+        measurement: servingFilter[0].measurement_description,
         calories: servingFilter[0].calories,
         carbohydrate: servingFilter[0].calories,
         protein: servingFilter[0].protein,
         fat: servingFilter[0].fat,
-        name: foodList.food_name,
-        date: date,
-        part: partRecoil,
       },
     ]
+    if (sesstionFoods.length === 1) {
+      sesstionFoods.pop()
+      sesstionFoods.push(...removeArray)
+      // localStorageService().set('FOODS', sesstionFoods)
+    }
 
     setFoodServingList(removeArray)
   }
+  console.log(foodServingList)
 
   const handleClickAdd = () => {
-    sesstionFoods.push({ ...foodServingList[0] })
+    if (sesstionFoods) {
+      sesstionFoods.push({ ...foodServingList[0] })
+      localStorageService().set('FOODS', sesstionFoods)
+    } else {
+      localStorageService().set('FOODS', foodServingList)
+    }
 
-    localStorageService().set('FOODS', sesstionFoods)
     navigate('/today')
   }
 
