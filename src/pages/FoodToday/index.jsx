@@ -23,7 +23,7 @@ import DarkMorning from '@assets/ic-morning-white.png'
 import DarkLunch from '@assets/ic-lunch-white.png'
 import DarkDinner from '@assets/ic-dinner-white.png'
 import DarkSnack from '@assets/ic-snack-white.png'
-
+import dayjs from 'dayjs'
 import { FOOD_TODAY_SUMMARY } from './FoodTodaySummary/constants'
 import { FOOD_TODAY_RECORD } from './FoodTodayRecord/constants'
 import { themeState, dateState, partState } from '@store'
@@ -32,7 +32,7 @@ import { localStorageService } from '@utils/localStorage.service'
 
 export default function FoodToday() {
   const [theme, setTheme] = useRecoilState(themeState)
-  const [date, setDate] = useRecoilState(dateState)
+  const [dateRecoil, setDateRecoil] = useRecoilState(dateState)
   const [partRecoil, setPartRecoil] = useRecoilState(partState)
   const [todayFoods, setTodayFoods] = useState([
     [
@@ -83,9 +83,11 @@ export default function FoodToday() {
   let [calendarOpen, setCalendarOpen] = useState(false)
   const modalRaf = useRef()
   const navigate = useNavigate()
-
-  const parts = ['아침 식사', '점심 식사', '저녁 식사', '간식']
-  const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
+  const sessionFoods = localStorageService().get('FOODS')
+  const weeks = ['일', '월', '화', '수', '목', '금', '토']
+  const foodPart = ['아침 식사', '점심 식사', '저녁 식사', '간식']
+  const foodDate = dayjs(dateRecoil).format(`MM월 DD일 ${weeks[dayjs(dateRecoil).get('d')]}요일`)
+  let todayFoodMark = sessionFoods.map((data) => data.date)
 
   const goFoodSearch = (name) => {
     setPartRecoil(name)
@@ -97,6 +99,11 @@ export default function FoodToday() {
   }
 
   const openCalendarHandler = () => {
+    setCalendarOpen(!calendarOpen)
+  }
+
+  const onClickDayHandler = (date) => {
+    setDateRecoil(date)
     setCalendarOpen(!calendarOpen)
   }
 
@@ -112,42 +119,21 @@ export default function FoodToday() {
     setTheme('DARK')
   }, [theme])
 
-  async function sessionFoodsList() {
+  async function sessionFoodsPartFilter() {
     let partFoodArray = []
-    const session = await localStorageService().get('FOODS')
-    // let monigFilter = await session.filter((data) => data.part === '아침 식사')
-    // let LunchFilter = await session.filter((data) => data.part === '점심 식사')
-    // let DinnerFilter = await session.filter((data) => data.part === '저녁 식사')
-    // let SnackFilter = await session.filter((data) => data.part === '간식')
-    // setTodayFoods([monigFilter, LunchFilter, DinnerFilter, SnackFilter])
-    for (let i = 0; i < parts.length; i++) {
-      let partFilter = session.filter((data) => data.part === parts[i])
+
+    let todayFoodList = await sessionFoods.filter((data) => data.date === foodDate)
+
+    for (let i = 0; i < foodPart.length; i++) {
+      let partFilter = todayFoodList.filter((data) => data.part === foodPart[i])
       partFoodArray.push(partFilter)
       setTodayFoods(partFoodArray)
     }
   }
-  console.log(todayFoods)
-
-  console.log(theme)
-  useEffect(() => {
-    sessionFoodsList()
-  }, [])
 
   useEffect(() => {
-    const clickOutside = (e) => {
-      // 모달이 열려 있고 모달의 바깥쪽을 눌렀을 때 창 닫기
-      if (calendarOpen && modalRaf.current && !modalRaf.current.contains(e.target)) {
-        setCalendarOpen(false)
-      }
-    }
-
-    document.addEventListener('mousedown', clickOutside)
-
-    return () => {
-      // Cleanup the event listener
-      document.removeEventListener('mousedown', clickOutside)
-    }
-  }, [calendarOpen])
+    sessionFoodsPartFilter()
+  }, [dateRecoil])
 
   return (
     <Wrapper colorGray thisRef={modalRaf}>
@@ -159,13 +145,18 @@ export default function FoodToday() {
         </Flex>
         {calendarOpen && (
           <Calendar
-            onChange={setDate}
-            value={date}
+            onChange={setDateRecoil}
+            value={dateRecoil}
+            onClickDay={(date) => onClickDayHandler(date)}
             onFocus={() => {
               setCalendarOpen(true)
             }}
-            tileClassName={({ date, view }) => {
-              if (marks.find((x) => x === moment(date).format('DD-MM-YYYY'))) {
+            tileClassName={({ date }) => {
+              if (
+                todayFoodMark.find(
+                  (x) => x === dayjs(date).format(`MM월 DD일 ${weeks[dayjs(date).get('d')]}요일`)
+                )
+              ) {
                 return 'highlight'
               }
             }}
