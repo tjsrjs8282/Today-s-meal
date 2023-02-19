@@ -52,7 +52,7 @@ const FoodDetail = () => {
     setFoodMeasurement(arrCheck[0].measurement_description)
     setFoodServingList([
       {
-        id: res.data.food.food_id,
+        id: res.data.food.food_id + new Date().getTime(),
         name: res.data.food.food_name,
         date: date,
         part: partRecoil,
@@ -86,7 +86,7 @@ const FoodDetail = () => {
     let servingFilter = await foodServingData.filter((v) => v.serving_id === servingId)
     let removeArray = [
       {
-        id: foodList.food_id,
+        id: foodList.food_id + new Date().getTime(),
         name: foodList.food_name,
         date: date,
         part: partRecoil,
