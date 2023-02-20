@@ -16,7 +16,6 @@ import FoodTodayRecord from './FoodTodayRecord'
 import FloatMenu from '@components/FloatMenu'
 import RadioGroup from '@components/RadioGroup'
 import Radio from '@components/Radio'
-
 import Morning from '@assets/ic-morning-normal.png'
 import Lunch from '@assets/ic-lunch-normal.png'
 import Dinner from '@assets/ic-dinner-normal.png'
@@ -26,6 +25,7 @@ import DarkLunch from '@assets/ic-lunch-white.png'
 import DarkDinner from '@assets/ic-dinner-white.png'
 import DarkSnack from '@assets/ic-snack-white.png'
 import dayjs from 'dayjs'
+import Modal from '@components/Modal'
 import { FOOD_TODAY_SUMMARY } from './FoodTodaySummary/constants'
 import { FOOD_TODAY_RECORD } from './FoodTodayRecord/constants'
 import { themeState, dateState, partState } from '@store'
@@ -95,16 +95,21 @@ export default function FoodToday() {
     ],
   ])
   const [todayTotal, setTodayTotal] = useState([0, 0, 0, 0])
-  let [calendarOpen, setCalendarOpen] = useState(false)
+  const [calendarOpen, setCalendarOpen] = useState(false)
+  const [removeId, setRemoveId] = useState(0)
+  const [modal, setModal] = useState(false)
+  const [modalTitle, setModalTitle] = useState('')
+  const [modalContent, setModalContent] = useState('')
+
   const modalRaf = useRef()
   const navigate = useNavigate()
-
   const weeks = ['일', '월', '화', '수', '목', '금', '토']
   const foodTotal = ['carbohydrate', 'protein', 'fat', 'calories']
   const foodPartList = ['전체', '아침 식사', '점심 식사', '저녁 식사', '간식']
   const foodDate = dayjs(dateRecoil).format(`MM월 DD일 ${weeks[dayjs(dateRecoil).get('d')]}요일`)
   const sessionFoods = localStorageService().get('FOODS')
-  let todayFoodMark = sessionFoods.map((data) => data.date)
+  const todayFoodMark = sessionFoods.map((data) => data.date)
+  let todayFoodList = sessionFoods.filter((data) => data.date === foodDate)
 
   const goFoodSearch = (name) => {
     setPartRecoil(name)
@@ -124,6 +129,23 @@ export default function FoodToday() {
     setCalendarOpen(!calendarOpen)
   }
 
+  const onClickModalHandler = (name, id) => {
+    setModalTitle(`음식 삭제`)
+    setModalContent(`${name} 를(을) 삭제 하시겠습니까?`)
+    setRemoveId(id)
+    setModal(!modal)
+  }
+
+  const modalOnClick = () => {
+    const removefilter = sessionFoods.filter((data) => data.id !== removeId)
+    localStorageService().set('FOODS', removefilter)
+    setModal(false)
+  }
+  const modalOnClose = () => {
+    setModal(false)
+  }
+
+  console.log(todayFoods)
   const handleChangeTheme = useCallback(() => {
     if (theme === 'DARK') {
       localStorageService().set('THEME', 'LIGHT')
@@ -140,7 +162,6 @@ export default function FoodToday() {
     const partFoodArray = []
     const foodTotalArray = []
 
-    const todayFoodList = await sessionFoods.filter((data) => data.date === foodDate)
     for (let i = 1; i < foodPartList.length; i++) {
       const partFilter = todayFoodList.filter((data) => data.part === foodPartList[i])
       partFoodArray.push(partFilter)
@@ -155,18 +176,29 @@ export default function FoodToday() {
           : totalFilterss
               .map((data) => data[foodTotal[i]])
               .reduce((acc, cur) => Number(acc) + Number(cur), 0)
-      foodTotalArray.push(totalFilter)
+      foodTotalArray.push(Math.round(totalFilter))
+      //
     }
     partFoodArray.unshift(todayFoodList)
     setTodayFoods(partFoodArray)
     setTodayTotal(foodTotalArray)
   }
+
   useEffect(() => {
     sessionFoodsPartFilter()
-  }, [dateRecoil, foodPart])
+  }, [dateRecoil, foodPart, modal])
 
   return (
     <Wrapper colorGray thisRef={modalRaf}>
+      {modal && (
+        <Modal
+          title={modalTitle}
+          content={modalContent}
+          onClick={modalOnClick}
+          onClose={modalOnClose}
+          confirm
+        ></Modal>
+      )}
       <Header>
         <button onClick={handleChangeTheme}>dddddddddd</button>
         <Flex width between>
@@ -293,7 +325,10 @@ export default function FoodToday() {
                         단백질 : {foods.protein} g | 지방 : {foods.calories} kcal
                       </p>
                     </Flex>
-                    <IconButton kinds="close2" />
+                    <IconButton
+                      kinds="close2"
+                      onClick={() => onClickModalHandler(foods.name, foods.id)}
+                    />
                   </Flex>
                 )
               })}
@@ -324,7 +359,10 @@ export default function FoodToday() {
                         단백질 : {foods.protein} g | 지방 : {foods.calories} kcal
                       </p>
                     </Flex>
-                    <IconButton kinds="close2" />
+                    <IconButton
+                      kinds="close2"
+                      onClick={() => onClickModalHandler(foods.name, foods.id)}
+                    />
                   </Flex>
                 )
               })}
@@ -355,7 +393,10 @@ export default function FoodToday() {
                         단백질 : {foods.protein} g | 지방 : {foods.calories} kcal
                       </p>
                     </Flex>
-                    <IconButton kinds="close2" />
+                    <IconButton
+                      kinds="close2"
+                      onClick={() => onClickModalHandler(foods.name, foods.id)}
+                    />
                   </Flex>
                 )
               })}
@@ -385,7 +426,10 @@ export default function FoodToday() {
                         단백질 : {foods.protein} g | 지방 : {foods.calories} kcal
                       </p>
                     </Flex>
-                    <IconButton kinds="close2" />
+                    <IconButton
+                      kinds="close2"
+                      onClick={() => onClickModalHandler(foods.name, foods.id)}
+                    />
                   </Flex>
                 )
               })}

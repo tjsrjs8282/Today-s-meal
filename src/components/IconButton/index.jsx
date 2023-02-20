@@ -22,7 +22,7 @@ const IconButton = memo(({ kinds, onClick, onFocus }) => {
         <AiOutlineCalendar size="2.2rem" onClick={onClick} onFocus={onFocus} />
       )}
       {kinds === 'close' && <AiOutlineClose onClick={onClick} />}
-      {kinds === 'close2' && <VscClose size="1.8rem" color="#999" />}
+      {kinds === 'close2' && <VscClose size="1.8rem" color="#999" onClick={onClick} />}
       {kinds === 'minus' && <AiOutlineMinus />}
       {kinds === 'minusGray' && <AiOutlineMinus color="#999" />}
       {kinds === 'plus' && <AiOutlinePlus onClick={onClick} />}
