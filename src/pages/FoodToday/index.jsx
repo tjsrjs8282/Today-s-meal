@@ -176,7 +176,8 @@ export default function FoodToday() {
           : totalFilterss
               .map((data) => data[foodTotal[i]])
               .reduce((acc, cur) => Number(acc) + Number(cur), 0)
-      foodTotalArray.push(totalFilter)
+      foodTotalArray.push(Math.round(totalFilter))
+      //
     }
     partFoodArray.unshift(todayFoodList)
     setTodayFoods(partFoodArray)

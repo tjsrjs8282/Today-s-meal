@@ -1,6 +1,12 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
+import kcalIcon from '@assets/ic-kcal-normal.png'
+import carbohydrateIcon from '@assets/ic-carbohydrate-normal.png'
+import proteinIcon from '@assets/ic-protein-normal.png'
+import fatIcon from '@assets/ic-fat-normal.png'
 import $ from './foodDetail.module.scss'
+import Loding from '@components/Loding'
 import Wrapper from '@components/Wrapper'
 import Flex from '@components/Flex'
 import Header from '@components/Header'
@@ -10,15 +16,10 @@ import CountBox from '@components/CountBox'
 import Button from '@components/Button'
 import RadioGroup from '@components/RadioGroup'
 import Radio from '@components/Radio'
-import kcalIcon from '@assets/ic-kcal-normal.png'
-import carbohydrateIcon from '@assets/ic-carbohydrate-normal.png'
-import proteinIcon from '@assets/ic-protein-normal.png'
-import fatIcon from '@assets/ic-fat-normal.png'
+import dayjs from 'dayjs'
+import { localStorageService } from '@utils/localStorage.service'
 import { fatsecretInstance } from '@api/axiosInstance'
 import { dateState, partState } from '@store'
-import { useRecoilState } from 'recoil'
-import { localStorageService } from '@utils/localStorage.service'
-import dayjs from 'dayjs'
 
 const FoodDetail = () => {
   const navigate = useNavigate()
@@ -64,22 +65,6 @@ const FoodDetail = () => {
       },
     ])
 
-    // if (!sesstionFoods) {
-    //   localStorageService().set('FOODS', [
-    //     {
-    //       id: res.data.food.food_id,
-    //       name: res.data.food.food_name,
-    //       date: date,
-    //       part: partRecoil,
-    //       measurement: arrCheck[0].measurement_description,
-    //       calories: arrCheck[0].calories,
-    //       carbohydrate: arrCheck[0].calories,
-    //       protein: arrCheck[0].protein,
-    //       fat: arrCheck[0].fat,
-    //     },
-    //   ])
-    // }
-
     setLoading(false)
   }
   const handleInputChange = async (servingId) => {
@@ -100,12 +85,10 @@ const FoodDetail = () => {
     if (sesstionFoods.length === 1) {
       sesstionFoods.pop()
       sesstionFoods.push(...removeArray)
-      // localStorageService().set('FOODS', sesstionFoods)
     }
 
     setFoodServingList(removeArray)
   }
-  console.log(foodServingList)
 
   const handleClickAdd = () => {
     if (sesstionFoods) {
@@ -148,12 +131,7 @@ const FoodDetail = () => {
       </RadioGroup>
 
       {loading ? (
-        <Flex fontWhite whdth padding>
-          <div className={$.loader}>
-            <div className={$.bg}></div>
-            <h2>Loading</h2>
-          </div>
-        </Flex>
+        <Loding />
       ) : (
         <div className={$.info_box}>
           <Flex wrap between>

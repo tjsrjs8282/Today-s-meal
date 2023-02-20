@@ -3,7 +3,7 @@ import IconButton from '@components/IconButton'
 import Flex from '@components/Flex'
 
 export default function FoodSearchListItem({ foodData, onClick }) {
-  const { food_id, food_name, food_description, brand_name } = foodData
+  const { food_name, food_description, brand_name } = foodData
 
   return (
     <Flex shadow between marginBottom padding radius colorWhite onClick={onClick}>
