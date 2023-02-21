@@ -69,7 +69,7 @@ export default function FoodSearch() {
     if (clickable) {
       setClickable(false)
       const setValue = await e.target.value
-      getFatsecret(setValue)
+      // getFatsecret(setValue)
       setTimeout(() => {
         setClickable(true)
       }, 1000)
