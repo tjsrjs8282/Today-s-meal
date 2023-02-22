@@ -85,7 +85,6 @@ const FoodDetail = () => {
   }
   const handleClickAdd = () => {
     const sesstionPartFoods = localStorageService().get(partRecoil)
-    const sesstionDateFoods = localStorageService().get('DATETOTAL')
     if (!loading) {
       if (sesstionPartFoods) {
         sesstionPartFoods.push({ ...foodServingList[0] })
@@ -94,15 +93,7 @@ const FoodDetail = () => {
         localStorageService().set(partRecoil, foodServingList)
       }
 
-      console.log(sesstionDateFoods)
-      if (sesstionDateFoods) {
-        sesstionDateFoods.push(date)
-        localStorageService().set('DATETOTAL', [...new Set(sesstionDateFoods)])
-      } else {
-        localStorageService().set('DATETOTAL', [date])
-      }
-
-      //navigate('/today')
+      navigate('/today')
     }
     return
   }
