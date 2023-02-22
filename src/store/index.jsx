@@ -23,10 +23,13 @@ export const themeState = atom({
 //   return date ? date : new Date()
 // }
 
-export const getPart = () => {
-  const part = localStorageService().get('PART')
-  return part
-}
+// export const getPart = () => {
+//   const part = localStorageService().get('PART')
+//   if (!part) {
+//     return 'TOTAL'
+//   }
+//   return part
+// }
 
 export const dateState = atom({
   key: 'dateState', // 전역적으로 고유한 값
@@ -35,7 +38,7 @@ export const dateState = atom({
 
 export const partState = atom({
   key: 'partState', // 전역적으로 고유한 값
-  default: getPart(), // 초깃값
+  default: '전체', // 초깃값
 })
 
 export function GlobalRecoilProvider({ children }) {

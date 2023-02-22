@@ -17,9 +17,11 @@ import Button from '@components/Button'
 import RadioGroup from '@components/RadioGroup'
 import Radio from '@components/Radio'
 import dayjs from 'dayjs'
-import { localStorageService } from '@utils/localStorage.service'
-import { fatsecretInstance } from '@api/axiosInstance'
+import FoodDetailServing from './FoodDetailServing'
 import { dateState, partState } from '@store'
+import { fatsecretInstance } from '@api/axiosInstance'
+import { FOODS_DETAIL_SERVING } from './constans'
+import { localStorageService } from '@utils/localStorage.service'
 
 const FoodDetail = () => {
   const navigate = useNavigate()
@@ -33,14 +35,13 @@ const FoodDetail = () => {
   const { id } = useParams()
   const weeks = ['일', '월', '화', '수', '목', '금', '토']
   const date = dayjs(dateRecoil).format(`MM월 DD일 ${weeks[dayjs(dateRecoil).get('d')]}요일`)
-  let sesstionFoods = localStorageService().get('FOODS')
+
   const goBack = () => {
     navigate('../search')
   }
 
   async function getFatsecret() {
     setLoading(true)
-
     let res = await fatsecretInstance.get(`?method=food.get.v2&format=json&food_id=${id}`)
     if (res.err) {
       console.log(err)
@@ -64,12 +65,11 @@ const FoodDetail = () => {
         fat: arrCheck[0].fat,
       },
     ])
-
     setLoading(false)
   }
   const handleInputChange = async (servingId) => {
-    let servingFilter = await foodServingData.filter((v) => v.serving_id === servingId)
-    let removeArray = [
+    const servingFilter = await foodServingData.filter((v) => v.serving_id === servingId)
+    setFoodServingList([
       {
         id: foodList.food_id + new Date().getTime(),
         name: foodList.food_name,
@@ -81,24 +81,30 @@ const FoodDetail = () => {
         protein: servingFilter[0].protein,
         fat: servingFilter[0].fat,
       },
-    ]
-    if (sesstionFoods.length === 1) {
-      sesstionFoods.pop()
-      sesstionFoods.push(...removeArray)
-    }
-
-    setFoodServingList(removeArray)
+    ])
   }
-
   const handleClickAdd = () => {
-    if (sesstionFoods) {
-      sesstionFoods.push({ ...foodServingList[0] })
-      localStorageService().set('FOODS', sesstionFoods)
-    } else {
-      localStorageService().set('FOODS', foodServingList)
-    }
+    const sesstionPartFoods = localStorageService().get(partRecoil)
+    const sesstionDateFoods = localStorageService().get('DATETOTAL')
+    if (!loading) {
+      if (sesstionPartFoods) {
+        sesstionPartFoods.push({ ...foodServingList[0] })
+        localStorageService().set(partRecoil, sesstionPartFoods)
+      } else {
+        localStorageService().set(partRecoil, foodServingList)
+      }
 
-    navigate('/today')
+      console.log(sesstionDateFoods)
+      if (sesstionDateFoods) {
+        sesstionDateFoods.push(date)
+        localStorageService().set('DATETOTAL', [...new Set(sesstionDateFoods)])
+      } else {
+        localStorageService().set('DATETOTAL', [date])
+      }
+
+      //navigate('/today')
+    }
+    return
   }
 
   useEffect(() => {
@@ -114,7 +120,7 @@ const FoodDetail = () => {
       <CountBox />
 
       <RadioGroup label="surving" value={foodMeasurement} onChange={setFoodMeasurement}>
-        {foodServingData.map((surving, index) => {
+        {foodServingData.map((surving) => {
           return (
             <Radio
               name="surving"
@@ -135,6 +141,11 @@ const FoodDetail = () => {
       ) : (
         <div className={$.info_box}>
           <Flex wrap between>
+            {/* {FOODS_DETAIL_SERVING.map((serving) => {
+              const { unit, image, name } = serving
+              return <FoodDetailServing unit={unit} image={image} name={name} key={serving.id} />
+            })} */}
+
             <Flex padding radius shadow column start colorWhite whdth fontBlack marginBottom col2>
               <Flex paddingBottom>
                 <img src={kcalIcon} alt="칼로리" />
