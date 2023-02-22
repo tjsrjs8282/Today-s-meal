@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useRef, useEffect, memo } from "react";
 import $ from "./healthInput.module.scss"
 import Title from "@components/Title"
 import Input from "@components/Input"
 import CountBox from "@components/CountBox"
 
-export default function HealthInput ({
+function HealthInput ({
   title,
   name,
   value,
@@ -15,16 +15,19 @@ export default function HealthInput ({
   minute,
   second
 }) {
-
+  const handelFormSubmit = (e) => {
+    e.preventDefault()
+  }
+  
   if (isTime) {
     return (
       <div className={$.input_box}>
         <Title content={title} sub />
-        <div className={$.time_box}>
-          <input type="number" value={minute} name="minute" onChange={onChange}/>
-          <span>:</span>
-          <input type="number" value={second} name="second" onChange={onChange}/>
-        </div>
+        <form className={$.time_box} onSubmit={handelFormSubmit}>
+          <input type="number" value={minute} name="minute" onChange={onChange} />
+          <span className={$.colon}>:</span>
+          <input type="number" value={second} name="second" onChange={onChange} />
+        </form>
       </div> 
     )
   }
@@ -53,3 +56,4 @@ export default function HealthInput ({
     </div> 
   )
 }
+export default memo(HealthInput)

@@ -4,5 +4,26 @@
 }
 
 .time_box {
-  border: 1px solid var(--lineColor1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #eee;
+  border-radius: 15px;
+  
+  box-sizing: border-box;
+    
+  .colon {
+    margin-bottom: 6px;
+    font-size: 2rem;
+    color: var(--siteColorMain);
+  }
+
+  input {
+    width: 48%;
+    padding: 20px;
+    background-color: transparent;
+    font-size: 1.2rem;
+    color: var(--siteColorGray2);
+    text-align: center; 
+  }
 }

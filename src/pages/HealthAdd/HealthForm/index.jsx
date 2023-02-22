@@ -27,10 +27,10 @@ export default function Healthform ({state, dispatch}) {
     const { name, value } = e.target
     console.log(name)
     if(name === "minute" || name === "second") {
-      setInputs({ ...inputs, [name]: value.padStart(2, '0') })
+      const isNum = value.length > 2 ? value: value.padStart(2, '0')
+      setInputs({ ...inputs, [name]: isNum })
       return
     }
-    // console.log(value.padStart(2, '0'))
     setInputs({ ...inputs, [name]: Number(value) })
   }, [inputs])
 
