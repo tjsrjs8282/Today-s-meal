@@ -10,7 +10,8 @@ import DarkLunch from '@assets/ic-lunch-white.png'
 import DarkDinner from '@assets/ic-dinner-white.png'
 import DarkSnack from '@assets/ic-snack-white.png'
 
-export default function FoodTodayRecord({ name, onClick, image, data }) {
+export default function FoodTodayRecord({ name, onClick, image, data, onefef }) {
+  console.log(data)
   return (
     <Flex width colorWhite radius padding marginBottom column shadow>
       <Flex between width marginBottom>
@@ -27,7 +28,7 @@ export default function FoodTodayRecord({ name, onClick, image, data }) {
       {data ? (
         <>
           {data.map((serving) => {
-            const { name, calories, carbohydrate, fat, protein, measurement } = serving
+            const { name, calories, carbohydrate, fat, protein, measurement, id } = serving
             return (
               <Flex colorGray width radius padding marginBottom>
                 <Flex column gray start width>
@@ -39,7 +40,7 @@ export default function FoodTodayRecord({ name, onClick, image, data }) {
                     단백질 : {protein} g | 지방 : {fat} kcal
                   </p>
                 </Flex>
-                <IconButton kinds="close2" />
+                <IconButton kinds="close2" onClick={() => onefef('name', 'id')} />
               </Flex>
             )
           })}
