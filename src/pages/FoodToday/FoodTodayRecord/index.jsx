@@ -11,6 +11,7 @@ import DarkDinner from '@assets/ic-dinner-white.png'
 import DarkSnack from '@assets/ic-snack-white.png'
 
 export default function FoodTodayRecord({ name, onClick, image, data, onefef }) {
+  console.log(data)
   return (
     <Flex width colorWhite radius padding marginBottom column shadow>
       <Flex between width marginBottom>

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import $ from './foodToday.module.scss'
 import '@styles/calendar.scss'
@@ -11,30 +11,26 @@ import Title from '@components/Title'
 import Button from '@components/Button'
 import Calendar from 'react-calendar'
 import FoodTodayRecord from './FoodTodayRecord'
+import FoodTodaySummary from './FoodTodaySummary'
 import FloatMenu from '@components/FloatMenu'
 import RadioGroup from '@components/RadioGroup'
 import Radio from '@components/Radio'
-
 import dayjs from 'dayjs'
 import Modal from '@components/Modal'
-import { FOOD_TODAY_SUMMARY } from './FoodTodaySummary/constants'
-import { FOOD_TODAY_RECORD } from './FoodTodayRecord/constants'
 import { themeState, dateState, partState } from '@store'
 import { useRecoilState } from 'recoil'
 import { localStorageService } from '@utils/localStorage.service'
-import FoodTodayRecordTotal from './FoodTodayRecordTotal'
 
 export default function FoodToday() {
   const [theme, setTheme] = useRecoilState(themeState)
   const [dateRecoil, setDateRecoil] = useRecoilState(dateState)
   const [partRecoil, setPartRecoil] = useRecoilState(partState)
 
-  const [todayFoods, setTodayFoods] = useState([{}])
-  const [todayBreakfast, setTodayBreakfast] = useState([{}])
-  const [todayLunch, setTodayLunch] = useState([{}])
-  const [todayDinner, setTodayDinner] = useState([{}])
-  const [todaySnack, setTodaySnack] = useState([{}])
-  const [todayTotal, setTodayTotal] = useState([])
+  const [todayFoods, setTodayFoods] = useState([])
+  const [todayBreakfast, setTodayBreakfast] = useState([])
+  const [todayLunch, setTodayLunch] = useState([])
+  const [todayDinner, setTodayDinner] = useState([])
+  const [todaySnack, setTodaySnack] = useState([])
   const [todayMark, setTodayMark] = useState([])
   const [todayServingTotal, setTodayServingTotal] = useState([0, 0, 0, 0])
 
@@ -51,11 +47,7 @@ export default function FoodToday() {
   const foodPartList = ['전체', '아침', '점심', '저녁', '간식']
   const foodDate = dayjs(dateRecoil).format(`MM월 DD일 ${weeks[dayjs(dateRecoil).get('d')]}요일`)
 
-  const sessionFoodPart = localStorageService().get(partRecoil)
-  const sessionbreakfast = localStorageService().get('아침')
-  const sessionLunch = localStorageService().get('점심')
-  const sessionDinner = localStorageService().get('저녁')
-  const sessionSnack = localStorageService().get('간식')
+  const sessionFoodTotal = localStorageService().get('FOODTOTAL')
 
   const goFoodSearch = (name) => {
     setPartRecoil(name)
@@ -82,10 +74,6 @@ export default function FoodToday() {
     setModal(!modal)
   }
 
-  const handleInputChange = async (part) => {
-    setPartRecoil(part)
-  }
-
   const modalOnClick = () => {
     const removefilter = todayFoods.filter((data) => data.id !== removeId)
     localStorageService().set(partRecoil, removefilter)
@@ -107,55 +95,47 @@ export default function FoodToday() {
     setTheme('DARK')
   }, [theme])
 
-  async function dd() {
-    const foodDateFilter = sessionFoodPart.filter((data) => data.date === foodDate)
-    setTodayFoods(foodDateFilter)
+  async function foodTodayFilter() {
+    let foodDateFilter
+    sessionFoodTotal
+      ? (foodDateFilter = sessionFoodTotal.filter((data) => data.date === foodDate))
+      : (foodDateFilter = sessionFoodTotal)
+
+    const foodPartFilter = foodDateFilter.filter((data) => data.part === partRecoil)
+    const foodBreakfastFilter = foodDateFilter.filter((data) => data.part === '아침')
+    const foodLunchFilter = foodDateFilter.filter((data) => data.part === '점심')
+    const foodDinnerFilter = foodDateFilter.filter((data) => data.part === '저녁')
+    const foodSnackFilter = foodDateFilter.filter((data) => data.part === '간식')
+
+    const foodDateMark = sessionFoodTotal.map((data) => data.date)
 
     const foodTotalArray = []
-
-    const sessionTotal = await [sessionbreakfast, sessionLunch, sessionDinner, sessionSnack]
-    const todayFoodTotal = await sessionTotal
-      .filter((element, i) => element != null)
-      .reduce(function (acc, cur) {
-        return acc.concat(cur)
-      })
-    const foodDateTotalFilter = await todayFoodTotal.filter((data) => data.date === foodDate)
-
-    if (partRecoil === '전체') {
-      for (let i = 0; i < foodTotal.length; i++) {
-        let go = foodDateTotalFilter
+    for (let i = 0; i < foodTotal.length; i++) {
+      if (partRecoil === '전체') {
+        const servingTotal = foodDateFilter
           .map((data) => data[foodTotal[i]])
           .reduce((acc, cur) => Number(acc) + Number(cur), 0)
-        foodTotalArray.push(Math.round(go))
-      }
-    } else {
-      for (let i = 0; i < foodTotal.length; i++) {
-        let go = sessionFoodPart
-          ? foodDateFilter
-              .map((data) => data[foodTotal[i]])
-              .reduce((acc, cur) => Number(acc) + Number(cur), 0)
-          : 0
-        foodTotalArray.push(Math.round(go))
+        foodTotalArray.push(Math.round(servingTotal))
+      } else {
+        const servingTotal = foodPartFilter
+          .map((data) => data[foodTotal[i]])
+          .reduce((acc, cur) => Number(acc) + Number(cur), 0)
+        foodTotalArray.push(Math.round(servingTotal))
       }
     }
-    const dateMark = todayFoodTotal.map((data) => data.date)
-
-    setTodayMark([...new Set(dateMark)])
+    setTodayMark([...new Set(foodDateMark)])
     setTodayServingTotal(foodTotalArray)
-    setTodayBreakfast(sessionbreakfast)
-    setTodayLunch(sessionLunch)
-    setTodayDinner(sessionDinner)
-    setTodaySnack(sessionSnack)
-    setTodayTotal(todayFoodTotal)
+    setTodayBreakfast(foodBreakfastFilter)
+    setTodayLunch(foodLunchFilter)
+    setTodayDinner(foodDinnerFilter)
+    setTodaySnack(foodSnackFilter)
+    setTodayFoods(foodPartFilter)
   }
 
   useEffect(() => {
-    dd()
+    foodTodayFilter()
   }, [partRecoil, dateRecoil])
 
-  //전체 클릭했을때 다른 날짜에도 나오는거 수정하기 (필터)
-  //for문 코드 압축
-  //요약영역 컴포터는화
   return (
     <Wrapper colorGray>
       {modal && (
@@ -198,13 +178,7 @@ export default function FoodToday() {
         <RadioGroup label="part" value={partRecoil} onChange={setPartRecoil}>
           {foodPartList.map((part, index) => {
             return (
-              <Radio
-                name="part"
-                value={part}
-                key={index}
-                onClick={() => handleInputChange(part)}
-                tab
-              >
+              <Radio name="part" value={part} key={index} tab>
                 <p>{part}</p>
               </Radio>
             )
@@ -220,39 +194,10 @@ export default function FoodToday() {
 
       <div className={$.summary_box}>
         <Flex between>
-          {/* {FOOD_TODAY_SUMMARY.map((summary) => {
-            const { name, value, unit, id } = summary
-            return <FoodTodaySummary name={name} value={value} unit={unit} key={id} />
-          })} */}
-
-          <Flex column>
-            <h3>탄수화물</h3>
-            <p>
-              {todayServingTotal[0]}
-              <span>g</span>
-            </p>
-          </Flex>
-          <Flex column>
-            <h3>단백질</h3>
-            <p>
-              {todayServingTotal[1]}
-              <span>g</span>
-            </p>
-          </Flex>
-          <Flex column>
-            <h3>지방</h3>
-            <p>
-              {todayServingTotal[2]}
-              <span>g</span>
-            </p>
-          </Flex>
-          <Flex column>
-            <h3>칼로리</h3>
-            <p>
-              {todayServingTotal[3]}
-              <span>kcal</span>
-            </p>
-          </Flex>
+          <FoodTodaySummary name={'탄수화물'} value={todayServingTotal[0]} unit={'g'} />
+          <FoodTodaySummary name={'단백질'} value={todayServingTotal[1]} unit={'g'} />
+          <FoodTodaySummary name={'지방'} value={todayServingTotal[2]} unit={'g'} />
+          <FoodTodaySummary name={'칼로리'} value={todayServingTotal[3]} unit={'kal'} />
         </Flex>
       </div>
 
@@ -260,12 +205,6 @@ export default function FoodToday() {
 
       <div className={$.record_box}>
         {partRecoil === '전체' ? (
-          // <FoodTodayRecordTotal
-          //   breakfast={todayBreakfast}
-          //   lunch={todayLunch}
-          //   dinner={todayDinner}
-          //   snack={todaySnack}
-          // />
           <Flex wrap column>
             <FoodTodayRecord
               name={'아침'}
@@ -291,7 +230,6 @@ export default function FoodToday() {
           </Flex>
         )}
       </div>
-
       <FloatMenu />
     </Wrapper>
   )
