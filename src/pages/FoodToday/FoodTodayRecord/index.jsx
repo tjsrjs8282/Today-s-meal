@@ -40,7 +40,7 @@ export default function FoodTodayRecord({ name, onClick, image, data, onefef }) 
                     단백질 : {protein} g | 지방 : {fat} kcal
                   </p>
                 </Flex>
-                <IconButton kinds="close2" onClick={() => onefef(name, id)} />
+                <IconButton kinds="close2" onClick={() => onefef('name', 'id')} />
               </Flex>
             )
           })}
