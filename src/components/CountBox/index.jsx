@@ -1,47 +1,41 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback, useRef } from 'react'
 import $ from './countBox.module.scss'
 import Flex from '@components/Flex'
 import IconButton from '@components/IconButton'
-import { useRef } from 'react'
-import { useCallback } from 'react'
+import classNames from 'classnames/bind'
+const cx = classNames.bind($)
 
-export default function CountBox() {
-  const [foodCount, setFoodCount] = useState(1)
+export default function CountBox({ value, name, onChange, handleSetNumber, marginBottomNone }) {
   const [minusColor, setMinusColor] = useState('minusGray')
   const inputRef = useRef(null)
 
   useEffect(() => {
-    if (foodCount > 1) {
+    if (value > 1) {
       setMinusColor('minus')
     } else {
       setMinusColor('minusGray')
     }
-  }, [foodCount])
+  }, [value])
 
   const handleInputCheck = useCallback((e) => {
     e.preventDefault()
-    if (inputRef.current.value === '') {
-      setFoodCount(1)
+    if (inputRef.current.value === 0) {
+      handleSetNumber(1)
     }
     inputRef.current.blur()
   }, [])
 
   const handleClickButton = useCallback((sign) => {
+    const num = value
     if (sign === 'minus') {
-      setFoodCount((prevFoodCount) => {
-        return prevFoodCount === 1 ? prevFoodCount : prevFoodCount - 1
-      })
+      Number(num - 1) <= 0 ? handleSetNumber(0) : handleSetNumber(Number(num - 1))
     } else if (sign === 'plus') {
-      setFoodCount((prevFoodCount) => prevFoodCount + 1)
+      handleSetNumber(Number(num + 1))
     }
-  }, [])
-
-  const handleChangeInput = useCallback((e) => {
-    setFoodCount(Number(e.target.value))
-  }, [])
+  }, [value])
 
   return (
-    <div className={$.count_box}>
+    <div className={cx('count_box', {marginBottomNone})}>
       <Flex width between>
         <button onClick={() => handleClickButton('minus')}>
           <IconButton kinds={minusColor} />
@@ -50,9 +44,9 @@ export default function CountBox() {
           <input
             type="number"
             className={$.count}
-            value={foodCount || ''}
             ref={inputRef}
-            onChange={handleChangeInput}
+            {...{name, value, onChange}}
+            // value={value}
           />
         </form>
         <button onClick={() => handleClickButton('plus')}>

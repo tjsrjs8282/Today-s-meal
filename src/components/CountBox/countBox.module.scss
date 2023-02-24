@@ -1,9 +1,13 @@
 @import '@styles/shared.scss';
 .count_box {
   overflow: hidden;
-  border: 1px solid var(--lineColor1);
-  border-radius: 10px;
+  border: 1px solid #eee;
+  border-radius: 15px;
   margin-bottom: 1.5rem;
+
+  &.marginBottomNone {
+    margin-bottom: 0;
+  }
 
   form {
     width: calc(100% - 8rem);
