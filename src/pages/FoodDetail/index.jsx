@@ -27,6 +27,7 @@ const FoodDetail = () => {
   const navigate = useNavigate()
   const [dateRecoil, setDateRecoil] = useRecoilState(dateState)
   const [partRecoil, setPartRecoil] = useRecoilState(partState)
+  const [count, setCount] = useState(1)
   const [foodList, setFoodList] = useState([])
   const [foodServingData, setFoodServingData] = useState([])
   const [foodServingList, setFoodServingList] = useState([{}])
@@ -101,6 +102,14 @@ const FoodDetail = () => {
   useEffect(() => {
     getFatsecret()
   }, [])
+  
+  const handleCountChange = (e) => { 
+    setCount(e.target.value)
+  }
+
+  const handleCountCalculation = (count) => {
+    setCount(count)
+  }
 
   return (
     <Wrapper>
@@ -108,7 +117,7 @@ const FoodDetail = () => {
         <IconButton kinds={'close'} onClick={goBack} />
       </Header>
       <Title content={foodList.food_name} subContent={foodMeasurement} />
-      <CountBox />
+      <CountBox value={count} onChange={handleCountChange} handleCountCalculation={handleCountCalculation}/>
 
       <RadioGroup label="surving" value={foodMeasurement} onChange={setFoodMeasurement}>
         {foodServingData.map((surving) => {

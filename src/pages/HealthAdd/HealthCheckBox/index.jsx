@@ -1,38 +1,25 @@
 import React, { useCallback, useState, useEffect } from "react";
-import { CHANGE_TAB } from "../";
 import $ from "./healthCheck.module.scss"
 import Input from "@components/Input";
 import classNames from 'classnames/bind'
 const cx = classNames.bind($)
 
-export default function HealthCheckBox ({healthInfo, dispatch, index, isCheck }) {
-  const [check, setCheck] = useState("")
+const idValue = ["count", "weight", "set", "time"]
+
+export default function HealthCheckBox ({healthInfo, index, checkItemHandler }) {
   const {value, title } = healthInfo
-
-  useEffect(() => {
-    if (isCheck) {
-      setCheck("check")
-      
-    }
-  }, [])
-
-  const handleCheckBox = useCallback((e) => {
-    const { checked, value } = e.target
-    if (checked) {
-      setCheck("check")
-      dispatch({ type: CHANGE_TAB, index: index, checked: checked, })
-    } else {
-      setCheck("")
-      dispatch({ type: CHANGE_TAB, index: index, checked: checked, })
-    }
-    console.log(checked, value)
-  }, [])
-
+  const [checked, setChecked] = useState(false);  
+  const checkHandled = ({target}) => {
+    console.log(target.id)
+    console.log('checkHandled')
+    setChecked(!checked);
+    checkItemHandler(target.id, target.checked);
+  }
 
   return (
-    <label className={cx('check_box', { check })} index={index}>
+    <label className={cx('check_box', { checked })} index={index}>
       <span className="blind">
-        <Input type="checkbox" value={value} title={title} onChange={handleCheckBox} />
+        <Input type="checkbox" id={idValue[index]} value={value} title={title} onChange={(e) => checkHandled(e)} />
       </span>
       {title}
     </label>  

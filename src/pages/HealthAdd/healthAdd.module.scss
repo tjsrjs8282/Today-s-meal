@@ -1,11 +1,20 @@
 @import '@styles/shared.scss';
+.list_box {
+  margin-top: 2rem;
+  margin-bottom: 10rem;
+}
+
 .add_box {
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  left: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
   width: 100%;
+  max-width: var(--deviceWidth);
   padding: 1rem;
   border-radius: 20px 20px 0 0;
   background-color: var(--siteColorWhite);
   box-sizing: border-box;
+  color: var(--siteColorBlack);
+  z-index: 100;
 }

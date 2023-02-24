@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useRef, useState, useReducer } from 'react'
+import React, { useMemo, useCallback, useRef, useState, useReducer, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import $ from './healthAdd.module.scss'
 import Wrapper from '@components/Wrapper'
@@ -11,61 +11,81 @@ import Input from '@components/Input'
 import { HEALTH_INFO } from './constants'
 import HealthCheckBox from './HealthCheckBox'
 import Healthform from './HealthForm'
-
-const initialState = {
-  // 횟수, 무게, 세트, 시간
-  tabData: [true, false, false, false],
-  count: 0,
-  weight: 0,
-  set: 0,
-  time: ''
-}
-
-export const CHANGE_TAB = "CHANGE_TAB"
-export const ADD_EXERCISE = "ADD_EXERCISE"
-
-const reducer = (state, action) => {
-  switch(action.type) {
-    case CHANGE_TAB: {
-      const tabData = [...state.tabData]
-      tabData[action.index] = action.checked;
-      return {
-        ...state,
-        tabData
-      }
-    }
-    case ADD_EXERCISE: {
-      console.log(state)
-      const count = action.count
-      const weight = action.weight
-      const set = action.set
-      const time = action.time
-      return {
-        ...state,
-        count,
-        weight,
-        set,
-        time
-      }
-    }
-  }
-}
-
+import Button from '@components/Button'
+import ListItemBox from '@components/ListItemBox'
+const constants = [
+  {
+    title: '데드리프트',
+    description: '1회/10분'
+  },
+  {
+    title: '데드리프트',
+    description: '1회/10분'
+  },
+  {
+    title: '데드리프트',
+    description: '1회/10분'
+  },
+]
 export default function HealthAdd() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [healthData, setHealthData] = useState(constants)
+  const [checkItems, setCheckItems] = useState(new Set())
   const [exerciseName, setExerciseName] = useState('')
-  console.log(state)
-
+  const [isHealthInfo, setIsHealthInfo] = useState(true)
+  const [inputs, setInputs] = useState({
+    count: 0,
+    weight: 0,
+    set: 1,
+    minute: 0,
+    second: 0,
+  })
   const navigate = useNavigate()
-  // const checkRef = useRef(null)
+  
+  useEffect(() => {
+    checkHelathInfo()
+  }, [isHealthInfo, exerciseName, checkItems])
+
+  const handleHealthInfoData = (inputs) => {
+    setInputs(inputs)
+    console.log(inputs)
+  }
 
   const backHealth = useCallback(() => {
     navigate(-1)
   }, [])
 
+  const checkItemHandler = (id, isChecked) => {
+    // console.log('checkItemHandler')
+    const copyCheckItems = new Set(checkItems)
+    if (isChecked) {
+      copyCheckItems.add(id)
+      setCheckItems(copyCheckItems)
+    } else if (!isChecked && checkItems.has(id)) {
+      copyCheckItems.delete(id);
+      setCheckItems(copyCheckItems)
+    }
+  }
+  
   const handleInputChange = useCallback((e) => {
     setExerciseName(e.target.value)
   }, [])
+
+
+  const checkHelathInfo = () => {
+    if (exerciseName !== '' && checkItems.size > 0) {
+      setIsHealthInfo(false)
+    } else {
+      setIsHealthInfo(true)
+    }
+  }
+
+  const handleButtonClick = () => {
+    if (!isHealthInfo) {
+      return
+    }
+    console.log(exerciseName)
+    console.log(inputs)
+  }
 
   return (
       <Wrapper colorGray>
@@ -75,6 +95,11 @@ export default function HealthAdd() {
             <IconButton kinds={"close"} onClick={backHealth}/>
           </Flex>
         </Header>
+        <div className={$.list_box}>
+          {
+            healthData.map((v) => (<ListItemBox title={v.title} description={v.description}/>))
+          }
+        </div>
         <div className={$.add_box} >
           <Title content="운동명" sub />
           <Input
@@ -83,9 +108,11 @@ export default function HealthAdd() {
             name="exerciseName"
             title="운동명"
             value={exerciseName}
-            // inputRef={(el) => (nameInput.current[0] = el)}
             onChange={handleInputChange}
-            unit={<IconButton kinds={'closeCircle'} onClick={() => {}} />}
+            unit={
+              exerciseName 
+              && <IconButton kinds={'closeCircle'} onClick={() => {setExerciseName('')}} />
+            }
           />
             <Flex start marginTop>
               {
@@ -93,14 +120,14 @@ export default function HealthAdd() {
                   <HealthCheckBox
                     key={`checkBox${idx}`}
                     healthInfo={healthInfo}
-                    dispatch={dispatch}
                     index={idx}
-                    isCheck={state.tabData[idx]}
+                    checkItemHandler={checkItemHandler}
                   />
                 ))
               }
             </Flex>
-            <Healthform state={state} dispatch={dispatch} onChange={handleInputChange} />
+            <Healthform handleHealthInfoData={handleHealthInfoData} checkItems={checkItems} value={inputs} />
+            <Button content={"추가하기"} check={isHealthInfo} onClick={handleButtonClick} nonefixed  marginTop />
         </div>
       </Wrapper>
   )

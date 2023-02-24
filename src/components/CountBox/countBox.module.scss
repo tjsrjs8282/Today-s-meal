@@ -1,15 +1,21 @@
 @import '@styles/shared.scss';
 .count_box {
   overflow: hidden;
-  border: 1px solid var(--lineColor1);
-  border-radius: 10px;
+  background-color: var(--siteColorWhite);
+  border: 1px solid #eee;
+  border-radius: 15px;
   margin-bottom: 1.5rem;
+
+  &.marginBottomNone {
+    margin-bottom: 0;
+  }
 
   form {
     width: calc(100% - 8rem);
   }
 
   .count {
+    padding: 20px 0;
     width: 100%;
     font-size: 2rem;
     color: var(--siteColorBlack);
@@ -20,11 +26,14 @@
     &:focus {
       outline: none;
     }
+    &.smallFont {
+      font-size: 1.2rem;
+    }
   }
 
   button {
-    width: 4rem;
-    height: 4rem;
+    width: 48px;
+    height: 48px;
     background-color: transparent;
   }
 }

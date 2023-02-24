@@ -11,6 +11,7 @@ import IconButton from '@components/IconButton'
 import InputSearch from '@components/InputSearch'
 import RadioGroup from '@components/RadioGroup'
 import Radio from '@components/Radio'
+import ListItemBox from '@components/ListItemBox'
 import FoodSearchListItem from './FoodSearchListItem'
 import { fatsecretInstance } from '@api/axiosInstance'
 
@@ -147,14 +148,16 @@ export default function FoodSearch() {
           ) : (
             <div className={$.food_list}>
               {foodList.map((foodData) => {
-                const { food_id } = foodData
-                // console.log(food_id)
+                const { food_id, food_name, food_description, brand_name } = foodData
+
                 return (
-                  <FoodSearchListItem
+                  <ListItemBox 
                     key={food_id}
-                    foodData={foodData}
+                    title={food_name}
+                    brandName={brand_name}
+                    description={food_description}
                     onClick={() => handleItemClick(food_id)}
-                  />
+                  />  
                 )
               })}
             </div>
