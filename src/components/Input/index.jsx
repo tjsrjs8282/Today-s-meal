@@ -12,14 +12,15 @@ export default function Input({
   inputRef,
   onKeyPress,
   onChange,
+  id
 }) {
   return (
     <div className={$.input_box}>
       <input
         ref={inputRef}
-        {...{ type, name, title, value, maxLength, placeholder, onKeyPress, onChange }}
+        {...{ type, name, title, value, maxLength, placeholder, onKeyPress, onChange, id}}
       />
-      <p className={$.unit}>{unit}</p>
+      {unit && <p className={$.unit}>{unit}</p>}
     </div>
   )
 }
