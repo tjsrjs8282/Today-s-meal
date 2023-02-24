@@ -46,7 +46,6 @@ export default function CountBox({ value, name, onChange, handleCountCalculation
             className={cx('count', { smallFont })}
             ref={inputRef}
             {...{name, value, onChange}}
-            // value={value}
           />
         </form>
         <button onClick={() => handleClickButton('plus')}>

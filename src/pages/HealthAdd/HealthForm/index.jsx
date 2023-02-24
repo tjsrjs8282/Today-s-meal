@@ -1,13 +1,23 @@
 import React, { useCallback, useEffect, useState } from "react";
 import HealthInput from "../HealthInput"
-import Button from "@components/Button";
 import Flex from "@components/Flex"
 
-export default function Healthform ({ checkItems }) {
+export default function Healthform ({ checkItems, value, handleHealthInfoData }) {
+  const [inputs, setInputs] = useState(value)
+
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target
     setInputs({ ...inputs, [name]: Number(value) })
-  }, [])
+    console.log(inputs)
+    handleHealthInfoData(inputs)
+  }, [inputs])
+
+  const handleCountCalculation = (set) => {
+    setInputs({ ...inputs, set: set})
+    handleHealthInfoData(inputs)
+    console.log(inputs)
+    console.log(inputs.set)
+  }
 
   return (
     <Flex wrap width between >
@@ -17,7 +27,7 @@ export default function Healthform ({ checkItems }) {
         <HealthInput
           title={"횟수"}
           name={"count"}
-          // value={count}
+          value={inputs.count}
           onChange={handleInputChange}
         />
       }
@@ -27,6 +37,7 @@ export default function Healthform ({ checkItems }) {
         <HealthInput
           title={"무게"}
           name={"weight"}
+          value={inputs.weight}
           onChange={handleInputChange}
           isCount={false}
         />
@@ -36,13 +47,23 @@ export default function Healthform ({ checkItems }) {
         checkItems.has('set') &&
         <HealthInput
           title={"세트"}
+          value={inputs.set}
+          name={"set"}
           isCount={true}
+          onChange={handleInputChange}
+          handleCountCalculation={handleCountCalculation}
         />
       }
       {
         // 시간
         checkItems.has('time') &&
-        <HealthInput title={"시간"} isTime={true} />
+        <HealthInput
+          title={"시간"}
+          minute={inputs.minute}
+          second={inputs.second}
+          isTime={true}
+          onChange={handleInputChange}
+        />
       }
     </Flex>          
   )

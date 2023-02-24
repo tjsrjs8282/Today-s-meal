@@ -17,7 +17,23 @@ export default function HealthAdd() {
   const [checkItems, setCheckItems] = useState(new Set())
   const [exerciseName, setExerciseName] = useState('')
   const [isHealthInfo, setIsHealthInfo] = useState(true)
+  const [inputs, setInputs] = useState({
+    count: 0,
+    weight: 0,
+    set: 1,
+    minute: 0,
+    second: 0,
+  })
   const navigate = useNavigate()
+  
+  useEffect(() => {
+    checkHelathInfo()
+  }, [isHealthInfo, exerciseName, checkItems])
+
+  const handleHealthInfoData = (inputs) => {
+    setInputs(inputs)
+    console.log(inputs)
+  }
 
   const backHealth = useCallback(() => {
     navigate(-1)
@@ -39,9 +55,6 @@ export default function HealthAdd() {
     setExerciseName(e.target.value)
   }, [])
 
-  useEffect(() => {
-    checkHelathInfo()
-  }, [isHealthInfo, exerciseName, checkItems])
 
   const checkHelathInfo = () => {
     if (exerciseName !== '' && checkItems.size > 0) {
@@ -49,6 +62,11 @@ export default function HealthAdd() {
     } else {
       setIsHealthInfo(true)
     }
+  }
+
+  const handleButtonClick = () => {
+    console.log(exerciseName)
+    console.log(inputs)
   }
 
   return (
@@ -85,8 +103,8 @@ export default function HealthAdd() {
                 ))
               }
             </Flex>
-            <Healthform checkItems={checkItems} />
-            <Button content={"추가하기"} check={isHealthInfo} nonefixed  marginTop />
+            <Healthform handleHealthInfoData={handleHealthInfoData} checkItems={checkItems} value={inputs} />
+            <Button content={"추가하기"} check={isHealthInfo} onClick={handleButtonClick} nonefixed  marginTop />
         </div>
       </Wrapper>
   )
