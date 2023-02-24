@@ -5,7 +5,7 @@ import IconButton from '@components/IconButton'
 import classNames from 'classnames/bind'
 const cx = classNames.bind($)
 
-export default function CountBox({ value, name, onChange, handleSetNumber, marginBottomNone }) {
+export default function CountBox({ value, name, onChange, handleCountCalculation, marginBottomNone, smallFont }) {
   const [minusColor, setMinusColor] = useState('minusGray')
   const inputRef = useRef(null)
 
@@ -20,7 +20,7 @@ export default function CountBox({ value, name, onChange, handleSetNumber, margi
   const handleInputCheck = useCallback((e) => {
     e.preventDefault()
     if (inputRef.current.value === 0) {
-      handleSetNumber(1)
+      handleCountCalculation(1)
     }
     inputRef.current.blur()
   }, [])
@@ -28,14 +28,14 @@ export default function CountBox({ value, name, onChange, handleSetNumber, margi
   const handleClickButton = useCallback((sign) => {
     const num = value
     if (sign === 'minus') {
-      Number(num - 1) <= 0 ? handleSetNumber(0) : handleSetNumber(Number(num - 1))
+      Number(num - 1) <= 0 ? handleCountCalculation(0) : handleCountCalculation(Number(num - 1))
     } else if (sign === 'plus') {
-      handleSetNumber(Number(num + 1))
+      handleCountCalculation(Number(num + 1))
     }
   }, [value])
 
   return (
-    <div className={cx('count_box', {marginBottomNone})}>
+    <div className={cx('count_box', { marginBottomNone })}>
       <Flex width between>
         <button onClick={() => handleClickButton('minus')}>
           <IconButton kinds={minusColor} />
@@ -43,7 +43,7 @@ export default function CountBox({ value, name, onChange, handleSetNumber, margi
         <form onSubmit={handleInputCheck}>
           <input
             type="number"
-            className={$.count}
+            className={cx('count', { smallFont })}
             ref={inputRef}
             {...{name, value, onChange}}
             // value={value}
