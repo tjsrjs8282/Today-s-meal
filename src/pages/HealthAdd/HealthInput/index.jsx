@@ -1,22 +1,18 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React from "react";
 import $ from "./healthInput.module.scss"
 import Title from "@components/Title"
 import Input from "@components/Input"
 import CountBox from "@components/CountBox"
 
-export default function HealthInput ({title, name, value, onChange, isCount, count, isTime, dispatch }) {
-  const [minute, setMinute] = useState(0)
-  const [second, setSecond] = useState(0)
-  
-
+export default function HealthInput ({title, name, value, onChange, isCount, isTime, }) {
   if (isTime) {
     return (
       <div className={$.input_box}>
         <Title content={title} sub />
         <div className={$.time_box}>
-          <input type="number" value={minute}/>
+          <input type="number" />
           <span>:</span>
-          <input type="number" value={second}/>
+          <input type="number" />
         </div>
       </div> 
     )
