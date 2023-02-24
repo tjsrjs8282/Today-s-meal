@@ -16,9 +16,6 @@
   color: var(--siteColorSub);
   font-weight: bold;
 
-  &.check {
-    background: var(--lineColor3);
-  }
   &.none {
     position: relative;
     left: auto;
@@ -74,5 +71,10 @@
   }
   &.marginTop {
     margin-top: 20px;
+  }
+  
+  &.check {
+    background: var(--lineColor3);
+    color: var(--siteColorGray1)
   }
 }
