@@ -12,8 +12,23 @@ import { HEALTH_INFO } from './constants'
 import HealthCheckBox from './HealthCheckBox'
 import Healthform from './HealthForm'
 import Button from '@components/Button'
-
+import ListItemBox from '@components/ListItemBox'
+const constants = [
+  {
+    title: '데드리프트',
+    description: '1회/10분'
+  },
+  {
+    title: '데드리프트',
+    description: '1회/10분'
+  },
+  {
+    title: '데드리프트',
+    description: '1회/10분'
+  },
+]
 export default function HealthAdd() {
+  const [healthData, setHealthData] = useState(constants)
   const [checkItems, setCheckItems] = useState(new Set())
   const [exerciseName, setExerciseName] = useState('')
   const [isHealthInfo, setIsHealthInfo] = useState(true)
@@ -65,6 +80,9 @@ export default function HealthAdd() {
   }
 
   const handleButtonClick = () => {
+    if (!isHealthInfo) {
+      return
+    }
     console.log(exerciseName)
     console.log(inputs)
   }
@@ -77,6 +95,11 @@ export default function HealthAdd() {
             <IconButton kinds={"close"} onClick={backHealth}/>
           </Flex>
         </Header>
+        <div className={$.list_box}>
+          {
+            healthData.map((v) => (<ListItemBox title={v.title} description={v.description}/>))
+          }
+        </div>
         <div className={$.add_box} >
           <Title content="운동명" sub />
           <Input
