@@ -1,9 +1,48 @@
 article {
   overflow: hidden;
   margin-top: 2rem;
-  background: linear-gradient(90deg, #1AB42C 0%, #56D34C 100%);;
   border-radius: 15px;
   color: #fff;
+  
+  &.cold {
+    // 0 이하 추울 때 cold
+    // 3870FF ~ 33CCFF
+    background: linear-gradient(90deg, #3870FF 0%, #33CCFF 100%);  
+  }
+
+  &.warm_up {
+    // 0 ~ 15 워밍업이 필요 warm_up
+    // 7E82FC ~ C5A9FF
+    background: linear-gradient(90deg, #7E82FC 0%, #C5A9FF 100%);;
+  }
+
+  &.good {
+    // 15 ~ 25 good
+    // 1AB42C - 56D34C
+    background: linear-gradient(90deg, #1AB42C 0%, #56D34C 100%);;
+  }
+
+  &.hot {
+    // 운동하기 더울 때 26 ~ hot
+    // FF6F2C ~ FEAA47
+    background: linear-gradient(90deg, #FF6F2C 0%, #FEAA47 100%);;
+  }
+
+  &.rain_or_snow {
+    // 비 또는 눈 rain_snow
+    // 65758E ~ 3A4E72
+    background: linear-gradient(90deg, #65758E 0%, #3A4E72 100%);;
+  }
+
+  svg {
+    width: 4rem;
+    height: 4rem;
+    cursor: auto;
+  }
+
+  .weather_title {
+    margin-top: 0.6rem;
+  }
 
   .temp {
     font-size: 5rem;
@@ -30,4 +69,4 @@ article {
   }
 }
 
-// 1AB42C - 56D34C
+
