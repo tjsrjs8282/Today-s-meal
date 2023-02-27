@@ -1,7 +1,19 @@
 import React, { memo } from 'react'
 import './iconButton.module.scss'
 import { HiArrowLeft, HiChevronRight } from 'react-icons/hi2'
-import { BsPlusSquareFill, BsCart2, BsSun } from 'react-icons/bs'
+import { 
+  BsPlusSquareFill,
+  BsCart2,
+  BsSun,
+  BsCloudSun,
+  BsCloudMoon,
+  BsCloudDrizzle,
+  BsSnow,
+  BsClouds,
+  BsLightningCharge,
+  BsMoonStars,
+  BsCloudFog2,
+ } from 'react-icons/bs'
 import { VscClose } from 'react-icons/vsc'
 import {
   AiOutlineCalendar,
@@ -43,7 +55,15 @@ const IconButton = memo(({ kinds, onClick, onFocus }) => {
       {kinds === 'next' && <HiChevronRight size="2rem" onClick={onClick} />}
       {kinds === 'cart' && <BsCart2 size="2.2rem" />}
       {/* weather */}
-      {kinds === 'sun' && <BsSun />}
+      {kinds === 'sun' && <BsSun color='#fff' />} {/* 아침 */}
+      {kinds === 'moon' && <BsMoonStars color='#fff' />} {/* 저녁 */}
+      {kinds === 'cloudSun' && <BsCloudSun color='#fff' />} {/* 구름아침 */}
+      {kinds === 'cloudMoon' && <BsCloudMoon color='#fff' />} {/* 구름저녁 */}
+      {kinds === 'clouds' && <BsClouds color='#fff' />} {/* 흐림 */}
+      {kinds === 'rain' &&  <BsCloudDrizzle color='#fff' />} {/* 비 */}
+      {kinds === 'lightning' && <BsLightningCharge color='#fff' />} {/* 번개 */}
+      {kinds === 'snow' && <BsSnow color='#fff' />} {/* 눈 */}
+      {kinds === 'fog' && <BsCloudFog2 color='#fff' />} {/* 안개 */} 
     </>
   )
 })

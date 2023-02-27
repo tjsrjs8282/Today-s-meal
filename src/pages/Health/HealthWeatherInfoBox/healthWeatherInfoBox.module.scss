@@ -34,6 +34,15 @@ article {
     background: linear-gradient(90deg, #65758E 0%, #3A4E72 100%);;
   }
 
+  svg {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .weather_title {
+    margin-top: 0.6rem;
+  }
+
   .temp {
     font-size: 5rem;
     font-weight: 200;

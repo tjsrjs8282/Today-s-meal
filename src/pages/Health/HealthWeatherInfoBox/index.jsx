@@ -8,6 +8,7 @@ import Flex from '@components/Flex';
 const cx = classNames.bind($)
 function HealthWeatherInfoBox ({ data }) {
   const [isWeather, setIsWeather] = useState('')
+  const [isIcon, setIsIcon] = useState('')
   const [text, setText] = useState([])
   // 현재온도, 습도, 체감온도
   const { temp, humidity, feels_like, } = data.main
@@ -15,7 +16,7 @@ function HealthWeatherInfoBox ({ data }) {
   const { main, description, icon } = data.weather[0]
   // 	[°C] = [K] − 273.15 섭씨온도 만들기
   const WEATHER_STANDARD = 273.15
-  const constance = [
+  const CONSTANTS = [
     {
       id: 1,
       title: '체감온도',
@@ -33,7 +34,50 @@ function HealthWeatherInfoBox ({ data }) {
     },
   ]
 
+  const checkIcon = () => {
+    if (icon === "01d") {
+      setIsIcon("sun")
+      return
+    }
+    if (icon === "01n") {
+      setIsIcon("moon")
+      return
+    } 
+    if (icon === "02d") {
+      setIsIcon("cloudSun")
+      return;
+    }
+    if (icon === "02n") {
+      setIsIcon("cloudMoon")
+      return
+    }
+    if (icon === '03d' || icon === "03n" || icon === "04d" || icon === "04n") {
+      setIsIcon("clouds")
+      return
+    }
+    if (icon === "09d"
+    || icon === "09n"
+    || icon === "10d"
+    || icon === "10n") {
+      setIsIcon("rain")
+      return
+    }
+    if (icon === "11d" || icon === "11n") {
+      setIsIcon("lightning")
+      return
+    }
+    if (icon === "13d" || icon === "13d") {
+      setIsIcon("snow")
+      return
+    }
+    if (icon === "50d" || icon === "50n") {
+      setIsIcon("fog")
+      return
+    }
+  }
+
   useEffect(() => {
+    checkIcon()
     const tempCheck = Math.round(temp - WEATHER_STANDARD)
     if (description.indexOf('rain') >= 0 || description.indexOf('snow') >= 0) {
       setIsWeather('rain_or_snow')
@@ -63,8 +107,8 @@ function HealthWeatherInfoBox ({ data }) {
         <Flex between padding width>
           <Flex column order2>
             <h2 className='blind'>오늘의 날씨</h2>
-            <IconButton kinds={"sun"} />
-            <p>{main}</p>
+            <IconButton kinds={isIcon} />
+            <p className={$.weather_title}>{main}</p>
           </Flex>
           <Flex column start order1>
             <h3 className={$.temp}><span className='blind'>현재 온도</span>{Math.round(temp - WEATHER_STANDARD)}°</h3>
@@ -76,7 +120,7 @@ function HealthWeatherInfoBox ({ data }) {
       
       <ul className={$.sub_info}>
         {
-          constance.map((v) => <WeatherSubInfo weather={v} key={v.id}/> )
+          CONSTANTS.map((v) => <WeatherSubInfo weather={v} key={v.id}/> )
         }
       </ul>
 
