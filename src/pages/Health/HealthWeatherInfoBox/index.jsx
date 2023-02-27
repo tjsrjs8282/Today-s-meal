@@ -1,11 +1,15 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import WeatherSubInfo from './WeatherSubInfo';
 import $ from './healthWeatherInfoBox.module.scss'
+import classNames from 'classnames/bind'
 import IconButton from '@components/IconButton';
 import Flex from '@components/Flex';
 
+const cx = classNames.bind($)
 function HealthWeatherInfoBox ({ data }) {
-  // 현재온도, 습도, 체감온도, 최고온도, 최저온도
+  const [isWeather, setIsWeather] = useState('')
+  const [text, setText] = useState([])
+  // 현재온도, 습도, 체감온도
   const { temp, humidity, feels_like, } = data.main
   const { main } = data.weather[0]
   // 	[°C] = [K] − 273.15 섭씨온도 만들기
@@ -27,9 +31,27 @@ function HealthWeatherInfoBox ({ data }) {
       data: `${Math.round(data.wind.speed)}m/s`
     },
   ]
+
+  useEffect(() => {
+    const tempCheck = Math.round(temp - WEATHER_STANDARD)
+    if (tempCheck < 0) {
+      setIsWeather('cold')
+      setText(["오늘은 운동하기에는 추워요.", "보온에 신경쓰시고, 실내운동을 추천해요!"])
+    } else if (tempCheck >= 0 && tempCheck <= 15) {
+      setIsWeather('warm_up')
+      setText(["날씨가 쌀쌀해요.", "충분한 워밍업 후 운동하세요!"])
+      console.log(text)
+    } else if (tempCheck >= 16 && tempCheck <= 25) {
+      setIsWeather('good')
+      setText(["운동하기 너무 좋은 날씨입니다.", "오늘은 야외 운동을 추천해요!"])
+    } else if (tempCheck >= 26) {
+      setIsWeather('hot')
+      setText(["너무 더워요. 평소 운동 강도보다 낮추거나,", "아침운동 또는 저녁운동을 추천해요!"])
+    }
+  }, [])
   
   return (
-    <article>
+    <article className={cx(isWeather)}>
       <Flex column>
         <Flex between padding width>
           <Flex column order2>
@@ -39,8 +61,8 @@ function HealthWeatherInfoBox ({ data }) {
           </Flex>
           <Flex column start order1>
             <h3 className={$.temp}><span className='blind'>현재 온도</span>{Math.round(temp - WEATHER_STANDARD)}°</h3>
-            <p>운동하기 너무 좋은 날씨입니다.</p>
-            <p>오늘은 야외 운동을 추천해요!</p>
+            <p>{text[0]}</p>
+            <p>{text[1]}</p>
           </Flex>
         </Flex>
       </Flex>
