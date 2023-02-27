@@ -55,15 +55,15 @@ const IconButton = memo(({ kinds, onClick, onFocus }) => {
       {kinds === 'next' && <HiChevronRight size="2rem" onClick={onClick} />}
       {kinds === 'cart' && <BsCart2 size="2.2rem" />}
       {/* weather */}
-      {kinds === 'sun' && <BsSun color='#fff' />} {/* 아침 */}
-      {kinds === 'moon' && <BsMoonStars color='#fff' />} {/* 저녁 */}
-      {kinds === 'cloudSun' && <BsCloudSun color='#fff' />} {/* 구름아침 */}
-      {kinds === 'cloudMoon' && <BsCloudMoon color='#fff' />} {/* 구름저녁 */}
-      {kinds === 'clouds' && <BsClouds color='#fff' />} {/* 흐림 */}
-      {kinds === 'rain' &&  <BsCloudDrizzle color='#fff' />} {/* 비 */}
-      {kinds === 'lightning' && <BsLightningCharge color='#fff' />} {/* 번개 */}
-      {kinds === 'snow' && <BsSnow color='#fff' />} {/* 눈 */}
-      {kinds === 'fog' && <BsCloudFog2 color='#fff' />} {/* 안개 */} 
+      {kinds === 'sun' && <BsSun color='#fff' />} 
+      {kinds === 'moon' && <BsMoonStars color='#fff' />}
+      {kinds === 'cloudSun' && <BsCloudSun color='#fff' />}
+      {kinds === 'cloudMoon' && <BsCloudMoon color='#fff' />} 
+      {kinds === 'clouds' && <BsClouds color='#fff' />} 
+      {kinds === 'rain' &&  <BsCloudDrizzle color='#fff' />} 
+      {kinds === 'lightning' && <BsLightningCharge color='#fff' />} 
+      {kinds === 'snow' && <BsSnow color='#fff' />} 
+      {kinds === 'fog' && <BsCloudFog2 color='#fff' />} 
     </>
   )
 })
