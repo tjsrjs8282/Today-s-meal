@@ -38,6 +38,7 @@ export default function Layout() {
         <Route path="/search/" element={<FoodSearch />}></Route>
         <Route path="/search/:id" element={<FoodDetail />}></Route>
         <Route path="/today/detail" element={<FoodTodayDetail />}></Route>
+        {/* <Route path="/mypage" element={<FoodTodayDetail />}></Route> */}
         <Route path="/product" element={<Product />}></Route>
         {/* 오늘의 운동페이지 */}
         <Route path="/health" element={<Health />}></Route>

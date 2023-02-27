@@ -20,6 +20,16 @@ import Modal from '@components/Modal'
 import { themeState, dateState, partState } from '@store'
 import { useRecoilState } from 'recoil'
 import { localStorageService } from '@utils/localStorage.service'
+import 아침 from '/public/assets/ic-morning-normal.png'
+import 점심 from '@assets/ic-lunch-normal.png'
+import 저녁 from '@assets/ic-dinner-normal.png'
+import 간식 from '@assets/ic-snack-normal.png'
+import 다크아침 from '@assets/ic-morning-white.png'
+import 다크점심 from '@assets/ic-lunch-white.png'
+import 다크저녁 from '@assets/ic-dinner-white.png'
+import 다크간식 from '@assets/ic-snack-white.png'
+
+// const  = require('@assets/ic-morning-normal.png').default
 
 export default function FoodToday() {
   const [theme, setTheme] = useRecoilState(themeState)
@@ -32,7 +42,12 @@ export default function FoodToday() {
   const [todayDinner, setTodayDinner] = useState([])
   const [todaySnack, setTodaySnack] = useState([])
   const [todayMark, setTodayMark] = useState([])
-  const [todayServingTotal, setTodayServingTotal] = useState([0, 0, 0, 0])
+  const [todayServingTotal, setTodayServingTotal] = useState([
+    { name: '탄수화물', value: 0, unit: 'g' },
+    { name: '단백질', value: 0, unit: 'g' },
+    { name: '지방', value: 0, unit: 'g' },
+    { name: '칼로리', value: 0, unit: 'kal' },
+  ])
 
   const [calendarOpen, setCalendarOpen] = useState(false)
   const [removeId, setRemoveId] = useState(0)
@@ -42,12 +57,19 @@ export default function FoodToday() {
 
   const navigate = useNavigate()
 
-  const weeks = ['일', '월', '화', '수', '목', '금', '토']
-  const foodTotal = ['carbohydrate', 'protein', 'fat', 'calories']
-  const foodPartList = ['전체', '아침', '점심', '저녁', '간식']
-  const foodDate = dayjs(dateRecoil).format(`MM월 DD일 ${weeks[dayjs(dateRecoil).get('d')]}요일`)
+  const WEEKS = ['일', '월', '화', '수', '목', '금', '토']
+  const FOOD_SERVING = ['carbohydrate', 'protein', 'fat', 'calories']
+  const FOOD_PART = ['전체', '아침', '점심', '저녁', '간식']
+  const foodDate = dayjs(dateRecoil).format(`MM월 DD일 ${WEEKS[dayjs(dateRecoil).get('d')]}요일`)
 
   const sessionFoodTotal = localStorageService().get('FOODTOTAL')
+
+  const FOOD_TOALDATA = [
+    { name: '아침', image: '/public/assets/ic-morning-normal.png', data: todayBreakfast },
+    { name: '점심', image: '/public/assets/ic-lunch-normal.png', data: todayLunch },
+    { name: '저녁', image: '/public/assets/ic-dinner-normal.png', data: todayDinner },
+    { name: '간식', image: '/public/assets/ic-snack-normal.png', data: todaySnack },
+  ]
 
   const goFoodSearch = (name) => {
     setPartRecoil(name)
@@ -60,6 +82,11 @@ export default function FoodToday() {
 
   const openCalendarHandler = () => {
     setCalendarOpen(!calendarOpen)
+  }
+
+  const onClickPartHandler = (name) => {
+    setPartRecoil(name)
+    localStorageService().set('PART', name)
   }
 
   const onClickDayHandler = (date) => {
@@ -96,35 +123,39 @@ export default function FoodToday() {
   }, [theme])
 
   async function foodTodayFilter() {
-    let foodDateFilter
-    sessionFoodTotal
-      ? (foodDateFilter = sessionFoodTotal.filter((data) => data.date === foodDate))
-      : (foodDateFilter = sessionFoodTotal)
+    const foodDateFilter = sessionFoodTotal
+      ? sessionFoodTotal.filter((data) => data.date === foodDate)
+      : sessionFoodTotal
 
     const foodPartFilter = foodDateFilter.filter((data) => data.part === partRecoil)
     const foodBreakfastFilter = foodDateFilter.filter((data) => data.part === '아침')
     const foodLunchFilter = foodDateFilter.filter((data) => data.part === '점심')
     const foodDinnerFilter = foodDateFilter.filter((data) => data.part === '저녁')
     const foodSnackFilter = foodDateFilter.filter((data) => data.part === '간식')
-
     const foodDateMark = sessionFoodTotal.map((data) => data.date)
 
-    const foodTotalArray = []
-    for (let i = 0; i < foodTotal.length; i++) {
+    for (let i = 0; i < FOOD_SERVING.length; i++) {
       if (partRecoil === '전체') {
         const servingTotal = foodDateFilter
-          .map((data) => data[foodTotal[i]])
+          .map((data) => data[FOOD_SERVING[i]])
           .reduce((acc, cur) => Number(acc) + Number(cur), 0)
-        foodTotalArray.push(Math.round(servingTotal))
+        var servingTotalFilter = todayServingTotal.map((item) => ({
+          ...item,
+          value: Math.round(servingTotal),
+        }))
       } else {
         const servingTotal = foodPartFilter
-          .map((data) => data[foodTotal[i]])
+          .map((data) => data[FOOD_SERVING[i]])
           .reduce((acc, cur) => Number(acc) + Number(cur), 0)
-        foodTotalArray.push(Math.round(servingTotal))
+        var servingTotalFilter = todayServingTotal.map((item) => ({
+          ...item,
+          value: Math.round(servingTotal),
+        }))
       }
     }
+
     setTodayMark([...new Set(foodDateMark)])
-    setTodayServingTotal(foodTotalArray)
+    setTodayServingTotal(servingTotalFilter)
     setTodayBreakfast(foodBreakfastFilter)
     setTodayLunch(foodLunchFilter)
     setTodayDinner(foodDinnerFilter)
@@ -132,9 +163,15 @@ export default function FoodToday() {
     setTodayFoods(foodPartFilter)
   }
 
+  console.log(todayServingTotal)
+
   useEffect(() => {
     foodTodayFilter()
   }, [partRecoil, dateRecoil])
+
+  useEffect(() => {
+    setPartRecoil('전체')
+  }, [])
 
   return (
     <Wrapper colorGray>
@@ -164,7 +201,7 @@ export default function FoodToday() {
             tileClassName={({ date }) => {
               if (
                 todayMark.find(
-                  (x) => x === dayjs(date).format(`MM월 DD일 ${weeks[dayjs(date).get('d')]}요일`)
+                  (x) => x === dayjs(date).format(`MM월 DD일 ${WEEKS[dayjs(date).get('d')]}요일`)
                 )
               ) {
                 return 'highlight'
@@ -176,9 +213,15 @@ export default function FoodToday() {
 
       <div className={$.radio_box}>
         <RadioGroup label="part" value={partRecoil} onChange={setPartRecoil}>
-          {foodPartList.map((part, index) => {
+          {FOOD_PART.map((part, index) => {
             return (
-              <Radio name="part" value={part} key={index} tab>
+              <Radio
+                name="part"
+                value={part}
+                key={index}
+                onClick={() => onClickPartHandler(part)}
+                tab
+              >
                 <p>{part}</p>
               </Radio>
             )
@@ -194,10 +237,10 @@ export default function FoodToday() {
 
       <div className={$.summary_box}>
         <Flex between>
-          <FoodTodaySummary name={'탄수화물'} value={todayServingTotal[0]} unit={'g'} />
-          <FoodTodaySummary name={'단백질'} value={todayServingTotal[1]} unit={'g'} />
-          <FoodTodaySummary name={'지방'} value={todayServingTotal[2]} unit={'g'} />
-          <FoodTodaySummary name={'칼로리'} value={todayServingTotal[3]} unit={'kal'} />
+          {todayServingTotal.map((data) => {
+            const { name, value, unit } = data
+            return <FoodTodaySummary name={name} value={value} unit={unit} />
+          })}
         </Flex>
       </div>
 
@@ -205,24 +248,22 @@ export default function FoodToday() {
 
       <div className={$.record_box}>
         {partRecoil === '전체' ? (
-          <Flex wrap column>
-            <FoodTodayRecord
-              name={'아침'}
-              onClick={() => goFoodSearch('아침')}
-              data={todayBreakfast}
-            />
-            <FoodTodayRecord name={'점심'} onClick={() => goFoodSearch('점심')} data={todayLunch} />
-            <FoodTodayRecord
-              name={'저녁'}
-              onClick={() => goFoodSearch('저녁')}
-              data={todayDinner}
-            />
-            <FoodTodayRecord name={'간식'} onClick={() => goFoodSearch('간식')} data={todaySnack} />
-          </Flex>
+          FOOD_TOALDATA.map((foods) => {
+            const { name, image, data } = foods
+            return (
+              <FoodTodayRecord
+                name={name}
+                image={image}
+                onClick={() => goFoodSearch(name)}
+                data={data}
+              />
+            )
+          })
         ) : (
           <Flex wrap column>
             <FoodTodayRecord
               name={partRecoil}
+              image={partRecoil}
               onClick={() => goFoodSearch(partRecoil)}
               data={todayFoods}
               onefef={() => onClickModalHandler()}
