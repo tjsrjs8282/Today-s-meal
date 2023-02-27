@@ -11,7 +11,8 @@ function HealthWeatherInfoBox ({ data }) {
   const [text, setText] = useState([])
   // 현재온도, 습도, 체감온도
   const { temp, humidity, feels_like, } = data.main
-  const { main } = data.weather[0]
+  // 현재 날씨, 날씨 설명, 아이콘
+  const { main, description, icon } = data.weather[0]
   // 	[°C] = [K] − 273.15 섭씨온도 만들기
   const WEATHER_STANDARD = 273.15
   const constance = [
@@ -34,6 +35,12 @@ function HealthWeatherInfoBox ({ data }) {
 
   useEffect(() => {
     const tempCheck = Math.round(temp - WEATHER_STANDARD)
+    if (description.indexOf('rain') >= 0 || description.indexOf('snow') >= 0) {
+      setIsWeather('rain_or_snow')
+      setText(["오늘은 야외 운동보다는 실내운동을", "추천합니다! 헬스 또는 홈트레이닝 추천!"])
+      return;
+    }
+
     if (tempCheck < 0) {
       setIsWeather('cold')
       setText(["오늘은 운동하기에는 추워요.", "보온에 신경쓰시고, 실내운동을 추천해요!"])
