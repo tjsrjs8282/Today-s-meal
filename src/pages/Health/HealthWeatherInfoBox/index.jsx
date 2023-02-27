@@ -75,30 +75,38 @@ function HealthWeatherInfoBox ({ data }) {
       return
     }
   }
-
-  useEffect(() => {
-    checkIcon()
-    const tempCheck = Math.round(temp - WEATHER_STANDARD)
+  const checkWeather = (temp) => {
     if (description.indexOf('rain') >= 0 || description.indexOf('snow') >= 0) {
       setIsWeather('rain_or_snow')
       setText(["오늘은 야외 운동보다는 실내운동을", "추천합니다! 헬스 또는 홈트레이닝 추천!"])
       return;
     }
-
-    if (tempCheck < 0) {
+    if (temp < 0) {
       setIsWeather('cold')
       setText(["오늘은 운동하기에는 추워요.", "보온에 신경쓰시고, 실내운동을 추천해요!"])
-    } else if (tempCheck >= 0 && tempCheck <= 15) {
+      return
+    } 
+    if (temp >= 0 && temp <= 15) {
       setIsWeather('warm_up')
       setText(["날씨가 쌀쌀해요.", "충분한 워밍업 후 운동하세요!"])
-      console.log(text)
-    } else if (tempCheck >= 16 && tempCheck <= 25) {
+      return
+    } 
+    if (temp >= 16 && temp <= 25) {
       setIsWeather('good')
       setText(["운동하기 너무 좋은 날씨입니다.", "오늘은 야외 운동을 추천해요!"])
-    } else if (tempCheck >= 26) {
+      return
+    }
+    if (temp >= 26) {
       setIsWeather('hot')
       setText(["너무 더워요. 평소 운동 강도보다 낮추거나,", "아침운동 또는 저녁운동을 추천해요!"])
+      return
     }
+  }
+
+  useEffect(() => {
+    const tempCheck = Math.round(temp - WEATHER_STANDARD)
+    checkIcon()
+    checkWeather(tempCheck)
   }, [])
   
   return (
