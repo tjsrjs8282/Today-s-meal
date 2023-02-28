@@ -1,14 +1,19 @@
 import React from 'react'
 import IconButton from '@components/IconButton'
 import Flex from '@components/Flex'
+import $ from './foodTodayRecord.module.scss'
+import classNames from 'classnames/bind'
+const cx = classNames.bind($)
 
-export default function FoodTodayRecord({ name, onClick, image, data, onefef }) {
-  console.log(image)
+export default function FoodTodayRecord({ name, onClick, image, data, onClickModalHandler }) {
+  const onClickRemoveHandler = (name, id) => {
+    onClickModalHandler(name, id)
+  }
   return (
     <Flex width colorWhite radius padding marginBottom column shadow>
       <Flex between width marginBottom>
         <Flex>
-          <img src={image} alt={name} />
+          <div className={cx('part_image', image)}></div>
           <Flex column start>
             <h2>{name}</h2>
             <p>총 개수 : {data ? data.length : 0}개</p>
@@ -32,7 +37,7 @@ export default function FoodTodayRecord({ name, onClick, image, data, onefef }) 
                     단백질 : {protein} g | 지방 : {fat} kcal
                   </p>
                 </Flex>
-                <IconButton kinds="close2" onClick={() => onefef('name', 'id')} />
+                <IconButton kinds="close2" onClick={() => onClickRemoveHandler(name, id)} />
               </Flex>
             )
           })}
