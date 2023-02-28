@@ -20,22 +20,14 @@ import Modal from '@components/Modal'
 import { themeState, dateState, partState } from '@store'
 import { useRecoilState } from 'recoil'
 import { localStorageService } from '@utils/localStorage.service'
-import 아침 from '/public/assets/ic-morning-normal.png'
-import 점심 from '@assets/ic-lunch-normal.png'
-import 저녁 from '@assets/ic-dinner-normal.png'
-import 간식 from '@assets/ic-snack-normal.png'
-import 다크아침 from '@assets/ic-morning-white.png'
-import 다크점심 from '@assets/ic-lunch-white.png'
-import 다크저녁 from '@assets/ic-dinner-white.png'
-import 다크간식 from '@assets/ic-snack-white.png'
 
 // const  = require('@assets/ic-morning-normal.png').default
 
 export default function FoodToday() {
+  const navigate = useNavigate()
   const [theme, setTheme] = useRecoilState(themeState)
   const [dateRecoil, setDateRecoil] = useRecoilState(dateState)
   const [partRecoil, setPartRecoil] = useRecoilState(partState)
-
   const [todayFoods, setTodayFoods] = useState([])
   const [todayBreakfast, setTodayBreakfast] = useState([])
   const [todayLunch, setTodayLunch] = useState([])
@@ -48,22 +40,17 @@ export default function FoodToday() {
     { name: '지방', value: 0, unit: 'g' },
     { name: '칼로리', value: 0, unit: 'kal' },
   ])
-
   const [calendarOpen, setCalendarOpen] = useState(false)
   const [removeId, setRemoveId] = useState(0)
   const [modal, setModal] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
   const [modalContent, setModalContent] = useState('')
 
-  const navigate = useNavigate()
-
+  const sessionFoodTotal = localStorageService().get('FOODTOTAL')
   const WEEKS = ['일', '월', '화', '수', '목', '금', '토']
   const FOOD_SERVING = ['carbohydrate', 'protein', 'fat', 'calories']
   const FOOD_PART = ['전체', '아침', '점심', '저녁', '간식']
   const foodDate = dayjs(dateRecoil).format(`MM월 DD일 ${WEEKS[dayjs(dateRecoil).get('d')]}요일`)
-
-  const sessionFoodTotal = localStorageService().get('FOODTOTAL')
-
   const FOOD_TOALDATA = [
     { name: '아침', image: '/public/assets/ic-morning-normal.png', data: todayBreakfast },
     { name: '점심', image: '/public/assets/ic-lunch-normal.png', data: todayLunch },
@@ -96,14 +83,14 @@ export default function FoodToday() {
   const onClickModalHandler = (name, id) => {
     setModalTitle(`음식 삭제`)
     setModalContent(`${name} 를(을) 삭제 하시겠습니까?`)
-    console.log(id)
     setRemoveId(id)
+    console.log(removeId)
     setModal(!modal)
   }
 
   const modalOnClick = () => {
-    const removefilter = todayFoods.filter((data) => data.id !== removeId)
-    localStorageService().set(partRecoil, removefilter)
+    const removefilter = sessionFoodTotal.filter((data) => data.id !== removeId)
+    localStorageService().set('FOODTOTAL', removefilter)
     setModal(false)
   }
   const modalOnClose = () => {
@@ -134,26 +121,17 @@ export default function FoodToday() {
     const foodSnackFilter = foodDateFilter.filter((data) => data.part === '간식')
     const foodDateMark = sessionFoodTotal.map((data) => data.date)
 
+    let servingTotalFilter
     for (let i = 0; i < FOOD_SERVING.length; i++) {
-      if (partRecoil === '전체') {
-        const servingTotal = foodDateFilter
-          .map((data) => data[FOOD_SERVING[i]])
-          .reduce((acc, cur) => Number(acc) + Number(cur), 0)
-        var servingTotalFilter = todayServingTotal.map((item) => ({
-          ...item,
-          value: Math.round(servingTotal),
-        }))
-      } else {
-        const servingTotal = foodPartFilter
-          .map((data) => data[FOOD_SERVING[i]])
-          .reduce((acc, cur) => Number(acc) + Number(cur), 0)
-        var servingTotalFilter = todayServingTotal.map((item) => ({
-          ...item,
-          value: Math.round(servingTotal),
-        }))
-      }
+      const servingPart = partRecoil === '전체' ? foodDateFilter : foodPartFilter
+      const servingTotal = servingPart
+        .map((data) => data[FOOD_SERVING[i]])
+        .reduce((acc, cur) => Number(acc) + Number(cur), 0)
+      servingTotalFilter = todayServingTotal.map((item) => ({
+        ...item,
+        value: Math.round(servingTotal),
+      }))
     }
-
     setTodayMark([...new Set(foodDateMark)])
     setTodayServingTotal(servingTotalFilter)
     setTodayBreakfast(foodBreakfastFilter)
@@ -163,11 +141,9 @@ export default function FoodToday() {
     setTodayFoods(foodPartFilter)
   }
 
-  console.log(todayServingTotal)
-
   useEffect(() => {
     foodTodayFilter()
-  }, [partRecoil, dateRecoil])
+  }, [partRecoil, dateRecoil, modal])
 
   useEffect(() => {
     setPartRecoil('전체')
@@ -239,7 +215,7 @@ export default function FoodToday() {
         <Flex between>
           {todayServingTotal.map((data) => {
             const { name, value, unit } = data
-            return <FoodTodaySummary name={name} value={value} unit={unit} />
+            return <FoodTodaySummary key={name} name={name} value={value} unit={unit} />
           })}
         </Flex>
       </div>
@@ -249,24 +225,27 @@ export default function FoodToday() {
       <div className={$.record_box}>
         {partRecoil === '전체' ? (
           FOOD_TOALDATA.map((foods) => {
-            const { name, image, data } = foods
+            const { name, data } = foods
             return (
               <FoodTodayRecord
+                key={name}
                 name={name}
-                image={image}
+                image={theme === 'DARK' ? `다크${name}` : name}
                 onClick={() => goFoodSearch(name)}
                 data={data}
+                onClickModalHandler={onClickModalHandler}
               />
             )
           })
         ) : (
           <Flex wrap column>
             <FoodTodayRecord
+              key={partRecoil}
               name={partRecoil}
-              image={partRecoil}
+              image={theme === 'DARK' ? `다크${partRecoil}` : partRecoil}
               onClick={() => goFoodSearch(partRecoil)}
               data={todayFoods}
-              onefef={() => onClickModalHandler()}
+              onClickModalHandler={onClickModalHandler}
             />
           </Flex>
         )}
