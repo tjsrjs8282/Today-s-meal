@@ -2,14 +2,15 @@ import $ from './modal.module.scss'
 import Flex from '@components/Flex'
 import Button from '@components/Button'
 
-export default function Modal({ title, content, onClick, onClose }) {
+export default function Modal({ title, content, onClick, onClose, children }) {
   return (
     <div className={$.modal_wrap}>
       <div className={$.modal_box}>
         <Flex column>
           <h2>{title}</h2>
-          <p>{content}</p>
+          {content && <p>{content}</p>}
         </Flex>
+        {children}
         <Flex width marginTop>
           {onClose && (
             <Flex marginRight width>
