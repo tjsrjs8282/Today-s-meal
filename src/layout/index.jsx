@@ -18,9 +18,11 @@ export default function Layout() {
   const ThemeMatchMedia = () => {
     const systemPreference = window.matchMedia('(prefers-color-scheme: dark)')
     if (systemPreference.matches) {
+      document.documentElement.setAttribute('data-theme', 'DARK')
       setTheme('DARK')
       return
     }
+    document.documentElement.setAttribute('data-theme', 'LIGHT')
     setTheme('LIGHT')
   }
 

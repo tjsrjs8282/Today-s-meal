@@ -112,14 +112,14 @@ export default function FoodToday() {
   async function foodTodayFilter() {
     const foodDateFilter = sessionFoodTotal
       ? sessionFoodTotal.filter((data) => data.date === foodDate)
-      : sessionFoodTotal
+      : []
 
     const foodPartFilter = foodDateFilter.filter((data) => data.part === partRecoil)
     const foodBreakfastFilter = foodDateFilter.filter((data) => data.part === '아침')
     const foodLunchFilter = foodDateFilter.filter((data) => data.part === '점심')
     const foodDinnerFilter = foodDateFilter.filter((data) => data.part === '저녁')
     const foodSnackFilter = foodDateFilter.filter((data) => data.part === '간식')
-    const foodDateMark = sessionFoodTotal.map((data) => data.date)
+    const foodDateMark = sessionFoodTotal ? sessionFoodTotal.map((data) => data.date) : []
 
     let servingTotalFilter
     for (let i = 0; i < FOOD_SERVING.length; i++) {
@@ -146,6 +146,7 @@ export default function FoodToday() {
   }, [partRecoil, dateRecoil, modal])
 
   useEffect(() => {
+    localStorageService().set('PART', '전체')
     setPartRecoil('전체')
   }, [])
 
