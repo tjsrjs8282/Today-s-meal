@@ -9,6 +9,7 @@ import HaederTitle from '@components/HeaderTitle'
 import IconButton from '@components/IconButton'
 import Button from '@components/Button'
 import Input from '@components/Input'
+import CheckBox from '@components/CheckBox'
 import FloatMenu from '@components/FloatMenu'
 import Calendar from 'react-calendar'
 import Modal from '@components/Modal'
@@ -28,6 +29,9 @@ export default function Health() {
   const [calendarOpen, setCalendarOpen] = useState(false)
   const [exerciseName, setExerciseName] = useState('')
   const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_KEY
+
+  const [service, setService] = useState(false)
+  const [marketing, setMarketing] = useState(false)
 
   const [modal, setModal] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
@@ -125,6 +129,12 @@ export default function Health() {
               )
             }
           />
+          <Checkbox checked={service} onChange={setService}>
+            (필수) 서비스 이용약관
+          </Checkbox>
+          <Checkbox checked={marketing} onChange={setMarketing}>
+            (선택) 마케팅 수신
+          </Checkbox>
         </Modal>
       )}
       <Header>
