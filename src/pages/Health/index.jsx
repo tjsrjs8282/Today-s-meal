@@ -10,6 +10,7 @@ import IconButton from '@components/IconButton'
 import Button from '@components/Button'
 import Input from '@components/Input'
 import CheckBox from '@components/CheckBox'
+import CheckBoxGroup from '@components/CheckBoxGroup'
 import FloatMenu from '@components/FloatMenu'
 import Calendar from 'react-calendar'
 import Modal from '@components/Modal'
@@ -32,6 +33,7 @@ export default function Health() {
 
   const [service, setService] = useState(false)
   const [marketing, setMarketing] = useState(false)
+  const [colors, setColors] = useState(['count'])
 
   const [modal, setModal] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
@@ -63,6 +65,8 @@ export default function Health() {
     setModal(false)
   }
 
+  console.log(colors)
+
   const handleInputChange = useCallback((e) => {
     setExerciseName(e.target.value)
   }, [])
@@ -82,14 +86,6 @@ export default function Health() {
       `/weather?lat=${lat}&lon=${lng}&appid=${WEATHER_API_KEY}`
     )
     setWeatherData(response.data)
-
-    /**
-     const url = `https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=b1881980ee6e26b7b5169e5eaec251e7&units=metric`
-     fetch(url).then((response) => response.json()).then((data) => {
-         console.log(data)
-       });
-     }
-     */
   }
 
   useEffect(() => {
@@ -129,12 +125,20 @@ export default function Health() {
               )
             }
           />
-          <Checkbox checked={service} onChange={setService}>
-            (필수) 서비스 이용약관
-          </Checkbox>
-          <Checkbox checked={marketing} onChange={setMarketing}>
-            (선택) 마케팅 수신
-          </Checkbox>
+          <CheckBoxGroup label="좋아하는 색깔은?" values={colors} onChange={setColors}>
+            <CheckBox value="count" tab>
+              횟수
+            </CheckBox>
+            <CheckBox value="weight" tab>
+              무게
+            </CheckBox>
+            <CheckBox value="set" tab>
+              세트
+            </CheckBox>
+            <CheckBox value="time" tab>
+              시간
+            </CheckBox>
+          </CheckBoxGroup>
         </Modal>
       )}
       <Header>

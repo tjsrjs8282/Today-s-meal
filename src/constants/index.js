@@ -1,5 +1,5 @@
 export const LOCAL_STORAGE_KEY = {
-  USER_INFO: 'userInfo',
-  USER_PURPOSE: 'userPurpose',
-  USER_GENDER: 'userGender',
+  USER_INFO: 'USER_INFO',
+  USER_PURPOSE: 'USER_PURPOSE',
+  USER_GENDER: 'USER_GENDER',
 }
