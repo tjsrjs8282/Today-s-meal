@@ -9,6 +9,7 @@ import HaederTitle from '@components/HeaderTitle'
 import IconButton from '@components/IconButton'
 import Button from '@components/Button'
 import Input from '@components/Input'
+import CountBox from '@components/CountBox'
 import CheckBox from '@components/CheckBox'
 import CheckBoxGroup from '@components/CheckBoxGroup'
 import FloatMenu from '@components/FloatMenu'
@@ -31,8 +32,15 @@ export default function Health() {
   const [exerciseName, setExerciseName] = useState('')
   const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_KEY
 
-  const [service, setService] = useState(false)
-  const [marketing, setMarketing] = useState(false)
+  const [inputs, setInputs] = useState({
+    healthName: '',
+    healthCount: 0,
+    healthWeight: '',
+    healthSet: '',
+    healthTime: '',
+  })
+  const { healthName, healthCount, healthWeight, healthSet, healthTime } = inputs
+
   const [colors, setColors] = useState(['count'])
 
   const [modal, setModal] = useState(false)
@@ -65,11 +73,14 @@ export default function Health() {
     setModal(false)
   }
 
-  console.log(colors)
-
   const handleInputChange = useCallback((e) => {
-    setExerciseName(e.target.value)
+    const { name, value } = e.target
+    const result = name !== 'healthName' ? value.replace(/\D/g, '') : value
+
+    setInputs({ ...inputs, [name]: result })
   }, [])
+
+  console.log(inputs)
 
   const onGeoOk = (poistion) => {
     const lat = poistion.coords.latitude
@@ -110,9 +121,9 @@ export default function Health() {
           <Input
             type="text"
             placeholder="무슨 운동을 하셨나요?"
-            name="exerciseName"
+            name="healthName"
             title="운동명"
-            value={exerciseName}
+            value={healthName}
             onChange={handleInputChange}
             unit={
               exerciseName && (
@@ -139,6 +150,51 @@ export default function Health() {
               시간
             </CheckBox>
           </CheckBoxGroup>
+          <Flex width start wrap>
+            <Flex col2>
+              <CountBox
+                type="number"
+                value={healthCount}
+                name={'healthCount'}
+                placeholder="0"
+                title={'횟수'}
+                onChange={handleInputChange}
+                marginBottomNone
+                smallFont
+              />
+            </Flex>
+            <Flex col2>
+              <Input
+                type="number"
+                placeholder="0"
+                name={'healthWeight'}
+                title={'무게'}
+                value={healthWeight}
+                onChange={handleInputChange}
+                unit={'kg'}
+              />
+            </Flex>
+            <Flex col2>
+              <Input
+                type="number"
+                placeholder="0"
+                name={'healthSet'}
+                title={'세트'}
+                value={healthSet}
+                onChange={handleInputChange}
+              />
+            </Flex>
+            <Flex col2>
+              <Input
+                type="number"
+                placeholder="0"
+                name={'healthTime'}
+                title={'시간'}
+                value={healthTime}
+                onChange={handleInputChange}
+              />
+            </Flex>
+          </Flex>
         </Modal>
       )}
       <Header>
