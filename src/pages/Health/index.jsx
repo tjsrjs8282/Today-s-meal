@@ -9,6 +9,7 @@ import HaederTitle from '@components/HeaderTitle'
 import IconButton from '@components/IconButton'
 import Button from '@components/Button'
 import Input from '@components/Input'
+import InputTime from '@components/InputTime'
 import CountBox from '@components/CountBox'
 import CheckBox from '@components/CheckBox'
 import CheckBoxGroup from '@components/CheckBoxGroup'
@@ -31,15 +32,16 @@ export default function Health() {
   const [calendarOpen, setCalendarOpen] = useState(false)
   const [exerciseName, setExerciseName] = useState('')
   const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_KEY
-
+  const [count, setCount] = useState(1)
   const [inputs, setInputs] = useState({
     healthName: '',
-    healthCount: 0,
+    healthCount: 1,
     healthWeight: '',
     healthSet: '',
-    healthTime: '',
+    healthMinute: '',
+    healthSecond: '',
   })
-  const { healthName, healthCount, healthWeight, healthSet, healthTime } = inputs
+  const { healthName, healthCount, healthWeight, healthSet, healthMinute, healthSecond } = inputs
 
   const [colors, setColors] = useState(['count'])
 
@@ -73,12 +75,16 @@ export default function Health() {
     setModal(false)
   }
 
-  const handleInputChange = useCallback((e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target
     const result = name !== 'healthName' ? value.replace(/\D/g, '') : value
 
     setInputs({ ...inputs, [name]: result })
-  }, [])
+  }
+
+  const handleCountCalculation = (count) => {
+    setInputs({ ...inputs, healthCount: count })
+  }
 
   console.log(inputs)
 
@@ -126,11 +132,11 @@ export default function Health() {
             value={healthName}
             onChange={handleInputChange}
             unit={
-              exerciseName && (
+              healthName && (
                 <IconButton
                   kinds={'closeCircle'}
                   onClick={() => {
-                    setExerciseName('')
+                    setInputs({ ...inputs, healthName: '' })
                   }}
                 />
               )
@@ -159,6 +165,7 @@ export default function Health() {
                 placeholder="0"
                 title={'횟수'}
                 onChange={handleInputChange}
+                handleCountCalculation={handleCountCalculation}
                 marginBottomNone
                 smallFont
               />
@@ -185,12 +192,12 @@ export default function Health() {
               />
             </Flex>
             <Flex col2>
-              <Input
+              <InputTime
                 type="number"
                 placeholder="0"
-                name={'healthTime'}
                 title={'시간'}
-                value={healthTime}
+                minute={healthMinute}
+                second={healthSecond}
                 onChange={handleInputChange}
               />
             </Flex>
