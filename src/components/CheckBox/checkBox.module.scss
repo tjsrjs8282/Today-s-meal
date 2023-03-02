@@ -1,0 +1,90 @@
+@import '@styles/shared.scss';
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 49%;
+  margin-right: 2%;
+  margin-bottom: 1rem;
+  padding: 20px 15px;
+  box-sizing: border-box;
+  background: var(--siteColorWhite);
+  border: 1px solid #eee;
+  border-radius: 15px;
+  font-weight: 500;
+  color: #777;
+  cursor: pointer;
+  &:nth-of-type(-n + 2) {
+    margin-top: 0;
+  }
+  &:nth-of-type(2n) {
+    margin-right: 0;
+  }
+
+  &.tab {
+    width: auto;
+    margin-top: 0px;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    border: 1px solid var(--lineColor1);
+    background: var(--siteColorWhite);
+
+    p {
+      margin-top: 0;
+    }
+
+    &:nth-of-type(2n) {
+      margin-right: 2%;
+    }
+  }
+  svg {
+    font-size: 1.5rem;
+  }
+  span {
+    margin-top: 3px;
+    font-size: 1.2rem;
+    color: #777;
+  }
+
+  h3 {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    color: var(--siteColorBlack);
+    font-size: 1.4rem;
+    margin-top: 2px;
+  }
+  p {
+    width: 100%;
+    margin-top: 30px;
+    box-sizing: border-box;
+    text-align: left;
+    font-size: 1rem;
+    color: var(--siteColorBlack);
+  }
+}
+.input[type='checkbox'] {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+
+  width: 0;
+  &:checked + label {
+    background-color: var(--siteColorSub);
+    border: 1px solid var(--siteColorMain);
+    color: var(--siteColorMain);
+    svg {
+      color: var(--siteColorMain);
+    }
+    h3 {
+      color: var(--siteColorMain);
+    }
+    span {
+      color: var(--siteColorMain);
+    }
+    p {
+      color: var(--siteColorMain);
+    }
+  }
+}

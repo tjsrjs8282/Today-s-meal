@@ -1,0 +1,28 @@
+@import '@styles/shared.scss';
+
+.time_box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #eee;
+  border-radius: 15px;
+  color: var(--siteColorGray2);
+  overflow: hidden;
+
+  input {
+    padding: 20px;
+    width: 40%;
+    font-size: 1.2rem;
+    text-align: center;
+    outline: none;
+    background-color: var(--siteColorWhite);
+    color: var(--siteColorBlack);
+  }
+
+  span {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 1.5rem;
+    color: var(--siteColorMain);
+    line-height: 1;
+  }
+}
