@@ -162,7 +162,7 @@ export default function FoodToday() {
         ></Modal>
       )}
       <Header>
-        <button onClick={handleChangeTheme}>dddddddddd</button>
+        {/* <button onClick={handleChangeTheme}>dddddddddd</button> */}
         <Flex width between>
           <HaederTitle content="오늘의 식단" />
           <IconButton kinds="calendar" onClick={openCalendarHandler} />

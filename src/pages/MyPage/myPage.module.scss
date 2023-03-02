@@ -1,1 +1,67 @@
-@import '@styles/shared.scss'
+@import '@styles/shared.scss';
+
+.profile {
+  width: 5rem;
+  height: 5rem;
+  background-color: #555;
+  border-radius: 5rem;
+}
+
+.info_box {
+  margin-left: 1rem;
+
+  h2 {
+    font-size: 2rem;
+    color: var(--siteColorBlack);
+  }
+
+  .info_list {
+    display: flex;
+
+    li {
+      margin-right: 0.4rem;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid var(--siteColorMain);
+      border-radius: 1rem;
+      color: var(--siteColorMain)
+    }
+  }
+}
+
+.switch_wrapper {
+  display: block;
+  
+  .switch {
+    display: flex;
+    align-items: center;
+    width: 4rem;
+    padding: 0.2rem;
+    border: 1px solid var(--lineColor1);
+    border-radius: 2rem;
+    box-sizing: border-box;
+  }
+
+  .switch_handler {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    background: var(--siteColorMain);
+    border-radius: 2rem;
+    box-sizing: border-box;
+    transition: transform 0.5s;
+
+    svg {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+  }
+
+  input[type=checkbox]:checked + .switch {
+    .switch_handler {
+      transform: translateX(calc(100% - 0.4rem - 2px));
+      background: #FF8753;
+    }
+  }
+}
