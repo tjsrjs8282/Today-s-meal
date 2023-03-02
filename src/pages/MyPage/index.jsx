@@ -3,11 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import { localStorageService } from '@utils/localStorage.service'
 import { useRecoilState } from 'recoil';
 import { themeState } from '@store'
+import $ from './myPage.module.scss'
 import Wrapper from '@components/Wrapper'
 import Header from '@components/Header'
 import Flex from '@components/Flex'
 import IconButton from '@components/IconButton'
 
+const info = localStorageService().get('USER_INFO')
+const gender = localStorageService().get('USER_GENDER')
 
 export default function MyPage () {
   const [userInfo, setUserInfo] = useState({})
@@ -32,13 +35,10 @@ export default function MyPage () {
   }, [theme])
 
   useEffect(() => {
-    const Info = localStorageService().get('USER_INFO')
-    const gender = localStorageService().get('USER_GENDER')
-    console.log(gender.split(''))
-    console.log(Info)
-    setUserInfo(Info)
+    setUserInfo(info)
     setUserGender(gender)
-  }, [])
+  }, [info, gender])
+
   return (
     <Wrapper colorWhite>
       <Header>
