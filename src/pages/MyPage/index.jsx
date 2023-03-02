@@ -11,6 +11,7 @@ import IconButton from '@components/IconButton'
 
 export default function MyPage () {
   const [userInfo, setUserInfo] = useState({})
+  const [userGender, setUserGender] = useState()
   const [theme, setTheme] = useRecoilState(themeState)
   const navigate = useNavigate()
 
@@ -32,7 +33,11 @@ export default function MyPage () {
 
   useEffect(() => {
     const Info = localStorageService().get('USER_INFO')
+    const gender = localStorageService().get('USER_GENDER')
+    console.log(gender.split(''))
+    console.log(Info)
     setUserInfo(Info)
+    setUserGender(gender)
   }, [])
   return (
     <Wrapper colorWhite>
@@ -47,6 +52,7 @@ export default function MyPage () {
         <div>
           <h2>{userInfo.userName}</h2>
           <ul>
+            <li>{userGender === "man" ? "남자" : "여자" }</li>
             {
               Object.values(userInfo).filter((v) => v !== userInfo.userName)
                 .map((li, i) => <li key={i}>{li}</li>)
