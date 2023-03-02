@@ -43,7 +43,7 @@ export default function Health() {
   })
   const { healthName, healthCount, healthWeight, healthSet, healthMinute, healthSecond } = inputs
 
-  const [colors, setColors] = useState(['count'])
+  const [healthCheckList, setHealthCheckList] = useState(['count'])
 
   const [modal, setModal] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
@@ -142,7 +142,11 @@ export default function Health() {
               )
             }
           />
-          <CheckBoxGroup label="좋아하는 색깔은?" values={colors} onChange={setColors}>
+          <CheckBoxGroup
+            label="운동 추가하기"
+            values={healthCheckList}
+            onChange={setHealthCheckList}
+          >
             <CheckBox value="count" tab>
               횟수
             </CheckBox>
