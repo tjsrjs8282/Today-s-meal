@@ -4,6 +4,43 @@
   justify-content: center;
   align-items: center;
 
+  p {
+    margin-top: 2px;
+    span {
+      padding: 0px 7px;
+      display: inline-block;
+      color: var(--siteColorGray1);
+      position: relative;
+
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        background: var(--siteColorGray1);
+        width: 0.2rem;
+        height: 0.2rem;
+        border-radius: 50%;
+        left: 100%;
+        top: 50%;
+        transform: rotate(15deg) translate(0, -50%);
+      }
+      &:first-child {
+        padding-left: 0;
+      }
+      &:last-child {
+        &::after {
+          display: none;
+        }
+      }
+      &:nth-last-child(2) {
+        padding-right: 0;
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+
   &.start {
     justify-content: flex-start;
     align-items: flex-start;

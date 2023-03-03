@@ -12,7 +12,7 @@
   }
   input {
     width: 100%;
-    padding: 20px 35px 20px 20px;
+    padding: 20px 40px 20px 20px;
     box-sizing: border-box;
     border-radius: 15px;
     background: var(--siteColorWhite);
@@ -23,7 +23,7 @@
 }
 .unit {
   position: absolute;
-  top: 50%;
+  top: 45%;
   right: 15px;
   transform: translate(0, -50%);
   font-size: 14px;
