@@ -3,29 +3,38 @@ import { useNavigate } from 'react-router-dom'
 import { localStorageService } from '@utils/localStorage.service'
 import { useRecoilState } from 'recoil';
 import { themeState } from '@store'
+import { LOCAL_STORAGE_KEY } from '@constants'
 import $ from './myPage.module.scss'
+import ImageMan from '@assets/man.svg'
+import ImageWoman from '@assets/woman.svg'
+import IconPurpose from '@assets/ic-purpose-white.png'
 import Wrapper from '@components/Wrapper'
 import Header from '@components/Header'
 import Flex from '@components/Flex'
 import IconButton from '@components/IconButton'
 import FloatMenu from '@components/FloatMenu'
-import manImage from '@assets/man.svg'
-import womanImage from '@assets/woman.svg'
-
-const info = localStorageService().get('USER_INFO')
-const gender = localStorageService().get('USER_GENDER')
+import Title from '@components/Title'
+import Button from '@components/Button'
 
 export default function MyPage () {
   const [userInfo, setUserInfo] = useState({})
   const [userGender, setUserGender] = useState()
+  const [userPurpose, setUserPurpose] = useState()
   const [theme, setTheme] = useRecoilState(themeState)
   const [checked, setChecked] = useState(theme === 'DARK' ? true : false)
   const [toggleIcon, setToggleIcon] = useState(theme === 'DARK' ? 'moon' : 'sun')
-  // const [profileImage, setProfileImage] = useState(manImge)
   const navigate = useNavigate()
 
   const goBack = () => {
     navigate(-1)
+  }
+
+  const goUserPurpose = () => {
+    navigate('/purpose')
+  }
+
+  const goUserInfo = () => {
+    navigate('/start')
   }
 
   const handleChangeTheme = useCallback((e) => {
@@ -59,6 +68,9 @@ export default function MyPage () {
   // }, [])
 
   useEffect(() => {
+    const info = localStorageService().get(LOCAL_STORAGE_KEY.USER_INFO)
+    setUserGender(localStorageService().get(LOCAL_STORAGE_KEY.USER_GENDER))
+    setUserPurpose(localStorageService().get(LOCAL_STORAGE_KEY.USER_PURPOSE))
     const { userName, userHeight, userOld, userWeight } = info
     setUserInfo({
       userName: userName,
@@ -66,8 +78,7 @@ export default function MyPage () {
       userOld: userOld + '살',
       userWeight: userWeight + 'kg'
     })
-    setUserGender(gender)
-  }, [info, gender])
+  }, [])
 
   return (
     <Wrapper colorWhite>
@@ -92,7 +103,7 @@ export default function MyPage () {
       <Flex width between marginTop>
         <Flex>
           <div className={$.profile}>
-            <img src={userGender === 'man' ? manImage : womanImage} alt='프로필 사진' />
+            <img src={userGender === 'man' ? ImageMan : ImageWoman} alt='프로필 사진' />
           </div>
           <div className={$.info_box}>
             <h2>{userInfo.userName}</h2>
@@ -105,8 +116,17 @@ export default function MyPage () {
             </ul>
           </div>
         </Flex>
-        <IconButton kinds="setting"/>
+        <IconButton kinds="setting" onClick={goUserInfo}/>
       </Flex>
+
+      <Title content="나의 목표" sub />
+      <div className={$.purpose_wrapper}>
+        <Flex>
+          <img src={IconPurpose} alt='목표 이미지' />
+          <h3>{userPurpose}</h3>
+        </Flex>
+        <Button content='목표 수정' border colorWhite onClick={goUserPurpose} />
+      </div>
       <FloatMenu />
     </Wrapper>
   );
