@@ -8,6 +8,9 @@ import Wrapper from '@components/Wrapper'
 import Header from '@components/Header'
 import Flex from '@components/Flex'
 import IconButton from '@components/IconButton'
+import FloatMenu from '@components/FloatMenu'
+import manImage from '@assets/man.svg'
+import womanImage from '@assets/woman.svg'
 
 const info = localStorageService().get('USER_INFO')
 const gender = localStorageService().get('USER_GENDER')
@@ -15,9 +18,10 @@ const gender = localStorageService().get('USER_GENDER')
 export default function MyPage () {
   const [userInfo, setUserInfo] = useState({})
   const [userGender, setUserGender] = useState()
-  const [checked, setChecked] = useState(false)
-  const [toggleIcon, setToggleIcon] = useState('sun')
   const [theme, setTheme] = useRecoilState(themeState)
+  const [checked, setChecked] = useState(theme === 'DARK' ? true : false)
+  const [toggleIcon, setToggleIcon] = useState(theme === 'DARK' ? 'moon' : 'sun')
+  // const [profileImage, setProfileImage] = useState(manImge)
   const navigate = useNavigate()
 
   const goBack = () => {
@@ -43,16 +47,16 @@ export default function MyPage () {
     setTheme('DARK')
   }, [theme, checked])
 
-  useEffect(() => {
-    console.log('useEffect', theme)
-    if (theme === 'DARK') {
-      setChecked(true)
-      setToggleIcon('moon')
-      return
-    }
-    setChecked(false)
-    setToggleIcon('sun')
-  }, [])
+  // useEffect(() => {
+  //   console.log('useEffect', theme)
+  //   if (theme === 'DARK') {
+  //     setChecked(true)
+  //     setToggleIcon('moon')
+  //     return
+  //   }
+  //   setChecked(false)
+  //   setToggleIcon('sun')
+  // }, [])
 
   useEffect(() => {
     const { userName, userHeight, userOld, userWeight } = info
@@ -64,11 +68,6 @@ export default function MyPage () {
     })
     setUserGender(gender)
   }, [info, gender])
-
-  // const handleCheckChange = (e) => {
-  //   setChecked(e.target.checked)
-  //   console.log(e.target.checked)
-  // }
 
   return (
     <Wrapper colorWhite>
@@ -92,7 +91,9 @@ export default function MyPage () {
       </Header>
       <Flex width between marginTop>
         <Flex>
-          <div className={$.profile}></div>
+          <div className={$.profile}>
+            <img src={userGender === 'man' ? manImage : womanImage} alt='프로필 사진' />
+          </div>
           <div className={$.info_box}>
             <h2>{userInfo.userName}</h2>
             <ul className={$.info_list}>
@@ -106,6 +107,7 @@ export default function MyPage () {
         </Flex>
         <IconButton kinds="setting"/>
       </Flex>
+      <FloatMenu />
     </Wrapper>
   );
 };
