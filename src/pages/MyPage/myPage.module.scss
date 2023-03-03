@@ -2,10 +2,8 @@
 
 .profile {
   overflow: hidden;
-  width: 5rem;
-  height: 5rem;
-  // background-color: #555;
-  // border-radius: 5rem;
+  width: 5.5rem;
+  height: 5.5rem;
 
   img {
     width: 100%;
@@ -17,6 +15,7 @@
   margin-left: 1rem;
 
   h2 {
+    margin-bottom: 0.6rem;
     font-size: 2rem;
     color: var(--siteColorBlack);
   }
@@ -25,8 +24,8 @@
     display: flex;
 
     li {
-      margin-right: 0.4rem;
-      padding: 0.4rem 0.8rem;
+      margin-right: 0.3rem;
+      padding: 0.3rem 0.6rem;
       border: 1px solid var(--siteColorMain);
       border-radius: 1rem;
       color: var(--siteColorMain)
@@ -91,3 +90,20 @@
     max-height: 100%;
   }
 }
+
+.intake_item {
+  padding: 1.6rem 0;
+  text-align: center;
+  
+  h4 {
+    color: var(--siteColorGray1);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  span {
+    color: var(--siteColorBlack);
+    font-size: 1.2rem;
+    font-weight: 900;
+  }
+} 

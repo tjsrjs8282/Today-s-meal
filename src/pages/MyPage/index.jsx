@@ -15,6 +15,7 @@ import IconButton from '@components/IconButton'
 import FloatMenu from '@components/FloatMenu'
 import Title from '@components/Title'
 import Button from '@components/Button'
+import { INTAKE_TOTAL } from './constants';
 
 export default function MyPage () {
   const [userInfo, setUserInfo] = useState({})
@@ -84,12 +85,12 @@ export default function MyPage () {
     <Wrapper colorWhite>
       <Header>
         <Flex width between>
-          <IconButton kinds="back" onClick={goBack} />
+          <IconButton kinds='back' onClick={goBack} />
           <label className={$.switch_wrapper}>
               <input
-                type="checkbox"
+                type='checkbox'
                 checked={checked}
-                className="blind"
+                className='blind'
                 onChange={(e) => handleChangeTheme(e)}
               />
               <span className={$.switch}>
@@ -108,7 +109,7 @@ export default function MyPage () {
           <div className={$.info_box}>
             <h2>{userInfo.userName}</h2>
             <ul className={$.info_list}>
-              <li>{userGender === "man" ? "남자" : "여자" }</li>
+              <li>{userGender === 'man' ? '남자' : '여자' }</li>
               {
                 Object.values(userInfo).filter((v) => v !== userInfo.userName)
                   .map((li, i) => <li key={i}>{li}</li>)
@@ -116,10 +117,10 @@ export default function MyPage () {
             </ul>
           </div>
         </Flex>
-        <IconButton kinds="setting" onClick={goUserInfo}/>
+        <IconButton kinds='setting' onClick={goUserInfo}/>
       </Flex>
 
-      <Title content="나의 목표" sub />
+      <Title content='나의 목표' sub />
       <div className={$.purpose_wrapper}>
         <Flex>
           <img src={IconPurpose} alt='목표 이미지' />
@@ -127,6 +128,24 @@ export default function MyPage () {
         </Flex>
         <Button content='목표 수정' border colorWhite onClick={goUserPurpose} />
       </div>
+
+      <Title content='하루 목표 섭취량' sub>
+        <Button content='수정하기' none />
+      </Title>
+      <Flex width around radius shadow border >
+        {
+          INTAKE_TOTAL.map((value) => {
+            const { id, name, max, unit } = value
+            return (
+              <div key={id} className={$.intake_item}>
+                <h4>{name}</h4>
+                <span>{max + unit}</span>
+              </div>
+            )
+          })
+        }
+    
+      </Flex>
       <FloatMenu />
     </Wrapper>
   );
