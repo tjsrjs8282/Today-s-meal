@@ -97,17 +97,17 @@ export default function FoodToday() {
     setModal(false)
   }
 
-  const handleChangeTheme = useCallback(() => {
-    if (theme === 'DARK') {
-      localStorageService().set('THEME', 'LIGHT')
-      document.documentElement.setAttribute('data-theme', 'LIGHT')
-      setTheme('LIGHT')
-      return
-    }
-    localStorageService().set('THEME', 'DARK')
-    document.documentElement.setAttribute('data-theme', 'DARK')
-    setTheme('DARK')
-  }, [theme])
+  // const handleChangeTheme = useCallback(() => {
+  //   if (theme === 'DARK') {
+  //     localStorageService().set('THEME', 'LIGHT')
+  //     document.documentElement.setAttribute('data-theme', 'LIGHT')
+  //     setTheme('LIGHT')
+  //     return
+  //   }
+  //   localStorageService().set('THEME', 'DARK')
+  //   document.documentElement.setAttribute('data-theme', 'DARK')
+  //   setTheme('DARK')
+  // }, [theme])
 
   async function foodTodayFilter() {
     const foodDateFilter = sessionFoodTotal
