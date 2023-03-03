@@ -118,10 +118,6 @@ export default function Health() {
   }
 
   function test() {
-    // const healthDateFilter = sessionHealthTotal
-    //   ? sessionHealthTotal.filter((data) => data.date === healthDate)
-    //   : []
-
     const healthDateMark = sessionHealthTotal ? sessionHealthTotal.map((data) => data.date) : []
     setTodayMark([...new Set(healthDateMark)])
   }
@@ -133,18 +129,6 @@ export default function Health() {
   useEffect(() => {
     test()
   }, [dateRecoil, modal])
-
-  console.log(todayMark)
-
-  const goHealthAdd = () => {
-    navigate('add')
-  }
-  const goHealthAddsss = () => {
-    navigate('add')
-  }
-  const goHealthAddssss = () => {
-    navigate('add')
-  }
 
   return (
     <Wrapper colorGray>
@@ -180,18 +164,6 @@ export default function Health() {
             values={healthCheckList}
             onChange={setHealthCheckList}
           >
-            <CheckBox value="healthCount" tab>
-              횟수
-            </CheckBox>
-            <CheckBox value="healthWeight" tab>
-              무게
-            </CheckBox>
-            <CheckBox value="healthSet" tab>
-              세트
-            </CheckBox>
-            <CheckBox value="healthTime" tab>
-              시간
-            </CheckBox>
             <CheckBox value="healthCount" tab>
               횟수
             </CheckBox>
