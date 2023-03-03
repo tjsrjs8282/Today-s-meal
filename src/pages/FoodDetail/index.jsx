@@ -34,8 +34,8 @@ const FoodDetail = () => {
   const [foodMeasurement, setFoodMeasurement] = useState('')
   const [loading, setLoading] = useState(false)
   const { id } = useParams()
-  const weeks = ['일', '월', '화', '수', '목', '금', '토']
-  const date = dayjs(dateRecoil).format(`MM월 DD일 ${weeks[dayjs(dateRecoil).get('d')]}요일`)
+  const WEEKS = ['일', '월', '화', '수', '목', '금', '토']
+  const date = dayjs(dateRecoil).format(`MM월 DD일 ${WEEKS[dayjs(dateRecoil).get('d')]}요일`)
 
   const goBack = () => {
     navigate('../search')
@@ -85,13 +85,13 @@ const FoodDetail = () => {
     ])
   }
   const handleClickAdd = () => {
-    const sesstionPartFoods = localStorageService().get('FOODTOTAL')
+    const sesstionPartFoods = localStorageService().get('FOOD_TOTAL')
     if (!loading) {
       if (sesstionPartFoods) {
         sesstionPartFoods.push({ ...foodServingList[0] })
-        localStorageService().set('FOODTOTAL', sesstionPartFoods)
+        localStorageService().set('FOOD_TOTAL', sesstionPartFoods)
       } else {
-        localStorageService().set('FOODTOTAL', foodServingList)
+        localStorageService().set('FOOD_TOTAL', foodServingList)
       }
 
       navigate('/today')
@@ -102,8 +102,8 @@ const FoodDetail = () => {
   useEffect(() => {
     getFatsecret()
   }, [])
-  
-  const handleCountChange = (e) => { 
+
+  const handleCountChange = (e) => {
     setCount(e.target.value)
   }
 
@@ -117,7 +117,11 @@ const FoodDetail = () => {
         <IconButton kinds={'close'} onClick={goBack} />
       </Header>
       <Title content={foodList.food_name} subContent={foodMeasurement} />
-      <CountBox value={count} onChange={handleCountChange} handleCountCalculation={handleCountCalculation}/>
+      <CountBox
+        value={count}
+        onChange={handleCountChange}
+        handleCountCalculation={handleCountCalculation}
+      />
 
       <RadioGroup label="surving" value={foodMeasurement} onChange={setFoodMeasurement}>
         {foodServingData.map((surving) => {

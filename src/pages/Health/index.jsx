@@ -17,6 +17,7 @@ import FloatMenu from '@components/FloatMenu'
 import Calendar from 'react-calendar'
 import Modal from '@components/Modal'
 import moment from 'moment'
+import dayjs from 'dayjs'
 // import axios from 'axios'
 import HealthWeatherInfoBox from './HealthWeatherInfoBox'
 import { weatherInstance } from '@api/axiosInstance'
@@ -30,10 +31,12 @@ export default function Health() {
   const [dateRecoil, setDateRecoil] = useRecoilState(dateState)
   const [weatherData, setWeatherData] = useState(null)
   const [calendarOpen, setCalendarOpen] = useState(false)
-  const [exerciseName, setExerciseName] = useState('')
+
+  const [healthList, setHealthList] = useState([{}])
+  const [todayMark, setTodayMark] = useState([])
   const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_KEY
-  const [count, setCount] = useState(1)
   const [inputs, setInputs] = useState({
+    date: '',
     healthName: '',
     healthCount: 1,
     healthWeight: '',
@@ -49,8 +52,9 @@ export default function Health() {
   const [modalTitle, setModalTitle] = useState('')
   const [modalContent, setModalContent] = useState('')
 
+  const sessionHealthTotal = localStorageService().get('HEALTH_TOTAL')
   const WEEKS = ['일', '월', '화', '수', '목', '금', '토']
-  const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
+  const healthDate = dayjs(dateRecoil).format(`MM월 DD일 ${WEEKS[dayjs(dateRecoil).get('d')]}요일`)
 
   const openCalendarHandler = () => {
     setCalendarOpen(!calendarOpen)
@@ -68,6 +72,14 @@ export default function Health() {
   }
 
   const modalOnClick = () => {
+    const sesstionHealth = localStorageService().get('HEALTH_TOTAL')
+    if (sesstionHealth) {
+      sesstionHealth.push({ ...inputs, date: healthDate })
+      localStorageService().set('HEALTH_TOTAL', sesstionHealth)
+    } else {
+      localStorageService().set('HEALTH_TOTAL', [{ ...inputs, date: healthDate }])
+    }
+    setHealthList({ ...inputs, date: healthDate })
     setModal(false)
   }
 
@@ -83,7 +95,7 @@ export default function Health() {
   }
 
   const handleCountCalculation = (count) => {
-    setInputs({ ...inputs, healthCount: count })
+    setInputs({ ...inputs, [healthCount]: count })
   }
 
   console.log(inputs)
@@ -105,9 +117,24 @@ export default function Health() {
     setWeatherData(response.data)
   }
 
+  function test() {
+    // const healthDateFilter = sessionHealthTotal
+    //   ? sessionHealthTotal.filter((data) => data.date === healthDate)
+    //   : []
+
+    const healthDateMark = sessionHealthTotal ? sessionHealthTotal.map((data) => data.date) : []
+    setTodayMark([...new Set(healthDateMark)])
+  }
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError)
   }, [])
+
+  useEffect(() => {
+    test()
+  }, [dateRecoil, modal])
+
+  console.log(todayMark)
 
   const goHealthAdd = () => {
     navigate('add')
@@ -147,16 +174,16 @@ export default function Health() {
             values={healthCheckList}
             onChange={setHealthCheckList}
           >
-            <CheckBox value="count" tab>
+            <CheckBox value="healthCount" tab>
               횟수
             </CheckBox>
-            <CheckBox value="weight" tab>
+            <CheckBox value="healthWeight" tab>
               무게
             </CheckBox>
-            <CheckBox value="set" tab>
+            <CheckBox value="healthSet" tab>
               세트
             </CheckBox>
-            <CheckBox value="time" tab>
+            <CheckBox value="healthTime" tab>
               시간
             </CheckBox>
           </CheckBoxGroup>
@@ -168,7 +195,7 @@ export default function Health() {
                 name={'healthCount'}
                 placeholder="0"
                 title={'횟수'}
-                onChange={handleInputChange}
+                //onChange={handleInputChange}
                 handleCountCalculation={handleCountCalculation}
                 marginBottomNone
                 smallFont
@@ -224,7 +251,11 @@ export default function Health() {
               setCalendarOpen(true)
             }}
             tileClassName={({ date }) => {
-              if (marks.find((x) => x === moment(date).format('DD-MM-YYYY'))) {
+              if (
+                todayMark.find(
+                  (x) => x === dayjs(date).format(`MM월 DD일 ${WEEKS[dayjs(date).get('d')]}요일`)
+                )
+              ) {
                 return 'highlight'
               }
             }}

@@ -46,16 +46,16 @@ export default function FoodToday() {
   const [modalTitle, setModalTitle] = useState('')
   const [modalContent, setModalContent] = useState('')
 
-  const sessionFoodTotal = localStorageService().get('FOODTOTAL')
+  const sessionFoodTotal = localStorageService().get('FOOD_TOTAL')
   const WEEKS = ['일', '월', '화', '수', '목', '금', '토']
   const FOOD_SERVING = ['carbohydrate', 'protein', 'fat', 'calories']
   const FOOD_PART = ['전체', '아침', '점심', '저녁', '간식']
   const foodDate = dayjs(dateRecoil).format(`MM월 DD일 ${WEEKS[dayjs(dateRecoil).get('d')]}요일`)
   const FOOD_TOALDATA = [
-    { name: '아침', image: '/public/assets/ic-morning-normal.png', data: todayBreakfast },
-    { name: '점심', image: '/public/assets/ic-lunch-normal.png', data: todayLunch },
-    { name: '저녁', image: '/public/assets/ic-dinner-normal.png', data: todayDinner },
-    { name: '간식', image: '/public/assets/ic-snack-normal.png', data: todaySnack },
+    { name: '아침', data: todayBreakfast },
+    { name: '점심', data: todayLunch },
+    { name: '저녁', data: todayDinner },
+    { name: '간식', data: todaySnack },
   ]
 
   const goFoodSearch = (name) => {
@@ -90,7 +90,7 @@ export default function FoodToday() {
 
   const modalOnClick = () => {
     const removefilter = sessionFoodTotal.filter((data) => data.id !== removeId)
-    localStorageService().set('FOODTOTAL', removefilter)
+    localStorageService().set('FOOD_TOTAL', removefilter)
     setModal(false)
   }
   const modalOnClose = () => {
