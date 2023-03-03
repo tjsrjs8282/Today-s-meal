@@ -13,7 +13,8 @@ export default function Button({
   border,
   nonefixed,
   noneBackground,
-  marginTop
+  marginTop,
+  colorWhite
 }) {
   return (
     <button
@@ -24,7 +25,8 @@ export default function Button({
         border,
         nonefixed,
         noneBackground,
-        marginTop
+        marginTop,
+        colorWhite,
       })}
       onClick={onClick}
     >

@@ -25,7 +25,7 @@ export default function FloatMenu({}) {
         <BiShoppingBag />
         <p>쇼핑</p>
       </Flex>
-      <Flex col4 column onClick={() => navigate('/')}>
+      <Flex col4 column path={'/mypage'} onClick={() => navigate('/mypage')}>
         <BiUser />
         <p>마이</p>
       </Flex>

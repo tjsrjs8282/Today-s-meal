@@ -66,7 +66,7 @@ export default function UserInfo() {
     localStorage.removeItem(LOCAL_STORAGE_KEY.USER_INFO)
     localStorage.removeItem(LOCAL_STORAGE_KEY.USER_GENDER)
     localStorage.setItem(LOCAL_STORAGE_KEY.USER_INFO, JSON.stringify(inputs))
-    localStorage.setItem(LOCAL_STORAGE_KEY.USER_GENDER, JSON.stringify(gender))
+    localStorage.setItem(LOCAL_STORAGE_KEY.USER_GENDER, gender)
 
     navigate('/purpose')
   }

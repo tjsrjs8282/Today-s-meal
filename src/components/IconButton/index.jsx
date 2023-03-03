@@ -24,6 +24,7 @@ import {
   AiOutlineWoman,
   AiFillCloseCircle,
   AiOutlineSearch,
+  AiOutlineSetting,
 } from 'react-icons/ai'
 
 const IconButton = memo(({ kinds, onClick, onFocus }) => {
@@ -54,6 +55,7 @@ const IconButton = memo(({ kinds, onClick, onFocus }) => {
       )}
       {kinds === 'next' && <HiChevronRight size="2rem" onClick={onClick} />}
       {kinds === 'cart' && <BsCart2 size="2.2rem" />}
+      {kinds === 'setting' && <AiOutlineSetting onClick={onClick} />}
       {/* weather */}
       {kinds === 'sun' && <BsSun color="#fff" />}
       {kinds === 'moon' && <BsMoonStars color="#fff" />}
