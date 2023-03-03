@@ -139,6 +139,12 @@ export default function Health() {
   const goHealthAdd = () => {
     navigate('add')
   }
+  const goHealthAddsss = () => {
+    navigate('add')
+  }
+  const goHealthAddssss = () => {
+    navigate('add')
+  }
 
   return (
     <Wrapper colorGray>
