@@ -1,37 +1,38 @@
 article {
   overflow: hidden;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
   border-radius: 15px;
   color: #fff;
-  
+
   &.cold {
     // 0 이하 추울 때 cold
     // 3870FF ~ 33CCFF
-    background: linear-gradient(90deg, #3870FF 0%, #33CCFF 100%);  
+    background: linear-gradient(90deg, #3870ff 0%, #33ccff 100%);
   }
 
   &.warm_up {
     // 0 ~ 15 워밍업이 필요 warm_up
     // 7E82FC ~ C5A9FF
-    background: linear-gradient(90deg, #7E82FC 0%, #C5A9FF 100%);;
+    background: linear-gradient(90deg, #7e82fc 0%, #c5a9ff 100%);
   }
 
   &.good {
     // 15 ~ 25 good
     // 1AB42C - 56D34C
-    background: linear-gradient(90deg, #1AB42C 0%, #56D34C 100%);;
+    background: linear-gradient(90deg, #1ab42c 0%, #56d34c 100%);
   }
 
   &.hot {
     // 운동하기 더울 때 26 ~ hot
     // FF6F2C ~ FEAA47
-    background: linear-gradient(90deg, #FF6F2C 0%, #FEAA47 100%);;
+    background: linear-gradient(90deg, #ff6f2c 0%, #feaa47 100%);
   }
 
   &.rain_or_snow {
     // 비 또는 눈 rain_snow
     // 65758E ~ 3A4E72
-    background: linear-gradient(90deg, #65758E 0%, #3A4E72 100%);;
+    background: linear-gradient(90deg, #65758e 0%, #3a4e72 100%);
   }
 
   svg {
@@ -57,7 +58,7 @@ article {
 
     li {
       padding: 1rem;
-      width: 33.33%; 
+      width: 33.33%;
       text-align: center;
       color: #fff;
       border-right: 1px solid rgba($color: #000000, $alpha: 0.1);
@@ -68,5 +69,3 @@ article {
     }
   }
 }
-
-

@@ -16,7 +16,6 @@ import CheckBoxGroup from '@components/CheckBoxGroup'
 import FloatMenu from '@components/FloatMenu'
 import Calendar from 'react-calendar'
 import Modal from '@components/Modal'
-import moment from 'moment'
 import dayjs from 'dayjs'
 // import axios from 'axios'
 import HealthWeatherInfoBox from './HealthWeatherInfoBox'
@@ -31,23 +30,22 @@ export default function Health() {
   const [dateRecoil, setDateRecoil] = useRecoilState(dateState)
   const [weatherData, setWeatherData] = useState(null)
   const [calendarOpen, setCalendarOpen] = useState(false)
-
+  const [todayHealth, setTodayHealth] = useState([{}])
   const [healthList, setHealthList] = useState([{}])
   const [todayMark, setTodayMark] = useState([])
   const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_KEY
   const [inputs, setInputs] = useState({
     date: '',
     healthName: '',
-    healthCount: 1,
+    healthCount: '',
     healthWeight: '',
-    healthSet: '',
+    healthSet: 1,
     healthMinute: '',
     healthSecond: '',
   })
   const { healthName, healthCount, healthWeight, healthSet, healthMinute, healthSecond } = inputs
 
-  const [healthCheckList, setHealthCheckList] = useState(['count'])
-
+  const [healthCheckList, setHealthCheckList] = useState(['healthCount'])
   const [modal, setModal] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
   const [modalContent, setModalContent] = useState('')
@@ -95,10 +93,8 @@ export default function Health() {
   }
 
   const handleCountCalculation = (count) => {
-    setInputs({ ...inputs, [healthCount]: count })
+    setInputs({ ...inputs, [healthSet]: count })
   }
-
-  console.log(inputs)
 
   const onGeoOk = (poistion) => {
     const lat = poistion.coords.latitude
@@ -117,19 +113,29 @@ export default function Health() {
     setWeatherData(response.data)
   }
 
-  function test() {
+  function healthTodayFilter() {
+    const healthDateFilter = sessionHealthTotal
+      ? sessionHealthTotal.filter((data) => data.date === healthDate)
+      : []
     const healthDateMark = sessionHealthTotal ? sessionHealthTotal.map((data) => data.date) : []
     setTodayMark([...new Set(healthDateMark)])
+    console.log(sessionHealthTotal)
+    setTodayHealth(healthDateFilter)
   }
+
+  console.log(todayHealth)
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError)
   }, [])
 
   useEffect(() => {
-    test()
+    healthTodayFilter()
   }, [dateRecoil, modal])
 
+  const goHealthAdd = () => {
+    navigate('/add')
+  }
   return (
     <Wrapper colorGray>
       {modal && (
@@ -179,16 +185,14 @@ export default function Health() {
           </CheckBoxGroup>
           <Flex width start wrap>
             <Flex col2>
-              <CountBox
+              <Input
                 type="number"
-                value={healthCount}
-                name={'healthCount'}
                 placeholder="0"
+                name={'healthCount'}
                 title={'횟수'}
-                //onChange={handleInputChange}
-                handleCountCalculation={handleCountCalculation}
-                marginBottomNone
-                smallFont
+                value={healthCount}
+                onChange={handleInputChange}
+                unit={'번(회)'}
               />
             </Flex>
             <Flex col2>
@@ -202,14 +206,18 @@ export default function Health() {
                 unit={'kg'}
               />
             </Flex>
+
             <Flex col2>
-              <Input
+              <CountBox
                 type="number"
-                placeholder="0"
-                name={'healthSet'}
-                title={'세트'}
                 value={healthSet}
-                onChange={handleInputChange}
+                name={'healthSet'}
+                placeholder="0"
+                title={'세트'}
+                //onChange={handleInputChange}
+                handleCountCalculation={handleCountCalculation}
+                marginBottomNone
+                smallFont
               />
             </Flex>
             <Flex col2>
@@ -228,9 +236,7 @@ export default function Health() {
       <Header>
         <Flex width between>
           <HaederTitle content="운동일지 " />
-          <div className={$.header_icon_btn}>
-            <IconButton kinds="calendar" onClick={openCalendarHandler} />
-          </div>
+          <IconButton kinds="calendar" onClick={openCalendarHandler} />
         </Flex>
         {calendarOpen && (
           <Calendar
@@ -254,13 +260,36 @@ export default function Health() {
       </Header>
       {weatherData && <HealthWeatherInfoBox data={weatherData} />}
       <Title content={'오늘의 운동'} sub>
-        <Button content={'수정 및 추가하기'} none onClick={onClickModalHandler} />
+        <Button content={'추가하기'} none onClick={onClickModalHandler} />
       </Title>
-      <ul className={$.health_list}>
-        <li className={$.empty_list}>
-          <img src={logoBg} alt="빈 접시" onClick={goHealthAdd} />
-        </li>
-      </ul>
+
+      {todayHealth.length === 0 ? (
+        <ul className={$.health_list}>
+          <li className={$.empty_list}>
+            <img src={logoBg} alt="빈 접시" onClick={goHealthAdd} />
+          </li>
+        </ul>
+      ) : (
+        todayHealth.map((health) => {
+          const { healthCount, healthMinute, healthSecond, healthName, healthSet, healthWeight } =
+            health
+          return (
+            <Flex width shadow between marginBottom padding radius colorWhite fontBlack>
+              <Flex column start>
+                <h3>{healthName}</h3>
+                <p>
+                  {healthCount && <span>{`${healthCount}회`}</span>}
+                  {healthWeight && <span>{`${healthWeight}kg`}</span>}
+                  {healthSet && <span>{`${healthSet}세트`}</span>}
+                  {healthMinute && <span>{`${healthMinute}분`}</span>}
+                  {healthSecond && <span>{`${healthSecond}초`}</span>}
+                </p>
+              </Flex>
+              <IconButton kinds="close2" />
+            </Flex>
+          )
+        })
+      )}
 
       <FloatMenu />
     </Wrapper>
