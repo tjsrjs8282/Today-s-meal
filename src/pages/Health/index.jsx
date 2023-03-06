@@ -182,6 +182,18 @@ export default function Health() {
             <CheckBox value="healthTime" tab>
               시간
             </CheckBox>
+            <CheckBox value="healthCount" tab>
+              횟수1
+            </CheckBox>
+            <CheckBox value="healthWeight" tab>
+              무게2
+            </CheckBox>
+            <CheckBox value="healthSet" tab>
+              세트3
+            </CheckBox>
+            <CheckBox value="healthTime" tab>
+              시간4
+            </CheckBox>
           </CheckBoxGroup>
           <Flex width start wrap>
             <Flex col2>
