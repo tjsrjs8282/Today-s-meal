@@ -35,6 +35,7 @@ export default function Health() {
   const [todayMark, setTodayMark] = useState([])
   const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_KEY
   const [inputs, setInputs] = useState({
+    id: new Date().getTime(),
     date: '',
     healthName: '',
     healthCount: '',
@@ -43,9 +44,12 @@ export default function Health() {
     healthMinute: '',
     healthSecond: '',
   })
+  const [removeId, setRemoveId] = useState(0)
   const { healthName, healthCount, healthWeight, healthSet, healthMinute, healthSecond } = inputs
 
   const [healthCheckList, setHealthCheckList] = useState(['healthCount'])
+
+  const [modalRemove, setModalRemove] = useState(false)
   const [modal, setModal] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
   const [modalContent, setModalContent] = useState('')
@@ -69,20 +73,37 @@ export default function Health() {
     setModal(!modal)
   }
 
+  const onClickRemoveHandler = (name, id) => {
+    setModalTitle(`운동리스트 삭제`)
+    setModalContent(`${name} 를(을) 삭제 하시겠습니까?`)
+    setRemoveId(id)
+    console.log(removeId)
+    setModalRemove(!modalRemove)
+  }
+
+  const modalRemoveOnClick = () => {
+    const removefilter = sessionHealthTotal.filter((data) => data.id !== removeId)
+    localStorageService().set('HEALTH_TOTAL', removefilter)
+    setModalRemove(false)
+  }
+
   const modalOnClick = () => {
     const sesstionHealth = localStorageService().get('HEALTH_TOTAL')
     if (sesstionHealth) {
-      sesstionHealth.push({ ...inputs, date: healthDate })
+      sesstionHealth.push({ ...inputs, date: healthDate, id: new Date().getTime() })
       localStorageService().set('HEALTH_TOTAL', sesstionHealth)
     } else {
-      localStorageService().set('HEALTH_TOTAL', [{ ...inputs, date: healthDate }])
+      localStorageService().set('HEALTH_TOTAL', [
+        { ...inputs, date: healthDate, id: new Date().getTime() },
+      ])
     }
-    setHealthList({ ...inputs, date: healthDate })
+    setHealthList({ ...inputs, date: healthDate, id: new Date().getTime() })
     setModal(false)
   }
 
   const modalOnClose = () => {
     setModal(false)
+    setModalRemove(false)
   }
 
   const handleInputChange = (e) => {
@@ -131,13 +152,23 @@ export default function Health() {
 
   useEffect(() => {
     healthTodayFilter()
-  }, [dateRecoil, modal])
+  }, [dateRecoil, modal, modalRemove])
 
   const goHealthAdd = () => {
     navigate('/add')
   }
   return (
     <Wrapper colorGray>
+      {modalRemove && (
+        <Modal
+          title={modalTitle}
+          content={modalContent}
+          onClick={modalRemoveOnClick}
+          onClose={modalOnClose}
+          confirm
+        ></Modal>
+      )}
+
       {modal && (
         <Modal
           title={modalTitle}
@@ -181,18 +212,6 @@ export default function Health() {
             </CheckBox>
             <CheckBox value="healthTime" tab>
               시간
-            </CheckBox>
-            <CheckBox value="healthCount" tab>
-              횟수1
-            </CheckBox>
-            <CheckBox value="healthWeight" tab>
-              무게2
-            </CheckBox>
-            <CheckBox value="healthSet" tab>
-              세트3
-            </CheckBox>
-            <CheckBox value="healthTime" tab>
-              시간4
             </CheckBox>
           </CheckBoxGroup>
           <Flex width start wrap>
@@ -283,8 +302,15 @@ export default function Health() {
         </ul>
       ) : (
         todayHealth.map((health) => {
-          const { healthCount, healthMinute, healthSecond, healthName, healthSet, healthWeight } =
-            health
+          const {
+            healthCount,
+            healthMinute,
+            healthSecond,
+            healthName,
+            healthSet,
+            healthWeight,
+            id,
+          } = health
           return (
             <Flex width shadow between marginBottom padding radius colorWhite fontBlack>
               <Flex column start>
@@ -297,7 +323,7 @@ export default function Health() {
                   {healthSecond && <span>{`${healthSecond}초`}</span>}
                 </p>
               </Flex>
-              <IconButton kinds="close2" />
+              <IconButton kinds="close2" onClick={() => onClickRemoveHandler(healthName, id)} />
             </Flex>
           )
         })
