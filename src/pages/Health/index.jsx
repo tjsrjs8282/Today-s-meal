@@ -8,20 +8,15 @@ import Header from '@components/Header'
 import HaederTitle from '@components/HeaderTitle'
 import IconButton from '@components/IconButton'
 import Button from '@components/Button'
-import Input from '@components/Input'
-import InputTime from '@components/InputTime'
-import CountBox from '@components/CountBox'
-import CheckBox from '@components/CheckBox'
-import CheckBoxGroup from '@components/CheckBoxGroup'
 import FloatMenu from '@components/FloatMenu'
 import Calendar from 'react-calendar'
 import Modal from '@components/Modal'
 import dayjs from 'dayjs'
-// import axios from 'axios'
+import HealthAddmodal from './HealthAddmodal'
 import HealthWeatherInfoBox from './HealthWeatherInfoBox'
 import { weatherInstance } from '@api/axiosInstance'
 import logoBg from '@assets/ic-logo-bg.png'
-import { themeState, dateState, partState } from '@store'
+import { dateState } from '@store'
 import { useRecoilState } from 'recoil'
 import { localStorageService } from '@utils/localStorage.service'
 
@@ -46,14 +41,10 @@ export default function Health() {
   })
   const [removeId, setRemoveId] = useState(0)
   const { healthName, healthCount, healthWeight, healthSet, healthMinute, healthSecond } = inputs
-
-  const [healthCheckList, setHealthCheckList] = useState(['healthCount'])
-
   const [modalRemove, setModalRemove] = useState(false)
   const [modal, setModal] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
   const [modalContent, setModalContent] = useState('')
-
   const sessionHealthTotal = localStorageService().get('HEALTH_TOTAL')
   const WEEKS = ['일', '월', '화', '수', '목', '금', '토']
   const healthDate = dayjs(dateRecoil).format(`MM월 DD일 ${WEEKS[dayjs(dateRecoil).get('d')]}요일`)
@@ -69,7 +60,6 @@ export default function Health() {
 
   const onClickModalHandler = (name) => {
     setModalTitle(`운동추가`)
-    //setModalContent(`${name} 를(을) 삭제 하시겠습니까?`)
     setModal(!modal)
   }
 
@@ -77,7 +67,6 @@ export default function Health() {
     setModalTitle(`운동리스트 삭제`)
     setModalContent(`${name} 를(을) 삭제 하시겠습니까?`)
     setRemoveId(id)
-    console.log(removeId)
     setModalRemove(!modalRemove)
   }
 
@@ -109,12 +98,15 @@ export default function Health() {
   const handleInputChange = (e) => {
     const { name, value } = e.target
     const result = name !== 'healthName' ? value.replace(/\D/g, '') : value
-
     setInputs({ ...inputs, [name]: result })
   }
 
+  const handleInputReset = (e) => {
+    setInputs({ ...inputs, healthName: '' })
+  }
+
   const handleCountCalculation = (count) => {
-    setInputs({ ...inputs, [healthSet]: count })
+    setInputs({ ...inputs, [`healthSet`]: count })
   }
 
   const onGeoOk = (poistion) => {
@@ -144,8 +136,6 @@ export default function Health() {
     setTodayHealth(healthDateFilter)
   }
 
-  console.log(todayHealth)
-
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError)
   }, [])
@@ -154,9 +144,6 @@ export default function Health() {
     healthTodayFilter()
   }, [dateRecoil, modal, modalRemove])
 
-  const goHealthAdd = () => {
-    navigate('/add')
-  }
   return (
     <Wrapper colorGray>
       {modalRemove && (
@@ -168,101 +155,23 @@ export default function Health() {
           confirm
         ></Modal>
       )}
-
       {modal && (
-        <Modal
+        <HealthAddmodal
           title={modalTitle}
           content={modalContent}
           onClick={modalOnClick}
           onClose={modalOnClose}
-          confirm
-        >
-          <Title content="운동명" sub />
-          <Input
-            type="text"
-            placeholder="무슨 운동을 하셨나요?"
-            name="healthName"
-            title="운동명"
-            value={healthName}
-            onChange={handleInputChange}
-            unit={
-              healthName && (
-                <IconButton
-                  kinds={'closeCircle'}
-                  onClick={() => {
-                    setInputs({ ...inputs, healthName: '' })
-                  }}
-                />
-              )
-            }
-          />
-          <CheckBoxGroup
-            label="운동 추가하기"
-            values={healthCheckList}
-            onChange={setHealthCheckList}
-          >
-            <CheckBox value="healthCount" tab>
-              횟수
-            </CheckBox>
-            <CheckBox value="healthWeight" tab>
-              무게
-            </CheckBox>
-            <CheckBox value="healthSet" tab>
-              세트
-            </CheckBox>
-            <CheckBox value="healthTime" tab>
-              시간
-            </CheckBox>
-          </CheckBoxGroup>
-          <Flex width start wrap>
-            <Flex col2>
-              <Input
-                type="number"
-                placeholder="0"
-                name={'healthCount'}
-                title={'횟수'}
-                value={healthCount}
-                onChange={handleInputChange}
-                unit={'번(회)'}
-              />
-            </Flex>
-            <Flex col2>
-              <Input
-                type="number"
-                placeholder="0"
-                name={'healthWeight'}
-                title={'무게'}
-                value={healthWeight}
-                onChange={handleInputChange}
-                unit={'kg'}
-              />
-            </Flex>
-
-            <Flex col2>
-              <CountBox
-                type="number"
-                value={healthSet}
-                name={'healthSet'}
-                placeholder="0"
-                title={'세트'}
-                //onChange={handleInputChange}
-                handleCountCalculation={handleCountCalculation}
-                marginBottomNone
-                smallFont
-              />
-            </Flex>
-            <Flex col2>
-              <InputTime
-                type="number"
-                placeholder="0"
-                title={'시간'}
-                minute={healthMinute}
-                second={healthSecond}
-                onChange={handleInputChange}
-              />
-            </Flex>
-          </Flex>
-        </Modal>
+          healthName={healthName}
+          healthCount={healthCount}
+          healthWeight={healthWeight}
+          healthSet={healthSet}
+          minute={healthMinute}
+          second={healthSecond}
+          handleCountCalculation={handleCountCalculation}
+          onChange={handleInputChange}
+          handleInputChange={handleInputChange}
+          handleInputReset={handleInputReset}
+        ></HealthAddmodal>
       )}
       <Header>
         <Flex width between>
@@ -293,11 +202,10 @@ export default function Health() {
       <Title content={'오늘의 운동'} sub>
         <Button content={'추가하기'} none onClick={onClickModalHandler} />
       </Title>
-
       {todayHealth.length === 0 ? (
         <ul className={$.health_list}>
           <li className={$.empty_list}>
-            <img src={logoBg} alt="빈 접시" onClick={goHealthAdd} />
+            <img src={logoBg} alt="빈 접시" />
           </li>
         </ul>
       ) : (
@@ -328,7 +236,6 @@ export default function Health() {
           )
         })
       )}
-
       <FloatMenu />
     </Wrapper>
   )

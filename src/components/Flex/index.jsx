@@ -37,7 +37,8 @@ export default function Flex({
   path,
   order1,
   order2,
-  border
+  border,
+  transition,
 }) {
   const loacation = useLocation()
   const this_pathName = loacation.pathname
@@ -75,7 +76,8 @@ export default function Flex({
         path,
         order1,
         order2,
-        border
+        border,
+        transition,
       })}
       onClick={onClick}
     >
