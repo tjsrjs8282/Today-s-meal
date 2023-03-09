@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import $ from './health.module.scss'
 import Wrapper from '@components/Wrapper'
@@ -12,7 +12,7 @@ import FloatMenu from '@components/FloatMenu'
 import Calendar from 'react-calendar'
 import Modal from '@components/Modal'
 import dayjs from 'dayjs'
-import HealthAddmodal from './HealthAddmodal'
+import HealthAddModal from './HealthAddmodal'
 import HealthWeatherInfoBox from './HealthWeatherInfoBox'
 import { weatherInstance } from '@api/axiosInstance'
 import logoBg from '@assets/ic-logo-bg.png'
@@ -48,7 +48,7 @@ export default function Health() {
   const sessionHealthTotal = localStorageService().get('HEALTH_TOTAL')
   const WEEKS = ['일', '월', '화', '수', '목', '금', '토']
   const healthDate = dayjs(dateRecoil).format(`MM월 DD일 ${WEEKS[dayjs(dateRecoil).get('d')]}요일`)
-
+  const nameInput = useRef(0)
   const openCalendarHandler = () => {
     setCalendarOpen(!calendarOpen)
   }
@@ -98,6 +98,7 @@ export default function Health() {
   const handleInputChange = (e) => {
     const { name, value } = e.target
     const result = name !== 'healthName' ? value.replace(/\D/g, '') : value
+
     setInputs({ ...inputs, [name]: result })
   }
 
@@ -132,7 +133,6 @@ export default function Health() {
       : []
     const healthDateMark = sessionHealthTotal ? sessionHealthTotal.map((data) => data.date) : []
     setTodayMark([...new Set(healthDateMark)])
-    console.log(sessionHealthTotal)
     setTodayHealth(healthDateFilter)
   }
 
@@ -156,7 +156,7 @@ export default function Health() {
         ></Modal>
       )}
       {modal && (
-        <HealthAddmodal
+        <HealthAddModal
           title={modalTitle}
           content={modalContent}
           onClick={modalOnClick}
@@ -171,7 +171,7 @@ export default function Health() {
           onChange={handleInputChange}
           handleInputChange={handleInputChange}
           handleInputReset={handleInputReset}
-        ></HealthAddmodal>
+        ></HealthAddModal>
       )}
       <Header>
         <Flex width between>
