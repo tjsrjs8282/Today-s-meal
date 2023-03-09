@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import kcalIcon from '@assets/ic-kcal-normal.png'
@@ -17,10 +17,8 @@ import Button from '@components/Button'
 import RadioGroup from '@components/RadioGroup'
 import Radio from '@components/Radio'
 import dayjs from 'dayjs'
-import FoodDetailServing from './FoodDetailServing'
 import { dateState, partState } from '@store'
 import { fatsecretInstance } from '@api/axiosInstance'
-import { FOODS_DETAIL_SERVING } from './constans'
 import { localStorageService } from '@utils/localStorage.service'
 
 const FoodDetail = () => {
@@ -122,7 +120,6 @@ const FoodDetail = () => {
         onChange={handleCountChange}
         handleCountCalculation={handleCountCalculation}
       />
-
       <RadioGroup label="surving" value={foodMeasurement} onChange={setFoodMeasurement}>
         {foodServingData.map((surving) => {
           return (
@@ -139,31 +136,23 @@ const FoodDetail = () => {
           )
         })}
       </RadioGroup>
-
       {loading ? (
         <Loding />
       ) : (
         <div className={$.info_box}>
           <Flex wrap between>
-            {/* {FOODS_DETAIL_SERVING.map((serving) => {
-              const { unit, image, name } = serving
-              return <FoodDetailServing unit={unit} image={image} name={name} key={serving.id} />
-            })} */}
-
             <Flex padding radius shadow column start colorWhite whdth fontBlack marginBottom col2>
               <Flex paddingBottom>
                 <img src={kcalIcon} alt="칼로리" />
               </Flex>
               <Flex marginTop column start>
                 <p>칼로리</p>
-
                 <h2>
                   {foodServingList[0].calories}
                   <span className={$.unit}>kcal</span>
                 </h2>
               </Flex>
             </Flex>
-
             <Flex padding radius shadow column start colorWhite whdth col2 fontBlack marginBottom>
               <Flex paddingBottom>
                 <img src={carbohydrateIcon} alt="탄수화물" />

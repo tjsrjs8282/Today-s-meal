@@ -153,3 +153,72 @@
     transform: translate(-50%, -50%);
   }
 }
+
+.react-calendar.mypage {
+  width: 100%;
+  position: relative;
+  top: 0;
+  z-index: 100;
+  max-width: 100%;
+  padding: 0.6rem 0;
+  background: var(--siteColorWhite);
+  box-shadow: var(--boxShadow);
+  border-top: 1px solid var(--lineColor2);
+  border-bottom: 1px solid var(--lineColor2);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+}
+
+.react-calendar.mypage button:enabled:hover {
+  cursor: pointer;
+}
+.react-calendar.mypage .react-calendar__navigation {
+  display: none;
+}
+
+.react-calendar.mypage .react-calendar__month-view__weekdays {
+  display: none !important;
+}
+
+.react-calendar.mypage .react-calendar__month-view__days__day--neighboringMonth {
+  background: #000 !important;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.react-calendar.mypage .react-calendar__tile {
+  padding: 0;
+  height: 10vw;
+  max-height: 70px;
+  position: relative;
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    border-radius: 0;
+    background: var(--lineColor3);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    margin-left: 0;
+    border: 0.37rem solid var(--siteColorWhite);
+    transform: none;
+  }
+}
+
+.react-calendar.mypage .highlight {
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    border-radius: 0;
+    background: var(--siteColorMain);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    margin-left: 0;
+    transform: none;
+  }
+}

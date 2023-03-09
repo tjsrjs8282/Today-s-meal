@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 import $ from './health.module.scss'
 import Wrapper from '@components/Wrapper'
 import Flex from '@components/Flex'
@@ -10,6 +9,7 @@ import IconButton from '@components/IconButton'
 import Button from '@components/Button'
 import FloatMenu from '@components/FloatMenu'
 import Calendar from 'react-calendar'
+import '@styles/calendar.scss'
 import Modal from '@components/Modal'
 import dayjs from 'dayjs'
 import HealthAddModal from './HealthAddmodal'
@@ -21,7 +21,6 @@ import { useRecoilState } from 'recoil'
 import { localStorageService } from '@utils/localStorage.service'
 
 export default function Health() {
-  const navigate = useNavigate()
   const [dateRecoil, setDateRecoil] = useRecoilState(dateState)
   const [weatherData, setWeatherData] = useState(null)
   const [calendarOpen, setCalendarOpen] = useState(false)
@@ -48,7 +47,7 @@ export default function Health() {
   const sessionHealthTotal = localStorageService().get('HEALTH_TOTAL')
   const WEEKS = ['일', '월', '화', '수', '목', '금', '토']
   const healthDate = dayjs(dateRecoil).format(`MM월 DD일 ${WEEKS[dayjs(dateRecoil).get('d')]}요일`)
-  const nameInput = useRef(0)
+
   const openCalendarHandler = () => {
     setCalendarOpen(!calendarOpen)
   }
@@ -58,7 +57,7 @@ export default function Health() {
     setCalendarOpen(!calendarOpen)
   }
 
-  const onClickModalHandler = (name) => {
+  const onClickModalHandler = () => {
     setModalTitle(`운동추가`)
     setModal(!modal)
   }

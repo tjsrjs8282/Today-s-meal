@@ -28,7 +28,7 @@
       padding: 0.3rem 0.6rem;
       border: 1px solid var(--siteColorMain);
       border-radius: 1rem;
-      color: var(--siteColorMain)
+      color: var(--siteColorMain);
     }
   }
 }
@@ -36,7 +36,7 @@
 .switch_wrapper {
   display: block;
   cursor: pointer;
-  
+
   .switch {
     display: flex;
     align-items: center;
@@ -64,10 +64,10 @@
     }
   }
 
-  input[type=checkbox]:checked + .switch {
+  input[type='checkbox']:checked + .switch {
     .switch_handler {
       transform: translateX(calc(100% - 0.4rem - 2px));
-      background: #FF8753;
+      background: #ff8753;
     }
   }
 }
@@ -95,7 +95,7 @@
 .intake_item {
   padding: 1.6rem 0;
   text-align: center;
-  
+
   h4 {
     color: var(--siteColorGray1);
     font-weight: 500;
@@ -107,4 +107,4 @@
     font-size: 1.2rem;
     font-weight: 900;
   }
-} 
+}
