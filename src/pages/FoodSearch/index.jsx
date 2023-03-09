@@ -70,7 +70,7 @@ export default function FoodSearch() {
     if (clickable) {
       setClickable(false)
       const setValue = await e.target.value
-      // getFatsecret(setValue)
+      getFatsecret(setValue)
       setTimeout(() => {
         setClickable(true)
       }, 1000)
@@ -151,13 +151,13 @@ export default function FoodSearch() {
                 const { food_id, food_name, food_description, brand_name } = foodData
 
                 return (
-                  <ListItemBox 
+                  <ListItemBox
                     key={food_id}
                     title={food_name}
                     brandName={brand_name}
                     description={food_description}
                     onClick={() => handleItemClick(food_id)}
-                  />  
+                  />
                 )
               })}
             </div>
