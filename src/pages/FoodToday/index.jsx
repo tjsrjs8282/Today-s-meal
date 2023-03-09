@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import $ from './foodToday.module.scss'
-import '@styles/calendar.scss'
 import Wrapper from '@components/Wrapper'
 import Header from '@components/Header'
 import HaederTitle from '@components/HeaderTitle'
@@ -20,8 +19,6 @@ import Modal from '@components/Modal'
 import { themeState, dateState, partState } from '@store'
 import { useRecoilState } from 'recoil'
 import { localStorageService } from '@utils/localStorage.service'
-
-// const  = require('@assets/ic-morning-normal.png').default
 
 export default function FoodToday() {
   const navigate = useNavigate()
@@ -97,18 +94,6 @@ export default function FoodToday() {
     setModal(false)
   }
 
-  // const handleChangeTheme = useCallback(() => {
-  //   if (theme === 'DARK') {
-  //     localStorageService().set('THEME', 'LIGHT')
-  //     document.documentElement.setAttribute('data-theme', 'LIGHT')
-  //     setTheme('LIGHT')
-  //     return
-  //   }
-  //   localStorageService().set('THEME', 'DARK')
-  //   document.documentElement.setAttribute('data-theme', 'DARK')
-  //   setTheme('DARK')
-  // }, [theme])
-
   async function foodTodayFilter() {
     const foodDateFilter = sessionFoodTotal
       ? sessionFoodTotal.filter((data) => data.date === foodDate)
@@ -162,7 +147,6 @@ export default function FoodToday() {
         ></Modal>
       )}
       <Header>
-        {/* <button onClick={handleChangeTheme}>dddddddddd</button> */}
         <Flex width between>
           <HaederTitle content="오늘의 식단" />
           <IconButton kinds="calendar" onClick={openCalendarHandler} />
