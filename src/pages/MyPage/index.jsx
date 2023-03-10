@@ -17,6 +17,9 @@ import Title from '@components/Title'
 import Button from '@components/Button'
 import Calendar from 'react-calendar'
 import dayjs from 'dayjs'
+import Modal from '@components/Modal'
+import RadioGroup from '@components/RadioGroup'
+import Radio from '@components/Radio'
 import { INTAKE_TOTAL } from './constants'
 
 export default function MyPage() {
@@ -27,16 +30,17 @@ export default function MyPage() {
   const [theme, setTheme] = useRecoilState(themeState)
   const [checked, setChecked] = useState(theme === 'DARK' ? true : false)
   const [toggleIcon, setToggleIcon] = useState(theme === 'DARK' ? 'moon' : 'sun')
-
   const [foodMark, setFoodMark] = useState([])
   const [healthMark, setHealthMark] = useState([])
+  const [monthRecord, setMonthRecord] = useState('food')
+  const [modalTitle, setModalTitle] = useState('')
+  const [modalContent, setModalContent] = useState('')
 
   const sessionFoodTotal = localStorageService().get('FOOD_TOTAL')
   const sessionHealthTotal = localStorageService().get('HEALTH_TOTAL')
-
   const WEEKS = ['일', '월', '화', '수', '목', '금', '토']
-  // const monthDate = dayjs(dateRecoil).format(`MM월 DD일 ${WEEKS[dayjs(dateRecoil).get('d')]}요일`)
 
+  const [modalRemove, setModalRemove] = useState(false)
   const navigate = useNavigate()
 
   const goBack = () => {
@@ -57,17 +61,14 @@ export default function MyPage() {
 
   const handleChangeTheme = useCallback(
     (e) => {
-      // console.log(e.target.checked)
       if (e.target.checked === false) {
         setChecked(e.target.checked)
         setToggleIcon('sun')
-        // console.log('handleChangeTheme:', checked)
         localStorageService().set('THEME', 'LIGHT')
         document.documentElement.setAttribute('data-theme', 'LIGHT')
         setTheme('LIGHT')
         return
       }
-      // console.log('handleChangeTheme:', checked)
       setChecked(e.target.checked)
       setToggleIcon('moon')
       localStorageService().set('THEME', 'DARK')
@@ -80,9 +81,29 @@ export default function MyPage() {
   const monthFilter = () => {
     const foodDateMark = sessionFoodTotal ? sessionFoodTotal.map((data) => data.date) : []
     const healthDateMark = sessionHealthTotal ? sessionHealthTotal.map((data) => data.date) : []
-
     setFoodMark([...new Set(foodDateMark)])
     setHealthMark([...new Set(healthDateMark)])
+  }
+
+  const onClickRemoveHandler = () => {
+    setModalTitle(`데이터 초기화`)
+    setModalContent(`모든 기록일지를 초기화 하시겠습니까?`)
+    setModalRemove(!modalRemove)
+  }
+
+  const modalRemoveOnClick = () => {
+    localStorageService().remove(LOCAL_STORAGE_KEY.USER_INFO)
+    localStorageService().remove(LOCAL_STORAGE_KEY.USER_GENDER)
+    localStorageService().remove(LOCAL_STORAGE_KEY.USER_PURPOSE)
+    localStorageService().remove('FOOD_TOTAL')
+    localStorageService().remove('HEALTH_TOTAL')
+    localStorageService().remove('DATE')
+    localStorageService().remove('PART')
+    navigate('/')
+  }
+
+  const modalOnClose = () => {
+    setModalRemove(false)
   }
 
   useEffect(() => {
@@ -96,12 +117,20 @@ export default function MyPage() {
       userOld: userOld + '살',
       userWeight: userWeight + 'kg',
     })
-
     monthFilter()
   }, [])
 
   return (
     <Wrapper colorGray>
+      {modalRemove && (
+        <Modal
+          title={modalTitle}
+          content={modalContent}
+          onClick={modalRemoveOnClick}
+          onClose={modalOnClose}
+          confirm
+        ></Modal>
+      )}
       <Header>
         <Flex width between>
           <IconButton kinds="back" onClick={goBack} />
@@ -120,6 +149,7 @@ export default function MyPage() {
           </label>
         </Flex>
       </Header>
+
       <Flex width between marginTop>
         <Flex>
           <div className={$.profile}>
@@ -164,15 +194,28 @@ export default function MyPage() {
         })}
       </Flex>
 
-      <Title content="이달의 기록" sub />
+      <div className={$.mark_wrapper}>
+        <Flex width between>
+          <Title content="이달의 기록" sub />
+          <RadioGroup label="record" value={monthRecord} onChange={setMonthRecord}>
+            <Radio name="food" value={'food'} tab>
+              <p>식단</p>
+            </Radio>
+            <Radio name="health" value={'health'} tab>
+              <p>운동</p>
+            </Radio>
+          </RadioGroup>
+        </Flex>
+      </div>
       <Calendar
         onChange={setDateRecoil}
         value={dateRecoil}
         className={'mypage'}
         onClickDay={(date) => onClickDayHandler(date)}
         tileClassName={({ date }) => {
+          const monthMark = monthRecord === 'food' ? foodMark : healthMark
           if (
-            foodMark.find(
+            monthMark.find(
               (x) => x === dayjs(date).format(`MM월 DD일 ${WEEKS[dayjs(date).get('d')]}요일`)
             )
           ) {
@@ -180,6 +223,12 @@ export default function MyPage() {
           }
         }}
       />
+
+      <div className={$.logout}>
+        <Title content=" " sub>
+          <Button content="데이터 초기화" none onClick={onClickRemoveHandler} />
+        </Title>
+      </div>
 
       <FloatMenu />
     </Wrapper>

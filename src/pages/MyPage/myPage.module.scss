@@ -92,6 +92,19 @@
   }
 }
 
+.mark_wrapper {
+  margin-top: 1.5rem;
+  fieldset {
+    display: flex;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+  label {
+    margin: 0;
+    margin-right: 0.6rem;
+  }
+}
+
 .intake_item {
   padding: 1.6rem 0;
   text-align: center;
@@ -107,4 +120,12 @@
     font-size: 1.2rem;
     font-weight: 900;
   }
+}
+
+.logout {
+  margin-top: 5rem;
+  height: 30px;
+  line-height: 30px;
+  padding-top: 1rem;
+  border-top: 1px solid var(--lineColor3);
 }
