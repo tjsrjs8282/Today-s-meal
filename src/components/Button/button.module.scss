@@ -17,11 +17,11 @@
   font-weight: bold;
 
   &.none {
-    position: relative;
+    position: absolute;
     left: auto;
-    // bottom: auto;
     width: auto;
-    float: right;
+    right: 0;
+    bottom: 1px;
     transform: none;
     background: none;
     height: auto;
@@ -77,7 +77,7 @@
     background: var(--lineColor3);
     color: var(--siteColorGray1);
   }
-  &.colorWhite{
+  &.colorWhite {
     color: white;
   }
 }

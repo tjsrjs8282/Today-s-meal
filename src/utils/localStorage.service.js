@@ -31,16 +31,3 @@ export function localStorageService() {
     },
   }
 }
-export function foodTotal() {
-  const sessionbreakfast = localStorageService().get('아침')
-  const sessionLunch = localStorageService().get('점심')
-  const sessionDinner = localStorageService().get('저녁')
-  const sessionSnack = localStorageService().get('간식')
-  // const sessionTotal = [sessionbreakfast, sessionLunch, sessionDinner, sessionSnack]
-  // const todayFoodTotal = sessionTotal
-  //   .filter((data, i) => data != null)
-  //   .reduce(function (acc, cur) {
-  //     return acc.concat(cur)
-  //   })
-  return sessionbreakfast
-}
