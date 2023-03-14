@@ -9,7 +9,7 @@ import IconButton from '@components/IconButton'
 import { productInstance } from '@api/axiosInstance'
 import productData from './productData'
 import InputSearch from '@components/InputSearch'
-import ProductCard from './productCard'
+import ProductCard from './ProductCard'
 import FloatMenu from '@components/FloatMenu'
 
 export default function Product() {

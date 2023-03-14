@@ -1,5 +1,4 @@
 import React from 'react'
-import Wrapper from '@components/Wrapper'
 import Flex from '@components/Flex'
 
 export default function ProductCard({ data }) {
