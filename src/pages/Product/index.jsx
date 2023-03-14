@@ -25,10 +25,6 @@ export default function Product() {
   const [searchValue, setSearchValue] = useState('')
   const [productList, setProductList] = useState([])
 
-  const openCalendarHandler = () => {
-    setCalendarOpen(!calendarOpen)
-  }
-
   const handleInputChange = useCallback(
     (e) => {
       setSearchValue(e.target.value)
