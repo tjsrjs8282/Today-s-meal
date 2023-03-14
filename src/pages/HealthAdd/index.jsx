@@ -16,15 +16,15 @@ import ListItemBox from '@components/ListItemBox'
 const constants = [
   {
     title: '데드리프트',
-    description: '1회/10분'
+    description: '1회/10분',
   },
   {
     title: '데드리프트',
-    description: '1회/10분'
+    description: '1회/10분',
   },
   {
     title: '데드리프트',
-    description: '1회/10분'
+    description: '1회/10분',
   },
 ]
 export default function HealthAdd() {
@@ -40,7 +40,7 @@ export default function HealthAdd() {
     second: 0,
   })
   const navigate = useNavigate()
-  
+
   useEffect(() => {
     checkHelathInfo()
   }, [isHealthInfo, exerciseName, checkItems])
@@ -61,15 +61,14 @@ export default function HealthAdd() {
       copyCheckItems.add(id)
       setCheckItems(copyCheckItems)
     } else if (!isChecked && checkItems.has(id)) {
-      copyCheckItems.delete(id);
+      copyCheckItems.delete(id)
       setCheckItems(copyCheckItems)
     }
   }
-  
+
   const handleInputChange = useCallback((e) => {
     setExerciseName(e.target.value)
   }, [])
-
 
   const checkHelathInfo = () => {
     if (exerciseName !== '' && checkItems.size > 0) {
@@ -88,47 +87,62 @@ export default function HealthAdd() {
   }
 
   return (
-      <Wrapper colorGray>
-        <Header >
-          <Flex width between>
-            <HaederTitle content="운동일지 추가" />
-            <IconButton kinds={"close"} onClick={backHealth}/>
-          </Flex>
-        </Header>
-        <div className={$.list_box}>
-          {
-            healthData.map((v) => (<ListItemBox title={v.title} description={v.description}/>))
+    <Wrapper colorGray>
+      <Header>
+        <Flex width between>
+          <HaederTitle content="운동일지 추가" />
+          <IconButton kinds={'close'} onClick={backHealth} />
+        </Flex>
+      </Header>
+      <div className={$.list_box}>
+        {healthData.map((v) => (
+          <ListItemBox title={v.title} description={v.description} />
+        ))}
+      </div>
+      <div className={$.add_box}>
+        <Title content="운동명" sub />
+        <Input
+          type="text"
+          placeholder="무슨 운동을 하셨나요?"
+          name="exerciseName"
+          title="운동명"
+          value={exerciseName}
+          onChange={handleInputChange}
+          unit={
+            exerciseName && (
+              <IconButton
+                kinds={'closeCircle'}
+                onClick={() => {
+                  setExerciseName('')
+                }}
+              />
+            )
           }
-        </div>
-        <div className={$.add_box} >
-          <Title content="운동명" sub />
-          <Input
-            type="text"
-            placeholder="무슨 운동을 하셨나요?"
-            name="exerciseName"
-            title="운동명"
-            value={exerciseName}
-            onChange={handleInputChange}
-            unit={
-              exerciseName 
-              && <IconButton kinds={'closeCircle'} onClick={() => {setExerciseName('')}} />
-            }
-          />
-            <Flex start marginTop>
-              {
-                HEALTH_INFO.map((healthInfo, idx) => (
-                  <HealthCheckBox
-                    key={`checkBox${idx}`}
-                    healthInfo={healthInfo}
-                    index={idx}
-                    checkItemHandler={checkItemHandler}
-                  />
-                ))
-              }
-            </Flex>
-            <Healthform handleHealthInfoData={handleHealthInfoData} checkItems={checkItems} value={inputs} />
-            <Button content={"추가하기"} check={isHealthInfo} onClick={handleButtonClick} nonefixed  marginTop />
-        </div>
-      </Wrapper>
+        />
+        <Flex start marginTop>
+          {HEALTH_INFO.map((healthInfo, idx) => (
+            <HealthCheckBox
+              key={`checkBox${idx}`}
+              healthInfo={healthInfo}
+              index={idx}
+              checkItemHandler={checkItemHandler}
+            />
+          ))}
+        </Flex>
+
+        <Healthform
+          handleHealthInfoData={handleHealthInfoData}
+          checkItems={checkItems}
+          value={inputs}
+        />
+        <Button
+          content={'추가하기'}
+          check={isHealthInfo}
+          onClick={handleButtonClick}
+          nonefixed
+          marginTop
+        />
+      </div>
+    </Wrapper>
   )
 }
