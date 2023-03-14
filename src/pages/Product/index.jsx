@@ -7,7 +7,7 @@ import HeaderTitle from '@components/HeaderTitle'
 import Flex from '@components/Flex'
 import IconButton from '@components/IconButton'
 import { productInstance } from '@api/axiosInstance'
-import productData from './productData'
+import { PRODUCT_LIST } from './productData'
 import InputSearch from '@components/InputSearch'
 import ProductCard from './ProductCard'
 import FloatMenu from '@components/FloatMenu'
@@ -49,13 +49,13 @@ export default function Product() {
   const search = (e) => {
     if (e.key === 'Enter') {
       let keyword = e.target.value
-      let searchFilter = productData.filter((v) => v.title.includes(keyword))
+      let searchFilter = PRODUCT_LIST.filter((v) => v.title.includes(keyword))
       setProductList(searchFilter)
     }
   }
 
   useEffect(() => {
-    setProductList(productData)
+    setProductList(PRODUCT_LIST)
   }, [])
 
   return (

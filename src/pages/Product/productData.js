@@ -1,4 +1,4 @@
-;[
+export const PRODUCT_LIST = [
   {
     id: 0,
     img: 'http://webimg.calobye.com/wys2/file_attach/2021/12/14/210514_isolate_bulk_thumb.jpg',
