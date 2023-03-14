@@ -7,6 +7,7 @@ import HeaderTitle from '@components/HeaderTitle'
 import Flex from '@components/Flex'
 import IconButton from '@components/IconButton'
 import { productInstance } from '@api/axiosInstance'
+import productData from './productData.json'
 import InputSearch from '@components/InputSearch'
 import ProductCard from './productCard'
 import FloatMenu from '@components/FloatMenu'
@@ -20,11 +21,9 @@ export default function Product() {
   const navigate = useNavigate()
   const inputRef = useRef(null)
   const [query, setQuery] = useSearchParams()
-  const searchQuery = query.get('q') || ''
+  // const searchQuery = query.get('q') || ''
   const [searchValue, setSearchValue] = useState('')
   const [productList, setProductList] = useState([])
-
-  const marks = ['15-01-2023', '03-01-2023', '07-01-2023', '12-02-2023', '13-02-2023', '15-02-2023']
 
   const openCalendarHandler = () => {
     setCalendarOpen(!calendarOpen)
@@ -43,48 +42,35 @@ export default function Product() {
     inputRef.current.focus()
   }
 
-  function getProduct() {
-    productInstance
-      .get('/', {
-        params: {
-          q: searchQuery,
-        },
-      })
-      .then((res) => setProductList(res.data))
-      .catch((err) => console.log(err))
-  }
+  // function getProduct() {
+  //   productInstance
+  //     .get('/', {
+  //       params: {
+  //         q: searchQuery,
+  //       },
+  //     })
+  //     .then((res) => setProductList(res.data))
+  //     .catch((err) => console.log(err))
+  // }
 
   const search = (e) => {
     if (e.key === 'Enter') {
       let keyword = e.target.value
-      navigate(`/product/?q=${keyword}`)
+      let searchFilter = productData.filter((v) => v.title.includes(keyword))
+      setProductList(searchFilter)
     }
   }
 
   useEffect(() => {
-    getProduct()
-  }, [query])
+    setProductList(productData)
+  }, [])
+
   return (
     <Wrapper colorGray>
       <Header>
         <Flex width between>
           <HeaderTitle content="쇼핑" dates={value} />
-          <IconButton kinds="calendar" onClick={openCalendarHandler} />
         </Flex>
-        {calendarOpen && (
-          <Calendar
-            onChange={onChange}
-            value={value}
-            onFocus={() => {
-              setCalendarOpen(true)
-            }}
-            tileClassName={({ date, view }) => {
-              if (marks.find((x) => x === moment(date).format('DD-MM-YYYY'))) {
-                return 'highlight'
-              }
-            }}
-          />
-        )}
 
         <InputSearch
           type="text"
