@@ -7,16 +7,13 @@ import HeaderTitle from '@components/HeaderTitle'
 import Flex from '@components/Flex'
 import IconButton from '@components/IconButton'
 import { productInstance } from '@api/axiosInstance'
-import productData from './productData.json'
+import productData from './productData'
 import InputSearch from '@components/InputSearch'
 import ProductCard from './productCard'
 import FloatMenu from '@components/FloatMenu'
-import Calendar from 'react-calendar'
-import moment from 'moment'
 
 export default function Product() {
   const [value, onChange] = useState(new Date())
-  let [calendarOpen, setCalendarOpen] = useState(false)
 
   const navigate = useNavigate()
   const inputRef = useRef(null)
@@ -24,10 +21,6 @@ export default function Product() {
   // const searchQuery = query.get('q') || ''
   const [searchValue, setSearchValue] = useState('')
   const [productList, setProductList] = useState([])
-
-  const openCalendarHandler = () => {
-    setCalendarOpen(!calendarOpen)
-  }
 
   const handleInputChange = useCallback(
     (e) => {
