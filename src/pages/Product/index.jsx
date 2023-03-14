@@ -11,12 +11,9 @@ import productData from './productData'
 import InputSearch from '@components/InputSearch'
 import ProductCard from './productCard'
 import FloatMenu from '@components/FloatMenu'
-import Calendar from 'react-calendar'
-import moment from 'moment'
 
 export default function Product() {
   const [value, onChange] = useState(new Date())
-  let [calendarOpen, setCalendarOpen] = useState(false)
 
   const navigate = useNavigate()
   const inputRef = useRef(null)
