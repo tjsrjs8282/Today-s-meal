@@ -13,4 +13,8 @@
   &.colorWhite {
     background: var(--siteColorWhite);
   }
+  &.none {
+    overflow: auto;
+    height: auto;
+  }
 }

@@ -1,0 +1,68 @@
+@import '@styles/shared.scss';
+
+.content {
+  background-color: var(--siteColorWhite);
+
+  .product_image {
+    width: 100%;
+    background-color: #555;
+  
+    img {
+      width: 100%;
+      height: 100%;
+      vertical-align: bottom;
+    }
+  }
+  
+  .title {
+    margin-top: 2rem;
+    color: var(--siteColorBlack);
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 500;
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+  }
+  .benefit {
+    margin-top: 2rem;
+    border-top: 1px solid var(--lineColor1);
+
+    li {
+      margin: 1.5rem 0;
+
+      p {
+        color: var(--siteColorBlack);
+        margin: 0;
+      }
+    }
+
+    .list_title {
+      color: var(--siteColorGray1);
+    }
+    
+  }
+}
+
+.bottom_button {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 0);
+  width: 100%;
+  max-width: 767px;
+  margin: 0;
+  padding: 1rem 1.3rem;
+  background: var(--siteColorWhite);
+  box-sizing: border-box;
+
+  .wrapper {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
