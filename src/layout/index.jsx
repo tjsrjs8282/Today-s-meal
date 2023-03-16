@@ -14,6 +14,7 @@ import HealthAdd from '@pages/HealthAdd'
 import { themeState } from '@store'
 import { useRecoilState } from 'recoil'
 import MyPage from '@pages/MyPage'
+import ProductBasket from '@pages/ProductBasket'
 
 export default function Layout() {
   const [theme, setTheme] = useRecoilState(themeState)
@@ -48,6 +49,7 @@ export default function Layout() {
         {/* 오늘의 쇼핑페이지 */}
         <Route path="/product" element={<Product />}></Route>
         <Route path="/product/detail" element={<ProductDetail />}></Route>
+        <Route path="/basket" element={<ProductBasket />}></Route>
         {/* 마이페이지 */}
         <Route path="/mypage" element={<MyPage />}></Route>
       </Routes>
