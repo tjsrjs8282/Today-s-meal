@@ -5,6 +5,8 @@ import Wrapper from '@components/Wrapper'
 import Header from '@components/Header'
 import HeaderTitle from '@components/HeaderTitle'
 import Flex from '@components/Flex'
+import RadioGroup from '@components/RadioGroup'
+import Radio from '@components/Radio'
 import IconButton from '@components/IconButton'
 import { productInstance } from '@api/axiosInstance'
 import { PRODUCT_LIST } from './productData'
@@ -21,6 +23,8 @@ export default function Product() {
   // const searchQuery = query.get('q') || ''
   const [searchValue, setSearchValue] = useState('')
   const [productList, setProductList] = useState([])
+  const [categoryList, setCategoryList] = useState([])
+  const [category, setCategory] = useState('전체')
 
   const handleInputChange = useCallback(
     (e) => {
@@ -35,16 +39,17 @@ export default function Product() {
     inputRef.current.focus()
   }
 
-  // function getProduct() {
-  //   productInstance
-  //     .get('/', {
-  //       params: {
-  //         q: searchQuery,
-  //       },
-  //     })
-  //     .then((res) => setProductList(res.data))
-  //     .catch((err) => console.log(err))
-  // }
+  const onClickPartHandler = (cate) => {
+    let categoryFilter =
+      cate === '전체' ? PRODUCT_LIST : PRODUCT_LIST.filter((v) => v.category.includes(cate))
+    setProductList(categoryFilter)
+  }
+
+  function getProduct() {
+    const category = PRODUCT_LIST.map((data) => data.category)
+    setProductList(PRODUCT_LIST)
+    setCategoryList(['전체', ...new Set(category)])
+  }
 
   const search = (e) => {
     if (e.key === 'Enter') {
@@ -55,7 +60,7 @@ export default function Product() {
   }
 
   useEffect(() => {
-    setProductList(PRODUCT_LIST)
+    getProduct()
   }, [])
 
   return (
@@ -77,8 +82,26 @@ export default function Product() {
         />
       </Header>
 
+      <div className={$.radio_box}>
+        <RadioGroup label="category" value={category} onChange={setCategory}>
+          {categoryList.map((cate, index) => {
+            return (
+              <Radio
+                name="category"
+                value={cate}
+                key={index}
+                onClick={() => onClickPartHandler(cate)}
+                tab
+              >
+                <p>{cate}</p>
+              </Radio>
+            )
+          })}
+        </RadioGroup>
+      </div>
+
       <div className={$.product_box}>
-        <Flex start wrap width marginTop>
+        <Flex start wrap width>
           {productList.map((data) => {
             return <ProductCard data={data} />
           })}
