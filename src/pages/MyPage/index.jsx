@@ -19,6 +19,7 @@ import Calendar from 'react-calendar'
 import dayjs from 'dayjs'
 import Modal from '@components/Modal'
 import RadioGroup from '@components/RadioGroup'
+import MyIntakeModal from './MyIntakeModal'
 import Radio from '@components/Radio'
 import { INTAKE_TOTAL } from './constants'
 
@@ -35,12 +36,19 @@ export default function MyPage() {
   const [monthRecord, setMonthRecord] = useState('food')
   const [modalTitle, setModalTitle] = useState('')
   const [modalContent, setModalContent] = useState('')
-
+  const [modalIntakeInputs, setModalIntakeInputs] = useState({
+    todayCalorie: '',
+    todayCarbohydrate: '',
+    todayProtein: '',
+    todayFat: '',
+  })
+  const { todayCalorie, todayCarbohydrate, todayProtein, todayFat } = modalIntakeInputs
   const sessionFoodTotal = localStorageService().get('FOOD_TOTAL')
   const sessionHealthTotal = localStorageService().get('HEALTH_TOTAL')
   const WEEKS = ['일', '월', '화', '수', '목', '금', '토']
 
   const [modalRemove, setModalRemove] = useState(false)
+  const [modalIntake, setModalIntake] = useState(false)
   const navigate = useNavigate()
 
   const goBack = () => {
@@ -91,7 +99,7 @@ export default function MyPage() {
     setModalRemove(!modalRemove)
   }
 
-  const modalRemoveOnClick = () => {
+  const onClickModalRemove = () => {
     localStorageService().remove(LOCAL_STORAGE_KEY.USER_INFO)
     localStorageService().remove(LOCAL_STORAGE_KEY.USER_GENDER)
     localStorageService().remove(LOCAL_STORAGE_KEY.USER_PURPOSE)
@@ -99,12 +107,34 @@ export default function MyPage() {
     localStorageService().remove('HEALTH_TOTAL')
     localStorageService().remove('DATE')
     localStorageService().remove('PART')
+    localStorageService().remove('INTAKE_TOTAL')
     navigate('/')
+  }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    const result = value.replace(/\D/g, '')
+
+    setModalIntakeInputs({ ...modalIntakeInputs, [name]: result })
+  }
+
+  const onClickIntakeHandler = () => {
+    setModalTitle(`하루 목표 섭취량 수정`)
+    setModalContent(`섭취량 수정 하시겠습니까?`)
+    setModalIntake(!modalIntake)
+  }
+
+  const onClickModalIntake = () => {
+    localStorageService().set('INTAKE_TOTAL', modalIntakeInputs)
+    setModalIntake(false)
   }
 
   const modalOnClose = () => {
     setModalRemove(false)
+    setModalIntake(false)
+    setModalIntakeInputs({ todayCalorie: 0, todayCarbohydrate: 0, todayProtein: 0, todayFat: 0 })
   }
+  console.log(modalIntakeInputs)
 
   useEffect(() => {
     const info = localStorageService().get(LOCAL_STORAGE_KEY.USER_INFO)
@@ -126,11 +156,24 @@ export default function MyPage() {
         <Modal
           title={modalTitle}
           content={modalContent}
-          onClick={modalRemoveOnClick}
+          onClick={onClickModalRemove}
           onClose={modalOnClose}
           confirm
         ></Modal>
       )}
+      {modalIntake && (
+        <MyIntakeModal
+          title={modalTitle}
+          onClick={onClickModalIntake}
+          onClose={modalOnClose}
+          todayCalorie={todayCalorie}
+          todayCarbohydrate={todayCarbohydrate}
+          todayProtein={todayProtein}
+          todayFat={todayFat}
+          onChange={handleInputChange}
+        />
+      )}
+
       <Header>
         <Flex width between>
           <IconButton kinds="back" onClick={goBack} />
@@ -180,7 +223,7 @@ export default function MyPage() {
       </div>
 
       <Title content="하루 목표 섭취량" sub>
-        <Button content="수정하기" none />
+        <Button content="수정하기" none onClick={onClickIntakeHandler} />
       </Title>
       <Flex width around radius shadow border colorWhite>
         {INTAKE_TOTAL.map((value) => {
