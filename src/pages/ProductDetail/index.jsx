@@ -9,9 +9,14 @@ import Button from '@components/Button'
 import { PRODUCT_LIST } from '@pages/Product/productData'
 
 export default function ProductDetail() {
+  const navigate = useNavigate()
   const { id } = useParams()
 
   const [productList, setProductList] = useState([])
+
+  const goBack = () => {
+    navigate(-1)
+  }
 
   function getProduct() {
     const productIdfilter = PRODUCT_LIST.filter((data) => data.id === Number(id))
@@ -25,7 +30,7 @@ export default function ProductDetail() {
     <Wrapper colorGray none>
       <Header>
         <Flex width between>
-          <IconButton kinds="back" />
+          <IconButton kinds="back" onClick={goBack} />
           <IconButton kinds="cart" />
         </Flex>
       </Header>
