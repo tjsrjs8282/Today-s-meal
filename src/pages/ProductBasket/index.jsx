@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import $ from './productBasket.module.scss'
 import Wrapper from '@components/Wrapper'
 import Flex from '@components/Flex'
@@ -9,6 +9,9 @@ import Button from '@components/Button'
 import CountBox from '@components/CountBox'
 import CheckBox from './Checkbox';
 import { PRODUCT_LIST } from '@pages/Product/productData.js'
+import classNames from 'classnames/bind'
+
+const cx = classNames.bind($)
 
 const list = [
   {
@@ -30,6 +33,7 @@ const list = [
     img: PRODUCT_LIST[2].img
   }
 ]
+
 const price1 = 10000;
 const contants = [
   {
@@ -51,30 +55,27 @@ const contants = [
 ]
 
 export default function ProductBasket() {
-  const [checkItems, setCheckItems] = useState(new Set)
-  const [isAllChecked, setIsAllChecked] = useState(false);
-  const [checkedIcon, setCheckedIcon] = useState('checkNone')
-
-  const handleAllChecked = (e) => {
-    if (e.target.checked) {
-      setIsAllChecked(true)
-      setCheckedIcon('check')
-    } else {
-      setIsAllChecked(false)
-      setCheckedIcon('checkNone')
-    }
-    console.log(isAllChecked)
-  }
+  const [checkedList, setCheckedList] = useState([])
 
   const handleCheckedItem = (id, isChecked) => {
     if (isChecked) {
-      checkItems.add(id) 
-      setCheckItems(checkItems)
-      console.log(checkItems)
-    } else if (!isChecked) {
-      checkItems.delete(id)
-      setCheckItems(checkItems)
+      setCheckedList((prev) => [...prev, id])   
+    } else {
+      setCheckedList(checkedList.filter((item) => item !== id ))
     }
+    console.log(checkedList)
+  }
+
+  const handleAllChecked = (e) => {
+    if (e.target.checked) {
+      const allCheckedList = []
+      list.forEach((item) => allCheckedList.push(item.id.toString()))
+      
+      setCheckedList(allCheckedList)
+    } else {
+      setCheckedList([])
+    }
+    console.log('handleAllChecked', checkedList)
   }
 
   return (
@@ -88,8 +89,9 @@ export default function ProductBasket() {
       <div>
         <Flex width between marginTop marginBottom>
           <label className={$.all_check}>
-            <input type="checkbox" checked={isAllChecked} onChange={handleAllChecked}/>
-            <IconButton kinds={checkedIcon} />
+            <input type="checkbox" onChange={handleAllChecked}
+              checked={checkedList.length === list.length ? true : false} />
+            <IconButton kinds={checkedList.length === list.length ? 'check' : 'checkNone'} />
             전체선택
           </label>
           <Button content="선택삭제" border />
@@ -100,7 +102,9 @@ export default function ProductBasket() {
               const { id, title, price, img } = li
               return (
                 <li key={id}>
-                  <CheckBox id={id} onChecked={handleCheckedItem} />
+                  <CheckBox id={id} onChecked={handleCheckedItem} 
+                    checked={checkedList.includes(id.toString()) ? true : false}
+                    icon={checkedList.includes(id.toString()) ? 'check' : 'checkNone'} />
                   <div className={$.product_container}>
                     <Flex start>
                       <div className={$.image_box}>
@@ -127,12 +131,12 @@ export default function ProductBasket() {
       <ul className={$.order_container}>
         {
           contants.map((li) => {
-            const { id, title, price } = li;
+            const { id, title, price, total } = li;
             return (
               <li key={id}>
                 <Flex width between>
-                  <p>{title}</p>
-                  <p className={$.price}>{price}원</p>
+                  <p className={cx('order_title', { total })}>{title}</p>
+                  <p className={cx('price', { total })}>{price}원</p>
                 </Flex>
               </li>
             )
