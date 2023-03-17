@@ -25,6 +25,8 @@ import {
   AiFillCloseCircle,
   AiOutlineSearch,
   AiOutlineSetting,
+  AiOutlineCheckSquare,
+  AiFillCheckSquare
 } from 'react-icons/ai'
 
 const IconButton = memo(({ kinds, onClick, onFocus }) => {
@@ -56,6 +58,8 @@ const IconButton = memo(({ kinds, onClick, onFocus }) => {
       {kinds === 'next' && <HiChevronRight size="2rem" onClick={onClick} />}
       {kinds === 'cart' && <BsCart2 size="2.2rem" />}
       {kinds === 'setting' && <AiOutlineSetting onClick={onClick} />}
+      {kinds === 'checkNone' && <AiOutlineCheckSquare color='#999'/>}
+      {kinds === 'check' && <AiFillCheckSquare color='#4c9838' />}
       {/* weather */}
       {kinds === 'sun' && <BsSun color="#fff" />}
       {kinds === 'moon' && <BsMoonStars color="#fff" />}
