@@ -3,11 +3,11 @@ import $ from './header.module.scss'
 
 export default function Header({ children }) {
   const [headerHeight, setHeaderHeight] = useState()
-  const headerRef = useRef()  
-  
+  const headerRef = useRef()
+
   useEffect(() => {
     setHeaderHeight(headerRef.current?.offsetHeight)
-  }, [headerHeight])
+  }, [])
 
   return (
     <>

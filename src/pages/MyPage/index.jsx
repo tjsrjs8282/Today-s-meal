@@ -19,8 +19,8 @@ import Calendar from 'react-calendar'
 import dayjs from 'dayjs'
 import Modal from '@components/Modal'
 import RadioGroup from '@components/RadioGroup'
+import MyIntakeModal from './MyIntakeModal'
 import Radio from '@components/Radio'
-import { INTAKE_TOTAL } from './constants'
 
 export default function MyPage() {
   const [dateRecoil, setDateRecoil] = useRecoilState(dateState)
@@ -35,12 +35,20 @@ export default function MyPage() {
   const [monthRecord, setMonthRecord] = useState('food')
   const [modalTitle, setModalTitle] = useState('')
   const [modalContent, setModalContent] = useState('')
-
+  const [modalIntakeInputs, setModalIntakeInputs] = useState({
+    todayCarbohydrate: 0,
+    todayProtein: 0,
+    todayFat: 0,
+    todayCalorie: 0,
+  })
+  const { todayProtein, todayCarbohydrate, todayFat, todayCalorie } = modalIntakeInputs
   const sessionFoodTotal = localStorageService().get('FOOD_TOTAL')
   const sessionHealthTotal = localStorageService().get('HEALTH_TOTAL')
+  const sessionIntakeTotal = localStorageService().get('INTAKE_TOTAL')
   const WEEKS = ['일', '월', '화', '수', '목', '금', '토']
 
   const [modalRemove, setModalRemove] = useState(false)
+  const [modalIntake, setModalIntake] = useState(false)
   const navigate = useNavigate()
 
   const goBack = () => {
@@ -81,8 +89,11 @@ export default function MyPage() {
   const monthFilter = () => {
     const foodDateMark = sessionFoodTotal ? sessionFoodTotal.map((data) => data.date) : []
     const healthDateMark = sessionHealthTotal ? sessionHealthTotal.map((data) => data.date) : []
+    const intakeFilter = sessionIntakeTotal ? sessionIntakeTotal : modalIntakeInputs
+
     setFoodMark([...new Set(foodDateMark)])
     setHealthMark([...new Set(healthDateMark)])
+    setModalIntakeInputs(intakeFilter)
   }
 
   const onClickRemoveHandler = () => {
@@ -91,7 +102,7 @@ export default function MyPage() {
     setModalRemove(!modalRemove)
   }
 
-  const modalRemoveOnClick = () => {
+  const onClickModalRemove = () => {
     localStorageService().remove(LOCAL_STORAGE_KEY.USER_INFO)
     localStorageService().remove(LOCAL_STORAGE_KEY.USER_GENDER)
     localStorageService().remove(LOCAL_STORAGE_KEY.USER_PURPOSE)
@@ -99,12 +110,33 @@ export default function MyPage() {
     localStorageService().remove('HEALTH_TOTAL')
     localStorageService().remove('DATE')
     localStorageService().remove('PART')
+    localStorageService().remove('INTAKE_TOTAL')
     navigate('/')
+  }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    const result = value.replace(/\D/g, '')
+
+    setModalIntakeInputs({ ...modalIntakeInputs, [name]: result })
+  }
+
+  const onClickIntakeHandler = () => {
+    setModalTitle(`하루 목표 섭취량 수정`)
+    setModalContent(`섭취량 수정 하시겠습니까?`)
+    setModalIntake(!modalIntake)
+  }
+
+  const onClickModalIntake = () => {
+    localStorageService().set('INTAKE_TOTAL', modalIntakeInputs)
+    setModalIntake(false)
   }
 
   const modalOnClose = () => {
     setModalRemove(false)
+    setModalIntake(false)
   }
+  console.log(modalIntakeInputs)
 
   useEffect(() => {
     const info = localStorageService().get(LOCAL_STORAGE_KEY.USER_INFO)
@@ -126,11 +158,24 @@ export default function MyPage() {
         <Modal
           title={modalTitle}
           content={modalContent}
-          onClick={modalRemoveOnClick}
+          onClick={onClickModalRemove}
           onClose={modalOnClose}
           confirm
         ></Modal>
       )}
+      {modalIntake && (
+        <MyIntakeModal
+          title={modalTitle}
+          onClick={onClickModalIntake}
+          onClose={modalOnClose}
+          todayCalorie={todayCalorie}
+          todayCarbohydrate={todayCarbohydrate}
+          todayProtein={todayProtein}
+          todayFat={todayFat}
+          onChange={handleInputChange}
+        />
+      )}
+
       <Header>
         <Flex width between>
           <IconButton kinds="back" onClick={goBack} />
@@ -161,8 +206,8 @@ export default function MyPage() {
               <li>{userGender === 'man' ? '남자' : '여자'}</li>
               {Object.values(userInfo)
                 .filter((v) => v !== userInfo.userName)
-                .map((li, i) => (
-                  <li key={i}>{li}</li>
+                .map((li, index) => (
+                  <li key={index}>{li}</li>
                 ))}
             </ul>
           </div>
@@ -180,19 +225,41 @@ export default function MyPage() {
       </div>
 
       <Title content="하루 목표 섭취량" sub>
-        <Button content="수정하기" none />
+        <Button content="수정하기" none onClick={onClickIntakeHandler} />
       </Title>
-      <Flex width around radius shadow border colorWhite>
-        {INTAKE_TOTAL.map((value) => {
-          const { id, name, max, unit } = value
-          return (
-            <div key={id} className={$.intake_item}>
-              <h4>{name}</h4>
-              <span>{max + unit}</span>
-            </div>
-          )
-        })}
-      </Flex>
+
+      <div className={$.summary_box}>
+        <Flex between>
+          <Flex column>
+            <h3>탄수화물</h3>
+            <p>
+              {todayCarbohydrate}
+              <span>g</span>
+            </p>
+          </Flex>
+          <Flex column>
+            <h3>단백질</h3>
+            <p>
+              {todayProtein}
+              <span>g</span>
+            </p>
+          </Flex>
+          <Flex column>
+            <h3>지방</h3>
+            <p>
+              {todayFat}
+              <span>g</span>
+            </p>
+          </Flex>
+          <Flex column>
+            <h3>칼로리</h3>
+            <p>
+              {todayCalorie}
+              <span>kcal</span>
+            </p>
+          </Flex>
+        </Flex>
+      </div>
 
       <div className={$.mark_wrapper}>
         <Flex width between>

@@ -48,7 +48,7 @@ export default function Layout() {
         <Route path="/health/add" element={<HealthAdd />}></Route>
         {/* 오늘의 쇼핑페이지 */}
         <Route path="/product" element={<Product />}></Route>
-        <Route path="/product/detail" element={<ProductDetail />}></Route>
+        <Route path="/product/:id" element={<ProductDetail />}></Route>
         <Route path="/basket" element={<ProductBasket />}></Route>
         {/* 마이페이지 */}
         <Route path="/mypage" element={<MyPage />}></Route>

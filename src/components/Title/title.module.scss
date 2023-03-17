@@ -20,6 +20,13 @@
   &.margitTopNone {
     margin-top: 0;
   }
+  &.margitBottomNone {
+    margin-bottom: 0;
+    h2 {
+      margin-bottom: 0.6rem;
+      font-size: 1rem;
+    }
+  }
   h2 {
     font-weight: bold;
     font-size: 2rem;

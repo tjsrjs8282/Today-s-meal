@@ -1,50 +1,57 @@
 @import '@styles/shared.scss';
 
-.content {
-  background-color: var(--siteColorWhite);
+.product_image {
+  width: 100%;
+  margin: 0 -1rem;
+  padding: 0px 1rem;
+  background-color: #555;
 
-  .product_image {
+  img {
     width: 100%;
-    background-color: #555;
-  
-    img {
-      width: 100%;
-      height: 100%;
-      vertical-align: bottom;
+    height: 100%;
+    vertical-align: bottom;
+  }
+}
+
+.title {
+  color: var(--siteColorBlack);
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 500;
+  }
+
+  .price {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+}
+.benefit {
+  width: 100%;
+  margin-top: 2rem;
+  border-top: 1px solid var(--lineColor1);
+
+  li {
+    margin: 1.5rem 0;
+
+    p {
+      color: var(--siteColorBlack);
+      margin: 0;
     }
   }
-  
-  .title {
-    margin-top: 2rem;
+
+  .list_title {
+    color: var(--siteColorGray1);
+  }
+}
+
+.total_price {
+  padding-top: 1rem;
+
+  border-top: 1px solid var(--lineColor3);
+  h2 {
+    font-size: 1.3rem;
     color: var(--siteColorBlack);
-
-    h2 {
-      font-size: 2rem;
-      font-weight: 500;
-    }
-
-    .price {
-      font-size: 2rem;
-      font-weight: 700;
-    }
-  }
-  .benefit {
-    margin-top: 2rem;
-    border-top: 1px solid var(--lineColor1);
-
-    li {
-      margin: 1.5rem 0;
-
-      p {
-        color: var(--siteColorBlack);
-        margin: 0;
-      }
-    }
-
-    .list_title {
-      color: var(--siteColorGray1);
-    }
-    
   }
 }
 
@@ -56,6 +63,7 @@
   width: 100%;
   max-width: 767px;
   margin: 0;
+  border: 0;
   padding: 1rem 1.3rem;
   background: var(--siteColorWhite);
   box-sizing: border-box;
