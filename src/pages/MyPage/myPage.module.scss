@@ -129,6 +129,13 @@
   padding-top: 1rem;
   border-top: 1px solid var(--lineColor3);
 }
+.point {
+  p {
+    font-size: 1.3rem;
+    color: var(--siteColorMain);
+    font-weight: bold;
+  }
+}
 
 .summary_box {
   width: 100%;

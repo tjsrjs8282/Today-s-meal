@@ -112,6 +112,11 @@
     padding: 1.7rem 1.5rem;
     box-sizing: border-box;
   }
+  &.paddingSmall {
+    padding: 1.2rem 1.5rem;
+    box-sizing: border-box;
+    margin-bottom: 2rem;
+  }
   &.fontWhite {
     color: var(--siteColorWhite);
     border-color: var(--siteColorSub) !important;
@@ -195,6 +200,9 @@
   }
   &.border {
     border: 1px solid var(--lineColor3);
+  }
+  &.borderMain {
+    border: 1px solid var(--siteColorMain);
   }
   &.transition {
     transition: 0s;
