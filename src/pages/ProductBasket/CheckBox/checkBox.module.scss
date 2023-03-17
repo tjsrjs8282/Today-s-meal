@@ -1,0 +1,10 @@
+@import '@styles/shared.scss';
+
+.checked_label {
+  margin-right: 1.5rem;
+  cursor: pointer;
+
+  input[type=checkbox] {
+    display: none;
+  }
+}
