@@ -52,8 +52,8 @@
     
     .close_button {
       position: absolute;
-      top: 2rem;
-      right: 2rem;
+      top: 0;
+      right: 0;
     }
   }
 
@@ -79,8 +79,22 @@
   li {
     margin: 1rem 0;
 
+    .order_title {
+      color: var(--siteColorGray1);
+
+      &.total {
+        color: var(--siteColorBlack);
+      }
+    }
+
     .price {
       font-size: 1.3rem;
+
+      &.total {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--siteColorMain);
+      }
     }
   }
 }
