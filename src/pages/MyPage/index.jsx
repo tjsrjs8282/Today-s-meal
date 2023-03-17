@@ -41,7 +41,7 @@ export default function MyPage() {
     todayFat: 0,
     todayCalorie: 0,
   })
-  const { todayCalorie, todayCarbohydrate, todayProtein, todayFat } = modalIntakeInputs
+  const { todayProtein, todayCarbohydrate, todayFat, todayCalorie } = modalIntakeInputs
   const sessionFoodTotal = localStorageService().get('FOOD_TOTAL')
   const sessionHealthTotal = localStorageService().get('HEALTH_TOTAL')
   const sessionIntakeTotal = localStorageService().get('INTAKE_TOTAL')
