@@ -41,7 +41,9 @@ export default function MyPage() {
     todayFat: 0,
     todayCalorie: 0,
   })
+  const [myPoint, setMyPoint] = useState(0)
   const { todayProtein, todayCarbohydrate, todayFat, todayCalorie } = modalIntakeInputs
+  const sessionMyPoint = localStorageService().get('MY_POINT')
   const sessionFoodTotal = localStorageService().get('FOOD_TOTAL')
   const sessionHealthTotal = localStorageService().get('HEALTH_TOTAL')
   const sessionIntakeTotal = localStorageService().get('INTAKE_TOTAL')
@@ -50,6 +52,8 @@ export default function MyPage() {
   const [modalRemove, setModalRemove] = useState(false)
   const [modalIntake, setModalIntake] = useState(false)
   const navigate = useNavigate()
+
+  const point = 100000
 
   const goBack = () => {
     navigate(-1)
@@ -96,6 +100,12 @@ export default function MyPage() {
     setModalIntakeInputs(intakeFilter)
   }
 
+  const myPointSetting = () => {
+    const point = sessionMyPoint ? sessionMyPoint : 100000
+    localStorageService().set('MY_POINT', point)
+    setMyPoint(point)
+  }
+
   const onClickRemoveHandler = () => {
     setModalTitle(`데이터 초기화`)
     setModalContent(`모든 기록일지를 초기화 하시겠습니까?`)
@@ -136,7 +146,6 @@ export default function MyPage() {
     setModalRemove(false)
     setModalIntake(false)
   }
-  console.log(modalIntakeInputs)
 
   useEffect(() => {
     const info = localStorageService().get(LOCAL_STORAGE_KEY.USER_INFO)
@@ -150,6 +159,7 @@ export default function MyPage() {
       userWeight: userWeight + 'kg',
     })
     monthFilter()
+    myPointSetting()
   }, [])
 
   return (
@@ -214,6 +224,24 @@ export default function MyPage() {
         </Flex>
         <IconButton kinds="setting" onClick={goUserInfo} />
       </Flex>
+
+      <div className={$.point}>
+        <Flex
+          between
+          width
+          fontBlack
+          borderMain
+          paddingSmall
+          border
+          radius
+          colorWhite
+          shadow
+          marginTop
+        >
+          <h3>나의 포인트</h3>
+          <p>{myPoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}P</p>
+        </Flex>
+      </div>
 
       <Title content="나의 목표" sub />
       <div className={$.purpose_wrapper}>

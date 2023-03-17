@@ -17,6 +17,7 @@ export default function Flex({
   image,
   shadow,
   padding,
+  paddingSmall,
   fontWhite,
   fontBlack,
   colorWhite,
@@ -38,8 +39,9 @@ export default function Flex({
   order1,
   order2,
   border,
+  borderMain,
   transition,
-  fixed
+  fixed,
 }) {
   const loacation = useLocation()
   const this_pathName = loacation.pathname
@@ -58,6 +60,7 @@ export default function Flex({
         image,
         shadow,
         padding,
+        paddingSmall,
         fontWhite,
         colorWhite,
         fontBlack,
@@ -78,8 +81,9 @@ export default function Flex({
         order1,
         order2,
         border,
+        borderMain,
         transition,
-        fixed
+        fixed,
       })}
       onClick={onClick}
     >
