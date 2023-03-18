@@ -87,6 +87,14 @@ export default function ProductBasket() {
     }))
   }
 
+  const handleCheckedDelete = () => {
+    const listCopy = listData.filter((item) => {
+      return !checkedList.includes(item.id.toString())
+    }) 
+    setListData(listCopy)
+    console.log(listCopy)
+  }
+
   return (
     <Wrapper colorGray>
       <Header>
@@ -111,7 +119,7 @@ export default function ProductBasket() {
               } />
             전체선택
           </label>
-          <Button content="선택삭제" border />
+          <Button content="선택삭제" onClick={handleCheckedDelete} border />
         </Flex>
         <ul className={$.list_container}>
           {
