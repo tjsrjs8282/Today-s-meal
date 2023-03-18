@@ -101,6 +101,9 @@ const FoodDetail = () => {
     getFatsecret()
   }, [])
 
+  //TODO : 카운트값이 바뀌었을때 해당 카운트값이 곱해지도록
+  useEffect(() => {}, [count])
+
   const handleCountChange = (e) => {
     setCount(e.target.value)
   }
@@ -109,6 +112,7 @@ const FoodDetail = () => {
     setCount(count)
   }
 
+  console.log(count)
   return (
     <Wrapper>
       <Header>

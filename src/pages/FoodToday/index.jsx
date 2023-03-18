@@ -32,10 +32,10 @@ export default function FoodToday() {
   const [todaySnack, setTodaySnack] = useState([])
   const [todayMark, setTodayMark] = useState([])
   const [todayServingTotal, setTodayServingTotal] = useState([
-    { name: '탄수화물', value: 0, unit: 'g' },
-    { name: '단백질', value: 0, unit: 'g' },
-    { name: '지방', value: 0, unit: 'g' },
-    { name: '칼로리', value: 0, unit: 'kal' },
+    { name: '탄수화물', value: 0, unit: 'g', key: 'carbohydrate' },
+    { name: '단백질', value: 0, unit: 'g', key: 'protein' },
+    { name: '지방', value: 0, unit: 'g', key: 'fat' },
+    { name: '칼로리', value: 0, unit: 'kal', key: 'calories' },
   ])
   const [calendarOpen, setCalendarOpen] = useState(false)
   const [removeId, setRemoveId] = useState(0)
@@ -105,7 +105,7 @@ export default function FoodToday() {
     const foodDinnerFilter = foodDateFilter.filter((data) => data.part === '저녁')
     const foodSnackFilter = foodDateFilter.filter((data) => data.part === '간식')
     const foodDateMark = sessionFoodTotal ? sessionFoodTotal.map((data) => data.date) : []
-
+    //TODO : 총 섭취량 불러와서 비율 구하기
     let servingTotalFilter
     for (let i = 0; i < FOOD_SERVING.length; i++) {
       const servingPart = partRecoil === '전체' ? foodDateFilter : foodPartFilter

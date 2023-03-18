@@ -49,11 +49,10 @@ export default function MyPage() {
   const sessionIntakeTotal = localStorageService().get('INTAKE_TOTAL')
   const WEEKS = ['일', '월', '화', '수', '목', '금', '토']
 
+  console.log(modalIntakeInputs)
   const [modalRemove, setModalRemove] = useState(false)
   const [modalIntake, setModalIntake] = useState(false)
   const navigate = useNavigate()
-
-  const point = 100000
 
   const goBack = () => {
     navigate(-1)
