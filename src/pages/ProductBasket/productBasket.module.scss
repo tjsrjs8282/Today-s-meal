@@ -26,7 +26,19 @@
 
     &:first-child {
       padding-top: 0;
+
+      .close_button {
+        top: 0;
+      }
     }
+
+    &.empty_list {
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      border: none;
+    }
+
     .product_container {
       width: 100%;
       padding-left: 0;
@@ -52,7 +64,7 @@
     
     .close_button {
       position: absolute;
-      top: 0;
+      top: 2rem;
       right: 0;
     }
   }

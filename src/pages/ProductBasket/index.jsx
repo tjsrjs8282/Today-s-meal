@@ -10,6 +10,7 @@ import CountBox from '@components/CountBox'
 import CheckBox from './Checkbox';
 import { PRODUCT_LIST } from '@pages/Product/productData.js'
 import classNames from 'classnames/bind'
+import BgImg from '@assets/ic-logo-bg.png'
 
 const cx = classNames.bind($)
 
@@ -56,6 +57,7 @@ const contants = [
 
 export default function ProductBasket() {
   const [checkedList, setCheckedList] = useState([])
+  const [listData, setListData] = useState(list)
 
   const handleCheckedItem = (id, isChecked) => {
     if (isChecked) {
@@ -69,13 +71,20 @@ export default function ProductBasket() {
   const handleAllChecked = (e) => {
     if (e.target.checked) {
       const allCheckedList = []
-      list.forEach((item) => allCheckedList.push(item.id.toString()))
+      listData.forEach((item) => allCheckedList.push(item.id.toString()))
       
       setCheckedList(allCheckedList)
     } else {
       setCheckedList([])
     }
     console.log('handleAllChecked', checkedList)
+  }
+
+  const handleClickDelete = (e) => {
+    const checkedId = e.currentTarget.parentNode.parentNode.parentNode.id
+    setListData(listData.filter((item) => {
+      return item.id.toString() !== checkedId
+    }))
   }
 
   return (
@@ -90,18 +99,31 @@ export default function ProductBasket() {
         <Flex width between marginTop marginBottom>
           <label className={$.all_check}>
             <input type="checkbox" onChange={handleAllChecked}
-              checked={checkedList.length === list.length ? true : false} />
-            <IconButton kinds={checkedList.length === list.length ? 'check' : 'checkNone'} />
+              checked={
+                checkedList.length === 0 
+                ? false : checkedList.length === listData.length 
+                ? true : false
+                } />
+            <IconButton kinds={
+                checkedList.length === 0 
+                ? 'checkNone' : checkedList.length === listData.length 
+                ? 'check' : 'checkNone'
+              } />
             전체선택
           </label>
           <Button content="선택삭제" border />
         </Flex>
         <ul className={$.list_container}>
           {
-            list.map((li) => {
+            listData.length === 0 ? 
+            // 리스트 없을 때
+            <li className={$.empty_list}>
+              <img src={BgImg} alt="빈 접시 이미지" />
+            </li>
+            : listData.map((li) => {
               const { id, title, price, img } = li
               return (
-                <li key={id}>
+                <li key={id} id={id}>
                   <CheckBox id={id} onChecked={handleCheckedItem} 
                     checked={checkedList.includes(id.toString()) ? true : false}
                     icon={checkedList.includes(id.toString()) ? 'check' : 'checkNone'} />
@@ -119,7 +141,7 @@ export default function ProductBasket() {
                       <p className={$.price}>{price}원</p>
                     </Flex>
                     <div className={$.close_button}>
-                      <IconButton kinds="close" />
+                      <IconButton kinds="close" onClick={handleClickDelete} />
                     </div>
                   </div>
                 </li>
