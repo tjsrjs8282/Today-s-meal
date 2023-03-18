@@ -29,14 +29,14 @@ axiosInstance.interceptors.response.use(
 )
 
 export const productInstance = Axios.create({
-  baseURL: import.meta.env.VITE_PRODUCTS,
+  baseURL: VITE_PRODUCTS,
   timeout: 5000,
 })
 
 export const fatsecretInstance = axiosInstance
 fatsecretInstance.defaults.baseURL = '/api/rest/server.api'
 fatsecretInstance.defaults.headers = {
-  Authorization: 'Bearer ' + import.meta.env.VITE_FATSECRET_TOKEN,
+  Authorization: 'Bearer ' + VITE_FATSECRET_TOKEN,
 }
 
 export const weatherInstance = Axios.create({
