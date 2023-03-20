@@ -11,11 +11,22 @@ import { PRODUCT_LIST } from '@pages/Product/productData'
 export default function ProductDetail() {
   const navigate = useNavigate()
   const { id } = useParams()
+  const [myPoint, setMyPoint] = useState(0)
+  const sessionMyPoint = localStorageService().get('MY_POINT')
 
   const [productList, setProductList] = useState([])
 
   const goBack = () => {
     navigate(-1)
+  }
+
+  const onClickBuyHandler = () => {
+    //localStorageService().set('MY_POINT', sessionMyPoint)
+    console.log(myPoint)
+  }
+
+  function getPoint() {
+    setMyPoint(sessionMyPoint)
   }
 
   function getProduct() {
@@ -24,6 +35,7 @@ export default function ProductDetail() {
   }
   useEffect(() => {
     getProduct()
+    getPoint()
   }, [])
 
   return (
@@ -56,7 +68,7 @@ export default function ProductDetail() {
               <p>{productList.price > 50000 ? 0 : 3000}원</p>
             </Flex>
             <Flex width between>
-              <p className={$.list_title}>(50000원 이상 배송비 무료)</p>
+              <p className={$.list_title}>(50000원 이상 구매 시 배송비 무료)</p>
             </Flex>
           </li>
           <li className={$.total_price}>
@@ -73,7 +85,7 @@ export default function ProductDetail() {
             <Button content="장바구니" nonefixed noneBackground />
           </Flex>
           <Flex marginRigth width>
-            <Button content="구매하기" nonefixed></Button>
+            <Button content="구매하기" nonefixed onClick={onClickBuyHandler}></Button>
           </Flex>
         </div>
       </div>
