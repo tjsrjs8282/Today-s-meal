@@ -34,7 +34,7 @@ export const productInstance = Axios.create({
 })
 
 export const fatsecretInstance = axiosInstance
-fatsecretInstance.defaults.baseURL = 'https://platform.fatsecret.com//rest/server.api'
+fatsecretInstance.defaults.baseURL = '/api/rest/server.api'
 fatsecretInstance.defaults.headers = {
   Authorization: 'Bearer ' + import.meta.env.VITE_FATSECRET_TOKEN,
 }
