@@ -25,6 +25,7 @@ const FoodDetail = () => {
   const navigate = useNavigate()
   const [dateRecoil, setDateRecoil] = useRecoilState(dateState)
   const [partRecoil, setPartRecoil] = useRecoilState(partState)
+  const [servingId, setServingId] = useState(0)
   const [count, setCount] = useState(1)
   const [foodList, setFoodList] = useState([])
   const [foodServingData, setFoodServingData] = useState([])
@@ -48,8 +49,10 @@ const FoodDetail = () => {
     }
     const servingData = res.data.food.servings.serving
     let arrCheck = Array.isArray(servingData) ? servingData : [servingData]
+
     setFoodList(res.data.food)
     setFoodServingData(arrCheck)
+    setServingId(arrCheck[0].serving_id)
     setFoodMeasurement(arrCheck[0].measurement_description)
     setFoodServingList([
       {
@@ -58,16 +61,17 @@ const FoodDetail = () => {
         date: date,
         part: partRecoil,
         measurement: arrCheck[0].measurement_description,
-        calories: arrCheck[0].calories,
-        carbohydrate: arrCheck[0].calories,
-        protein: arrCheck[0].protein,
-        fat: arrCheck[0].fat,
+        calories: Math.ceil(arrCheck[0].calories),
+        carbohydrate: Math.ceil(arrCheck[0].carbohydrate),
+        protein: Math.ceil(arrCheck[0].protein),
+        fat: Math.ceil(arrCheck[0].fat),
       },
     ])
     setLoading(false)
   }
-  const handleInputChange = async (servingId) => {
-    const servingFilter = await foodServingData.filter((v) => v.serving_id === servingId)
+  const handleInputChange = async (id) => {
+    setServingId(id)
+    const servingFilter = await foodServingData.filter((v) => v.serving_id === id)
     setFoodServingList([
       {
         id: foodList.food_id + new Date().getTime(),
@@ -75,10 +79,10 @@ const FoodDetail = () => {
         date: date,
         part: partRecoil,
         measurement: servingFilter[0].measurement_description,
-        calories: servingFilter[0].calories,
-        carbohydrate: servingFilter[0].calories,
-        protein: servingFilter[0].protein,
-        fat: servingFilter[0].fat,
+        calories: Math.ceil(servingFilter[0].calories * count),
+        carbohydrate: Math.ceil(servingFilter[0].carbohydrate * count),
+        protein: Math.ceil(servingFilter[0].protein * count),
+        fat: Math.ceil(servingFilter[0].fat * count),
       },
     ])
   }
@@ -101,18 +105,36 @@ const FoodDetail = () => {
     getFatsecret()
   }, [])
 
-  //TODO : 카운트값이 바뀌었을때 해당 카운트값이 곱해지도록
-  useEffect(() => {}, [count])
+  useEffect(() => {
+    handleCountChangess()
+  }, [count])
 
   const handleCountChange = (e) => {
     setCount(e.target.value)
+  }
+
+  const handleCountChangess = async () => {
+    const servingFilter = await foodServingData.filter((v) => v.serving_id === servingId)
+    setFoodServingList([
+      {
+        id: foodList.food_id + new Date().getTime(),
+        name: foodList.food_name,
+        date: date,
+        part: partRecoil,
+        measurement: servingFilter[0].measurement_description,
+        calories: Math.ceil(servingFilter[0].calories * count),
+        carbohydrate: Math.ceil(servingFilter[0].carbohydrate * count),
+        protein: Math.ceil(servingFilter[0].protein * count),
+        fat: Math.ceil(servingFilter[0].fat * count),
+      },
+    ])
   }
 
   const handleCountCalculation = (count) => {
     setCount(count)
   }
 
-  console.log(count)
+  console.log(foodServingData)
   return (
     <Wrapper>
       <Header>
