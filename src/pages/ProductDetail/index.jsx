@@ -55,7 +55,8 @@ export default function ProductDetail() {
   }
 
   function getPoint() {
-    setMyPoint(sessionMyPoint)
+    const getPoint = sessionMyPoint ? sessionMyPoint : 0
+    setMyPoint(getPoint)
   }
 
   function getProduct() {
@@ -91,29 +92,39 @@ export default function ProductDetail() {
       <Flex column width start padding>
         <div className={$.title}>
           <h2>{productList.title}</h2>
-          <p className={$.price}>{productList.price}원</p>
+          <p className={$.price}>{productList.price} 원</p>
         </div>
         <ul className={$.benefit}>
           <li>
             <Flex width between>
               <p className={$.list_title}>적립포인트</p>
-              <p>{Math.ceil(productList.price * 0.02)}P</p>
+              <p>{Math.ceil(productList.price * 0.02)} P</p>
             </Flex>
           </li>
           <li>
             <Flex width between>
               <p className={$.list_title}>배송비</p>
-              <p>{deliPrice}원</p>
+              <p>{deliPrice} 원</p>
             </Flex>
             <Flex width between>
               <p className={$.list_title}>(50000원 이상 구매 시 배송비 무료)</p>
             </Flex>
           </li>
           <li className={$.total_price}>
-            <Flex width between>
+            <Flex width between borderBottom paddingBottom>
               <h2 className={$.list_title}>총 결제금액</h2>
-              <h2>{priceTotal}원</h2>
+              <h2>{priceTotal} 원</h2>
             </Flex>
+            <Flex width between marginTop>
+              <h2 className={$.list_title}>나의 포인트</h2>
+
+              <h2>{myPoint} 원</h2>
+            </Flex>
+            {myPoint < priceTotal ? (
+              <Flex width between>
+                <p className={$.list_title}>포인트가 부족합니다.</p>
+              </Flex>
+            ) : null}
           </li>
         </ul>
       </Flex>
