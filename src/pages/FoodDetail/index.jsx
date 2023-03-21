@@ -134,7 +134,7 @@ const FoodDetail = () => {
     setCount(count)
   }
 
-  console.log(foodServingData)
+  console.log(foodServingList)
   return (
     <Wrapper>
       <Header>
