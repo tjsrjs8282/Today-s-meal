@@ -15,8 +15,12 @@
   ],
   "rewrites": [
     {
-      "source": "/api",
+      "source": "/api/(.*)",
       "destination": "https://platform.fatsecret.com/"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
