@@ -6,6 +6,7 @@ import Flex from '@components/Flex'
 import Header from '@components/Header'
 import IconButton from '@components/IconButton'
 import Button from '@components/Button'
+import Modal from '@components/Modal'
 import { PRODUCT_LIST } from '@pages/Product/productData'
 import { localStorageService } from '@utils/localStorage.service'
 
@@ -16,6 +17,9 @@ export default function ProductDetail() {
   const sessionMyPoint = localStorageService().get('MY_POINT')
 
   const [productList, setProductList] = useState([])
+  const [modal, setModal] = useState(false)
+  const [modalTitle, setModalTitle] = useState('')
+  const [modalContent, setModalContent] = useState('')
   const deliPrice = productList.price > 50000 ? 0 : 3000
   const priceTotal = productList.price + deliPrice
 
@@ -31,11 +35,23 @@ export default function ProductDetail() {
     if (sessionMyPoint - priceTotal > 0) {
       setMyPoint(myPoint - priceTotal)
       localStorageService().set('MY_POINT', myPoint)
+
+      alert('구매가 완료되었습니다!')
     } else {
       alert('포인트가 부족합니다.')
     }
-    console.log(myPoint)
-    console.log(priceTotal)
+    setModal(false)
+  }
+
+  const onClickModalHandler = (name, id) => {
+    setModalTitle(`구매하기`)
+    setModalContent(`${productList.title} 를(을) 구매 하시겠습니까?`)
+
+    setModal(!modal)
+  }
+
+  const modalOnClose = () => {
+    setModal(false)
   }
 
   function getPoint() {
@@ -53,6 +69,15 @@ export default function ProductDetail() {
 
   return (
     <Wrapper colorGray none>
+      {modal && (
+        <Modal
+          title={modalTitle}
+          content={modalContent}
+          onClick={onClickBuyHandler}
+          onClose={modalOnClose}
+          confirm
+        ></Modal>
+      )}
       <Header>
         <Flex width between>
           <IconButton kinds="back" onClick={goBack} />
@@ -98,7 +123,7 @@ export default function ProductDetail() {
             <Button content="장바구니" nonefixed noneBackground />
           </Flex>
           <Flex marginRigth width>
-            <Button content="구매하기" nonefixed onClick={onClickBuyHandler}></Button>
+            <Button content="구매하기" nonefixed onClick={onClickModalHandler}></Button>
           </Flex>
         </div>
       </div>
