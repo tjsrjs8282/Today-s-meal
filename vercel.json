@@ -1,10 +1,17 @@
 {
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/api/:path*",
-      "destination": "https://platform.fatsecret.com/:path*/"
+      "source": "/api/test.json",
+      "destination": "https://myapi.com/test.json"
     }
   ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+
   "headers": [
     {
       "source": "/api/(.*)",
