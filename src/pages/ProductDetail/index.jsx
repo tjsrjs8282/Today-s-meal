@@ -7,6 +7,7 @@ import Header from '@components/Header'
 import IconButton from '@components/IconButton'
 import Button from '@components/Button'
 import { PRODUCT_LIST } from '@pages/Product/productData'
+import { localStorageService } from '@utils/localStorage.service'
 
 export default function ProductDetail() {
   const navigate = useNavigate()
@@ -15,14 +16,26 @@ export default function ProductDetail() {
   const sessionMyPoint = localStorageService().get('MY_POINT')
 
   const [productList, setProductList] = useState([])
+  const deliPrice = productList.price > 50000 ? 0 : 3000
+  const priceTotal = productList.price + deliPrice
 
   const goBack = () => {
     navigate(-1)
   }
 
+  const goCart = () => {
+    navigate('/basket')
+  }
+
   const onClickBuyHandler = () => {
-    //localStorageService().set('MY_POINT', sessionMyPoint)
+    if (sessionMyPoint - priceTotal > 0) {
+      setMyPoint(myPoint - priceTotal)
+      localStorageService().set('MY_POINT', myPoint)
+    } else {
+      alert('포인트가 부족합니다.')
+    }
     console.log(myPoint)
+    console.log(priceTotal)
   }
 
   function getPoint() {
@@ -43,7 +56,7 @@ export default function ProductDetail() {
       <Header>
         <Flex width between>
           <IconButton kinds="back" onClick={goBack} />
-          <IconButton kinds="cart" />
+          <IconButton kinds="cart" onClick={goCart} />
         </Flex>
       </Header>
 
@@ -59,13 +72,13 @@ export default function ProductDetail() {
           <li>
             <Flex width between>
               <p className={$.list_title}>적립포인트</p>
-              <p>{productList.price * 0.02}P</p>
+              <p>{Math.ceil(productList.price * 0.02)}P</p>
             </Flex>
           </li>
           <li>
             <Flex width between>
               <p className={$.list_title}>배송비</p>
-              <p>{productList.price > 50000 ? 0 : 3000}원</p>
+              <p>{deliPrice}원</p>
             </Flex>
             <Flex width between>
               <p className={$.list_title}>(50000원 이상 구매 시 배송비 무료)</p>
@@ -74,7 +87,7 @@ export default function ProductDetail() {
           <li className={$.total_price}>
             <Flex width between>
               <h2 className={$.list_title}>총 결제금액</h2>
-              <h2>{productList.price - (productList.price > 50000 ? 0 : 3000)}원</h2>
+              <h2>{priceTotal}원</h2>
             </Flex>
           </li>
         </ul>
