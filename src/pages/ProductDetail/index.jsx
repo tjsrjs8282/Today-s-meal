@@ -23,6 +23,8 @@ export default function ProductDetail() {
   const deliPrice = productList.price > 50000 ? 0 : 3000
   const priceTotal = productList.price + deliPrice
 
+  const reservePoint = Math.ceil(productList.price * 0.02)
+
   const goBack = () => {
     navigate(-1)
   }
@@ -33,8 +35,9 @@ export default function ProductDetail() {
 
   const onClickBuyHandler = () => {
     if (sessionMyPoint - priceTotal > 0) {
-      setMyPoint(myPoint - priceTotal)
-      localStorageService().set('MY_POINT', myPoint)
+      let buyPoint = myPoint - priceTotal
+      setMyPoint(buyPoint)
+      localStorageService().set('MY_POINT', buyPoint + reservePoint)
 
       alert('구매가 완료되었습니다!')
     } else {
@@ -98,7 +101,7 @@ export default function ProductDetail() {
           <li>
             <Flex width between>
               <p className={$.list_title}>적립포인트</p>
-              <p>{Math.ceil(productList.price * 0.02)} P</p>
+              <p>{reservePoint} P</p>
             </Flex>
           </li>
           <li>
