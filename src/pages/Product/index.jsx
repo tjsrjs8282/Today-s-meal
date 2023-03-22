@@ -14,6 +14,7 @@ import InputSearch from '@components/InputSearch'
 import ProductCard from './ProductCard'
 import FloatMenu from '@components/FloatMenu'
 
+
 export default function Product() {
   const [value, onChange] = useState(new Date())
 
@@ -29,7 +30,7 @@ export default function Product() {
   const goProductBasket = () => {
     navigate('/basket')
   }
-  
+
   const handleInputChange = useCallback(
     (e) => {
       setSearchValue(e.target.value)
