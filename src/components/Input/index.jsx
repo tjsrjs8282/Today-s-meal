@@ -17,6 +17,10 @@ export default function Input({
   return (
     <div className={$.input_box}>
       <input
+        onInput={(e) => {
+          if (e.target.value.length > e.target.maxLength)
+            e.target.value = e.target.value.slice(0, e.target.maxLength)
+        }}
         ref={inputRef}
         {...{ type, name, title, value, maxLength, placeholder, onKeyPress, onChange, id }}
       />
