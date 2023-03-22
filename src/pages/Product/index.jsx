@@ -26,6 +26,10 @@ export default function Product() {
   const [categoryList, setCategoryList] = useState([])
   const [category, setCategory] = useState('전체')
 
+  const goProductBasket = () => {
+    navigate('/basket')
+  }
+  
   const handleInputChange = useCallback(
     (e) => {
       setSearchValue(e.target.value)
@@ -68,6 +72,7 @@ export default function Product() {
       <Header>
         <Flex width between>
           <HeaderTitle content="쇼핑" dates={value} />
+          <IconButton kinds={'cart'} onClick={goProductBasket}/>
         </Flex>
 
         <InputSearch
