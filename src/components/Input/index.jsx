@@ -6,7 +6,7 @@ export default function Input({
   name,
   title,
   value,
-  maxLength,
+  maxlength,
   placeholder,
   unit,
   inputRef,
@@ -18,7 +18,7 @@ export default function Input({
     <div className={$.input_box}>
       <input
         ref={inputRef}
-        {...{ type, name, title, value, maxLength, placeholder, onKeyPress, onChange, id }}
+        {...{ type, name, title, value, maxlength, placeholder, onKeyPress, onChange, id }}
       />
       {unit && <p className={$.unit}>{unit}</p>}
     </div>

@@ -111,7 +111,7 @@ export default function UserInfo() {
         title="나이"
         value={userOld}
         inputRef={(el) => (nameInput.current[1] = el)}
-        maxLength={3}
+        maxlength={3}
         onChange={handleInputChange}
       />
 
@@ -125,7 +125,7 @@ export default function UserInfo() {
             title="키"
             value={userHeight}
             inputRef={(el) => (nameInput.current[2] = el)}
-            maxLength={3}
+            maxlength={3}
             unit="cm"
             onChange={handleInputChange}
           />
@@ -139,7 +139,7 @@ export default function UserInfo() {
             title="몸무게"
             value={userWeight}
             inputRef={(el) => (nameInput.current[3] = el)}
-            maxLength={3}
+            maxlength={3}
             unit="kg"
             onChange={handleInputChange}
           />

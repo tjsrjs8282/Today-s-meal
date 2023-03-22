@@ -26,7 +26,7 @@ export default function MyIntakeModal({
             title={'칼로리'}
             onChange={onChange}
             unit={'kcal'}
-            maxLength={5}
+            maxlength={5}
           />
         </Flex>
         <Flex col2 transition column>
@@ -38,7 +38,7 @@ export default function MyIntakeModal({
             title={'탄수화물'}
             onChange={onChange}
             unit={'g'}
-            maxLength={3}
+            maxlength={3}
           />
         </Flex>
         <Flex col2 transition column>
@@ -50,7 +50,7 @@ export default function MyIntakeModal({
             title={'단백질'}
             onChange={onChange}
             unit={'g'}
-            maxLength={3}
+            maxlength={3}
           />
         </Flex>
         <Flex col2 transition column>
@@ -62,7 +62,7 @@ export default function MyIntakeModal({
             title={'지방'}
             onChange={onChange}
             unit={'g'}
-            maxLength={3}
+            maxlength={3}
           />
         </Flex>
       </Flex>
