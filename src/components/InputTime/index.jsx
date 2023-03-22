@@ -9,7 +9,7 @@ export default function InputTime({
   minute,
   second,
   onChange,
-  maxlength,
+  maxLength,
   placeholder,
   onKeyPress,
 }) {
@@ -18,13 +18,13 @@ export default function InputTime({
       <input
         name={'healthMinute'}
         value={minute}
-        {...{ type, title, maxlength, placeholder, onKeyPress, onChange }}
+        {...{ type, title, maxLength, placeholder, onKeyPress, onChange }}
       />
       <span>:</span>
       <input
         name={'healthSecond'}
         value={second}
-        {...{ type, title, maxlength, placeholder, onKeyPress, onChange }}
+        {...{ type, title, maxLength, placeholder, onKeyPress, onChange }}
       />
     </div>
   )

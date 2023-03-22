@@ -25,7 +25,7 @@ export default function HealthAddInputBox({
             value={healthCount}
             onChange={onChange}
             unit={'번(회)'}
-            maxlength={4}
+            maxLength={4}
           />
         </Flex>
       )}
@@ -40,7 +40,7 @@ export default function HealthAddInputBox({
             value={healthWeight}
             onChange={onChange}
             unit={'kg'}
-            maxlength={4}
+            maxLength={4}
           />
         </Flex>
       )}
@@ -52,7 +52,7 @@ export default function HealthAddInputBox({
             name={'healthSet'}
             placeholder="0"
             title={'세트'}
-            maxlength={3}
+            maxLength={3}
             onChange={onChange}
             handleCountCalculation={handleCountCalculation}
             marginBottomNone
@@ -66,7 +66,7 @@ export default function HealthAddInputBox({
             type="number"
             placeholder="0"
             title={'시간'}
-            maxlength={3}
+            maxLength={3}
             minute={minute}
             second={second}
             onChange={onChange}
