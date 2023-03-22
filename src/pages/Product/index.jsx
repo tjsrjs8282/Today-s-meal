@@ -14,6 +14,15 @@ import InputSearch from '@components/InputSearch'
 import ProductCard from './ProductCard'
 import FloatMenu from '@components/FloatMenu'
 
+function getRandomProductList() {
+  const copyProductList = [...PRODUCT_LIST]
+  const shuffle = []
+  while(copyProductList.length > 0) {
+    const randomNum = Math.floor(Math.random() * copyProductList.length)
+    shuffle.push(copyProductList.splice(randomNum, 1)[0]);
+  }
+  return shuffle
+}
 
 export default function Product() {
   const [value, onChange] = useState(new Date())
@@ -26,6 +35,7 @@ export default function Product() {
   const [productList, setProductList] = useState([])
   const [categoryList, setCategoryList] = useState([])
   const [category, setCategory] = useState('전체')
+  const [clickCategory, setClickCategory] = useState('')
 
   const goProductBasket = () => {
     navigate('/basket')
@@ -44,15 +54,22 @@ export default function Product() {
     inputRef.current.focus()
   }
 
-  const onClickPartHandler = (cate) => {
+  const onClickPartHandler = (e, cate) => {
+    if (clickCategory === e.target.id) {
+      return
+    }
+
+    setClickCategory(e.target.id)
+    const productList = getRandomProductList()
     let categoryFilter =
-      cate === '전체' ? PRODUCT_LIST : PRODUCT_LIST.filter((v) => v.category.includes(cate))
+      cate === '전체' ? productList : productList.filter((v) => v.category.includes(cate))
     setProductList(categoryFilter)
+    
   }
 
   function getProduct() {
     const category = PRODUCT_LIST.map((data) => data.category)
-    setProductList(PRODUCT_LIST)
+    setProductList(getRandomProductList())
     setCategoryList(['전체', ...new Set(category)])
   }
 
@@ -96,7 +113,7 @@ export default function Product() {
                 name="category"
                 value={cate}
                 key={index}
-                onClick={() => onClickPartHandler(cate)}
+                onClick={(e) => onClickPartHandler(e, cate)}
                 tab
               >
                 <p>{cate}</p>
@@ -109,7 +126,7 @@ export default function Product() {
       <div className={$.product_box}>
         <Flex start wrap width>
           {productList.map((data) => {
-            return <ProductCard data={data} />
+            return <ProductCard key={data.id} data={data} />
           })}
         </Flex>
       </div>
