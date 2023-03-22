@@ -121,6 +121,7 @@ export default function MyPage() {
     localStorageService().remove('PART')
     localStorageService().remove('INTAKE_TOTAL')
     navigate('/')
+    alert('모든 데이터가 초기화 되었습니다.')
   }
 
   const handleInputChange = (e) => {
@@ -131,19 +132,21 @@ export default function MyPage() {
   }
 
   const onClickIntakeHandler = () => {
-    setModalTitle(`하루 목표 섭취량 수정`)
-    setModalContent(`섭취량 수정 하시겠습니까?`)
+    setModalTitle(`섭취량 수정하기`)
+    setModalContent(`하루 목표 섭취량을 수정 하시겠습니까?`)
     setModalIntake(!modalIntake)
   }
 
   const onClickModalIntake = () => {
     localStorageService().set('INTAKE_TOTAL', modalIntakeInputs)
     setModalIntake(false)
+    alert('하루 목표 섭취량이 수정되었습니다.')
   }
 
   const modalOnClose = () => {
     setModalRemove(false)
     setModalIntake(false)
+    setModalIntakeInputs(sessionIntakeTotal)
   }
 
   useEffect(() => {
