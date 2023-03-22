@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import $ from './productBasket.module.scss'
 import Wrapper from '@components/Wrapper'
 import Flex from '@components/Flex'
@@ -58,7 +59,11 @@ const contants = [
 export default function ProductBasket() {
   const [checkedList, setCheckedList] = useState([])
   const [listData, setListData] = useState(list)
-
+  const navigate = useNavigate()
+  const goBack = () => {
+    navigate(-1)
+  }
+  
   const handleCheckedItem = (id, isChecked) => {
     if (isChecked) {
       setCheckedList((prev) => [...prev, id])
@@ -102,7 +107,7 @@ export default function ProductBasket() {
       <Header>
         <Flex width between>
           <HeaderTitle content="장바구니" />
-          <IconButton kinds="close" />
+          <IconButton kinds="close" onClick={goBack}/>
         </Flex>
       </Header>
       <div>

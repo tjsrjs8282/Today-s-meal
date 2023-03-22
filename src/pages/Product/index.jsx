@@ -14,6 +14,7 @@ import InputSearch from '@components/InputSearch'
 import ProductCard from './ProductCard'
 import FloatMenu from '@components/FloatMenu'
 
+
 export default function Product() {
   const [value, onChange] = useState(new Date())
 
@@ -25,6 +26,10 @@ export default function Product() {
   const [productList, setProductList] = useState([])
   const [categoryList, setCategoryList] = useState([])
   const [category, setCategory] = useState('전체')
+
+  const goProductBasket = () => {
+    navigate('/basket')
+  }
 
   const handleInputChange = useCallback(
     (e) => {
@@ -68,6 +73,7 @@ export default function Product() {
       <Header>
         <Flex width between>
           <HeaderTitle content="쇼핑" dates={value} />
+          <IconButton kinds={'cart'} onClick={goProductBasket}/>
         </Flex>
 
         <InputSearch
