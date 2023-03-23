@@ -17,9 +17,9 @@ import FloatMenu from '@components/FloatMenu'
 function getRandomProductList() {
   const copyProductList = [...PRODUCT_LIST]
   const shuffle = []
-  while(copyProductList.length > 0) {
+  while (copyProductList.length > 0) {
     const randomNum = Math.floor(Math.random() * copyProductList.length)
-    shuffle.push(copyProductList.splice(randomNum, 1)[0]);
+    shuffle.push(copyProductList.splice(randomNum, 1)[0])
   }
   return shuffle
 }
@@ -30,7 +30,6 @@ export default function Product() {
   const navigate = useNavigate()
   const inputRef = useRef(null)
   const [query, setQuery] = useSearchParams()
-  // const searchQuery = query.get('q') || ''
   const [searchValue, setSearchValue] = useState('')
   const [productList, setProductList] = useState([])
   const [categoryList, setCategoryList] = useState([])
@@ -44,7 +43,6 @@ export default function Product() {
   const handleInputChange = useCallback(
     (e) => {
       setSearchValue(e.target.value)
-      console.log(searchValue)
     },
     [searchValue]
   )
@@ -64,7 +62,6 @@ export default function Product() {
     let categoryFilter =
       cate === '전체' ? productList : productList.filter((v) => v.category.includes(cate))
     setProductList(categoryFilter)
-    
   }
 
   function getProduct() {
@@ -90,7 +87,7 @@ export default function Product() {
       <Header>
         <Flex width between>
           <HeaderTitle content="쇼핑" dates={value} />
-          <IconButton kinds={'cart'} onClick={goProductBasket}/>
+          <IconButton kinds={'cart'} onClick={goProductBasket} />
         </Flex>
 
         <InputSearch

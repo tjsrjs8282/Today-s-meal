@@ -3,7 +3,6 @@ import Flex from '@components/Flex'
 import { Link } from 'react-router-dom'
 
 export default function ProductCard({ data }) {
-  console.log(data)
   return (
     <Flex column radius marginBottom padding shadow col3 start colorWhite fontWhite>
       <Link to={`${data.id}`}>
