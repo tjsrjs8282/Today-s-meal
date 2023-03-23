@@ -3,7 +3,7 @@ import Flex from '@components/Flex'
 import { Link } from 'react-router-dom'
 
 export default function ProductCard({ data }) {
-  console.log(data.id)
+  console.log(data)
   return (
     <Flex column radius marginBottom padding shadow col3 start colorWhite fontWhite>
       <Link to={`${data.id}`}>
@@ -12,7 +12,7 @@ export default function ProductCard({ data }) {
         </Flex>
         <h2>{data?.title}</h2>
         <p>
-          {data?.price}
+          {data?.price.toLocaleString('ko-KR')}
           <span>원</span>
         </p>
         <p>{data?.new ? '신제품' : null}</p>

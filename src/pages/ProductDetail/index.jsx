@@ -24,7 +24,6 @@ export default function ProductDetail() {
   const priceTotal = productList.price + deliPrice
 
   const reservePoint = Math.ceil(productList.price * 0.02)
-
   const goBack = () => {
     navigate(-1)
   }
@@ -95,33 +94,33 @@ export default function ProductDetail() {
       <Flex column width start padding>
         <div className={$.title}>
           <h2>{productList.title}</h2>
-          <p className={$.price}>{productList.price} 원</p>
+          <p className={$.price}>{productList.price?.toLocaleString('ko-KR')} 원</p>
         </div>
         <ul className={$.benefit}>
           <li>
             <Flex width between>
               <p className={$.list_title}>적립포인트</p>
-              <p>{reservePoint} P</p>
+              <p>{reservePoint.toLocaleString('ko-KR')} P</p>
             </Flex>
           </li>
           <li>
             <Flex width between>
               <p className={$.list_title}>배송비</p>
-              <p>{deliPrice} 원</p>
+              <p>{deliPrice.toLocaleString('ko-KR')} 원</p>
             </Flex>
             <Flex width between>
-              <p className={$.list_title}>(50000원 이상 구매 시 배송비 무료)</p>
+              <p className={$.list_title}>(50,000원 이상 구매 시 배송비 무료)</p>
             </Flex>
           </li>
           <li className={$.total_price}>
             <Flex width between borderBottom paddingBottom>
               <h2 className={$.list_title}>총 결제금액</h2>
-              <h2>{priceTotal} 원</h2>
+              <h2>{priceTotal.toLocaleString('ko-KR')} 원</h2>
             </Flex>
             <Flex width between marginTop>
               <h2 className={$.list_title}>나의 포인트</h2>
 
-              <h2>{myPoint} 원</h2>
+              <h2>{myPoint.toLocaleString('ko-KR')} 원</h2>
             </Flex>
             {myPoint < priceTotal ? (
               <Flex width between>
