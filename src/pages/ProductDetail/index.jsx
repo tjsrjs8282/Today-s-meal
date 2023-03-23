@@ -52,6 +52,10 @@ export default function ProductDetail() {
     setModal(!modal)
   }
 
+  const onClickCartHandler = () => {
+    console.log('장바구니 추가')
+  }
+
   const modalOnClose = () => {
     setModal(false)
   }
@@ -133,7 +137,7 @@ export default function ProductDetail() {
       <div className={$.bottom_button}>
         <div className={$.wrapper}>
           <Flex marginRight width>
-            <Button content="장바구니" nonefixed noneBackground />
+            <Button content="장바구니" nonefixed noneBackground onClick={onClickCartHandler} />
           </Flex>
           <Flex marginRigth width>
             <Button content="구매하기" nonefixed onClick={onClickModalHandler}></Button>

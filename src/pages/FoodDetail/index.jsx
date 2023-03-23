@@ -79,15 +79,29 @@ const FoodDetail = () => {
         date: date,
         part: partRecoil,
         measurement: servingFilter[0].measurement_description,
+        calories: servingFilter[0].calories,
+        carbohydrate: servingFilter[0].carbohydrate,
+        protein: servingFilter[0].protein,
+        fat: servingFilter[0].fat,
+      },
+    ])
+  }
+  const handleClickAdd = async () => {
+    const servingFilter = await foodServingData.filter((v) => v.serving_id === servingId)
+    const sesstionPartFoods = await localStorageService().get('FOOD_TOTAL')
+    setFoodServingList([
+      {
+        id: foodList.food_id + new Date().getTime(),
+        name: foodList.food_name,
+        date: date,
+        part: partRecoil,
+        measurement: servingFilter[0].measurement_description,
         calories: Math.ceil(servingFilter[0].calories * count),
         carbohydrate: Math.ceil(servingFilter[0].carbohydrate * count),
         protein: Math.ceil(servingFilter[0].protein * count),
         fat: Math.ceil(servingFilter[0].fat * count),
       },
     ])
-  }
-  const handleClickAdd = () => {
-    const sesstionPartFoods = localStorageService().get('FOOD_TOTAL')
     if (!loading) {
       if (sesstionPartFoods) {
         sesstionPartFoods.push({ ...foodServingList[0] })
@@ -105,29 +119,8 @@ const FoodDetail = () => {
     getFatsecret()
   }, [])
 
-  useEffect(() => {
-    handleCountChangess()
-  }, [count])
-
   const handleCountChange = (e) => {
     setCount(e.target.value)
-  }
-
-  const handleCountChangess = async () => {
-    const servingFilter = await foodServingData.filter((v) => v.serving_id === servingId)
-    setFoodServingList([
-      {
-        id: foodList.food_id + new Date().getTime(),
-        name: foodList.food_name,
-        date: date,
-        part: partRecoil,
-        measurement: servingFilter[0].measurement_description,
-        calories: Math.ceil(servingFilter[0].calories * count),
-        carbohydrate: Math.ceil(servingFilter[0].carbohydrate * count),
-        protein: Math.ceil(servingFilter[0].protein * count),
-        fat: Math.ceil(servingFilter[0].fat * count),
-      },
-    ])
   }
 
   const handleCountCalculation = (count) => {
@@ -174,7 +167,7 @@ const FoodDetail = () => {
               <Flex marginTop column start>
                 <p>칼로리</p>
                 <h2>
-                  {foodServingList[0].calories}
+                  {Math.ceil(foodServingList[0].calories * count)}
                   <span className={$.unit}>kcal</span>
                 </h2>
               </Flex>
@@ -186,7 +179,7 @@ const FoodDetail = () => {
               <Flex marginTop column start>
                 <p>탄수화물</p>
                 <h2>
-                  {foodServingList[0].carbohydrate}
+                  {Math.ceil(foodServingList[0].carbohydrate * count)}
                   <span className={$.unit}>g</span>
                 </h2>
               </Flex>
@@ -198,7 +191,7 @@ const FoodDetail = () => {
               <Flex marginTop column start>
                 <p>단백질</p>
                 <h2>
-                  {foodServingList[0].protein}
+                  {Math.ceil(foodServingList[0].protein * count)}
                   <span className={$.unit}>g</span>
                 </h2>
               </Flex>
@@ -210,7 +203,7 @@ const FoodDetail = () => {
               <Flex marginTop column start>
                 <p>지방</p>
                 <h2>
-                  {foodServingList[0].fat}
+                  {Math.ceil(foodServingList[0].fat * count)}
                   <span className={$.unit}>g</span>
                 </h2>
               </Flex>
