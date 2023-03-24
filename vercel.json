@@ -15,11 +15,11 @@
   ],
   "rewrites": [
     {
-      "source": "/api/:path*/",
-      "destination": "https://test.test.com/rest/server.api/:path*/"
+      "source": "/api/:path*",
+      "destination": "https://test.test.com/rest/server.api/:path*"
     },
     {
-      "source": "/api/:path*",
+      "source": "/api/:path*/",
       "destination": "https://test.test.com/rest/server.api/:path*/"
     },
     {
