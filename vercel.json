@@ -16,15 +16,15 @@
   "rewrites": [
     {
       "source": "/api/",
-      "destination": "https://test.com/rest/server.api/"
+      "destination": "https://test.com/"
     },
     {
       "source": "/api/:path*/",
-      "destination": "https://test.com/rest/server.api/:path*/"
+      "destination": "https://test.com/:path*/"
     },
     {
       "source": "/api/:path*",
-      "destination": "https://test.com/rest/server.api/:path*"
+      "destination": "https://test.com/:path*"
     },
     {
       "source": "/(.*)",
