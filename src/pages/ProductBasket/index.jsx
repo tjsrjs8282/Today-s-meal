@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import BasketListItem from './BasketListItem'
 import $ from './productBasket.module.scss'
 import Wrapper from '@components/Wrapper'
 import Flex from '@components/Flex'
@@ -7,8 +8,6 @@ import Header from '@components/Header'
 import HeaderTitle from '@components/HeaderTitle'
 import IconButton from '@components/IconButton'
 import Button from '@components/Button'
-import CountBox from '@components/CountBox'
-import CheckBox from './CheckBox'
 import { PRODUCT_LIST } from '@pages/Product/productData.js'
 import classNames from 'classnames/bind'
 import BgImg from '@assets/ic-logo-bg.png'
@@ -36,29 +35,57 @@ const list = [
   },
 ]
 
-const price1 = 10000
-const contants = [
-  {
-    id: 1,
-    title: '총 상품 금액',
-    price: price1,
-  },
-  {
-    id: 2,
-    title: '배송비',
-    price: 3000,
-  },
-  {
-    id: 3,
-    title: '총 결제 금액',
-    price: price1 + 3000,
-    total: true,
-  },
-]
-
 export default function ProductBasket() {
   const [checkedList, setCheckedList] = useState([])
   const [listData, setListData] = useState(list)
+  const [listOrder, setListOrder] = useState([])
+  const [listCount, setListCount] = useState(getListCount())
+
+  function getListCount() {
+    return listData.map((item) => {
+      return {id: item.id, price: item.price, count: 1}
+    })
+  }
+
+  useEffect(() => {
+    setListCount(getListCount())
+  }, [listData])
+  
+  const handleCountList = (id, count) => {
+    const copy = [...listCount]
+    copy.forEach((item) => {
+      if (item.id === id) {
+        item.count = count
+      }
+    })
+    setListCount([...copy])
+  }
+
+  useEffect(() => {
+    const price = listCount.map((item) => item.price * item.count).reduce((acc, cur) => acc + cur, 0)
+    const delivery = price === 0 ? 0 : price >= 50000 ? 0 : 3000
+    const totalPrice = price + delivery
+  
+    setListOrder([
+      {
+        id: 1,
+        title: '총 상품 금액',
+        price: price.toLocaleString('ko-KR'),
+      },
+      {
+        id: 2,
+        title: '배송비',
+        price: delivery.toLocaleString('ko-KR'),
+      },
+      {
+        id: 3,
+        title: '총 결제 금액',
+        price: totalPrice.toLocaleString('ko-KR'),
+        total: true,
+      },
+    ])
+  }, [listCount])
+
   const navigate = useNavigate()
   const goBack = () => {
     navigate(-1)
@@ -70,19 +97,16 @@ export default function ProductBasket() {
     } else {
       setCheckedList(checkedList.filter((item) => item !== id))
     }
-    console.log(checkedList)
   }
 
   const handleAllChecked = (e) => {
     if (e.target.checked) {
       const allCheckedList = []
       listData.forEach((item) => allCheckedList.push(item.id.toString()))
-
       setCheckedList(allCheckedList)
     } else {
       setCheckedList([])
     }
-    console.log('handleAllChecked', checkedList)
   }
 
   const handleClickDelete = (e) => {
@@ -99,7 +123,6 @@ export default function ProductBasket() {
       return !checkedList.includes(item.id.toString())
     })
     setListData(listCopy)
-    console.log(listCopy)
   }
 
   return (
@@ -145,40 +168,20 @@ export default function ProductBasket() {
             </li>
           ) : (
             listData.map((li) => {
-              const { id, title, price, img } = li
               return (
-                <li key={id} id={id}>
-                  <CheckBox
-                    id={id}
-                    onChecked={handleCheckedItem}
-                    checked={checkedList.includes(id.toString()) ? true : false}
-                    icon={checkedList.includes(id.toString()) ? 'check' : 'checkNone'}
+                <BasketListItem key={li.id} data={li}
+                  checkedList={checkedList}
+                  handleClickDelete={handleClickDelete} 
+                  handleCheckedItem={handleCheckedItem}
+                  handleCountList={handleCountList}
                   />
-                  <div className={$.product_container}>
-                    <Flex start>
-                      <div className={$.image_box}>
-                        <img src={img} alt={title} />
-                      </div>
-                      <h3>{title}</h3>
-                    </Flex>
-                    <Flex between>
-                      <div className={$.count_container}>
-                        <CountBox value={1} marginBottomNone smallFont onChange={() => {}} />
-                      </div>
-                      <p className={$.price}>{price}원</p>
-                    </Flex>
-                    <div className={$.close_button}>
-                      <IconButton kinds="close" onClick={handleClickDelete} />
-                    </div>
-                  </div>
-                </li>
               )
             })
           )}
         </ul>
       </div>
       <ul className={$.order_container}>
-        {contants.map((li) => {
+        {listOrder.map((li) => {
           const { id, title, price, total } = li
           return (
             <li key={id}>
