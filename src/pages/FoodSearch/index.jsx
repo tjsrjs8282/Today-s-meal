@@ -82,7 +82,7 @@ export default function FoodSearch() {
   async function getFatsecret(keword) {
     setLoading(true)
     let res = await fatsecretInstance.get(
-      `?method=foods.search&format=json&search_expression=${keword}&page_number=0&max_results=15`
+      `/api/?method=foods.search&format=json&search_expression=${keword}&page_number=0&max_results=15`
     )
     if (res.err) {
       console.log(err)
