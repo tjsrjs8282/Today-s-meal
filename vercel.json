@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "/api/(.*)",
+      "source": "/api/:path*/",
       "headers": [
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
         { "key": "Access-Control-Allow-Origin", "value": "*" },
@@ -15,8 +15,12 @@
   ],
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://platform.fatsecret.com/(.*)"
+      "source": "/api/:path*/",
+      "destination": "https://platform.fatsecret.com/:path*/"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://platform.fatsecret.com/:path*"
     },
     {
       "source": "/(.*)",
