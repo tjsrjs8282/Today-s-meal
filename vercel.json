@@ -16,7 +16,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://platform.fatsecret.com/"
+      "destination": "https://platform.fatsecret.com/(.*)"
     },
     {
       "source": "/(.*)",
