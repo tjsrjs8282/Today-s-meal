@@ -12,7 +12,6 @@ import { PRODUCT_LIST } from '@pages/Product/productData.js'
 import classNames from 'classnames/bind'
 import BgImg from '@assets/ic-logo-bg.png'
 
-
 const cx = classNames.bind($)
 
 const list = [
@@ -36,58 +35,56 @@ const list = [
   },
 ]
 
-// const price1 = list.map((item) => item.price).reduce((acc, cur) => acc + cur, 0)
-// const delivery = price1 >= 50000 ? 0 : 3000
-// const price2 = price1 + delivery
-
-// const contants = [
-//   {
-//     id: 1,
-//     title: '총 상품 금액',
-//     price: price1.toLocaleString(),
-//   },
-//   {
-//     id: 2,
-//     title: '배송비',
-//     price: delivery.toLocaleString(),
-//   },
-//   {
-//     id: 3,
-//     title: '총 결제 금액',
-//     price: price2.toLocaleString(),
-//     total: true,
-//   },
-// ]
-
 export default function ProductBasket() {
   const [checkedList, setCheckedList] = useState([])
   const [listData, setListData] = useState(list)
   const [listOrder, setListOrder] = useState([])
-  
+  const [listCount, setListCount] = useState(getListCount())
+
+  function getListCount() {
+    return listData.map((item) => {
+      return {id: item.id, price: item.price, count: 1}
+    })
+  }
+
   useEffect(() => {
-    // console.log(total)
-    const price = listData.map((item) => item.price).reduce((acc, cur) => acc + cur, 0)
-    const delivery = price >= 50000 ? 0 : 3000
+    setListCount(getListCount())
+  }, [listData])
+  
+  const handleCountList = (id, count) => {
+    const copy = [...listCount]
+    copy.forEach((item) => {
+      if (item.id === id) {
+        item.count = count
+      }
+    })
+    setListCount([...copy])
+  }
+
+  useEffect(() => {
+    const price = listCount.map((item) => item.price * item.count).reduce((acc, cur) => acc + cur, 0)
+    const delivery = price === 0 ? 0 : price >= 50000 ? 0 : 3000
     const totalPrice = price + delivery
+  
     setListOrder([
       {
         id: 1,
         title: '총 상품 금액',
-        price: price.toLocaleString(),
+        price: price.toLocaleString('ko-KR'),
       },
       {
         id: 2,
         title: '배송비',
-        price: delivery.toLocaleString(),
+        price: delivery.toLocaleString('ko-KR'),
       },
       {
         id: 3,
         title: '총 결제 금액',
-        price: totalPrice.toLocaleString(),
+        price: totalPrice.toLocaleString('ko-KR'),
         total: true,
       },
     ])
-  }, [])
+  }, [listCount])
 
   const navigate = useNavigate()
   const goBack = () => {
@@ -100,19 +97,16 @@ export default function ProductBasket() {
     } else {
       setCheckedList(checkedList.filter((item) => item !== id))
     }
-    // console.log(checkedList)
   }
 
   const handleAllChecked = (e) => {
     if (e.target.checked) {
       const allCheckedList = []
       listData.forEach((item) => allCheckedList.push(item.id.toString()))
-
       setCheckedList(allCheckedList)
     } else {
       setCheckedList([])
     }
-    // console.log('handleAllChecked', checkedList)
   }
 
   const handleClickDelete = (e) => {
@@ -129,7 +123,6 @@ export default function ProductBasket() {
       return !checkedList.includes(item.id.toString())
     })
     setListData(listCopy)
-    console.log(listCopy)
   }
 
   return (
@@ -180,8 +173,7 @@ export default function ProductBasket() {
                   checkedList={checkedList}
                   handleClickDelete={handleClickDelete} 
                   handleCheckedItem={handleCheckedItem}
-                  handleTotalPrice={handleTotalPrice}
-                  getTotalPrice={getTotalPrice}
+                  handleCountList={handleCountList}
                   />
               )
             })

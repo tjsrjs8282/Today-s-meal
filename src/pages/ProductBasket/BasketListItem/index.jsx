@@ -5,10 +5,14 @@ import CheckBox from '../CheckBox'
 import Flex from '@components/Flex'
 import IconButton from '@components/IconButton'
 
-export default function BasketListItem({ data, checkedList, handleCheckedItem, handleClickDelete }) {
+export default function BasketListItem({ data, 
+  checkedList, 
+  handleCheckedItem,
+  handleClickDelete,
+  handleCountList }) {
   const { id, title, price, img } = data
   const [count, setCount] = useState(1)
-  const [itemPrice, setItemPrice] = useState(price * count)
+  const [itemPrice, setItemPrice] = useState(price)
   const mounted = useRef(false)
 
   useEffect(() => {
@@ -16,11 +20,11 @@ export default function BasketListItem({ data, checkedList, handleCheckedItem, h
       mounted.current = true
     }
     setItemPrice(price * count)
+    handleCountList(id, count)
   }, [count, itemPrice])
   
-
-  const handleCountCalculation = (count) => {
-    setCount(count)
+  const handleCountCalculation = (value) => {
+    setCount(value)
   }
 
   const handleCountChange = (e) => {
@@ -43,17 +47,16 @@ export default function BasketListItem({ data, checkedList, handleCheckedItem, h
           <h3>{title}</h3>
         </Flex>
         <Flex between>
-          <div className={$.count_container}>
+          <div className={$.count_container} id={id}>
             <CountBox value={count} handleCountCalculation={handleCountCalculation}
               marginBottomNone smallFont onChange={handleCountChange} />
           </div>
-          <p className={$.price}>{itemPrice.toLocaleString()}원</p>
+          <p className={$.price}>{itemPrice.toLocaleString('ko-KR')}원</p>
         </Flex>
         <div className={$.close_button}>
           <IconButton kinds="close" onClick={handleClickDelete} />
         </div>
       </div>
     </li>
-  );
-};
-
+  )
+}
