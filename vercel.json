@@ -15,15 +15,15 @@
   ],
   "rewrites": [
     {
-      "source": "/api/",
+      "source": "/fat/",
       "destination": "https://test.com/"
     },
     {
-      "source": "/api/:path*/",
+      "source": "/fat/:path*/",
       "destination": "https://test.com/:path*/"
     },
     {
-      "source": "/api/:path*",
+      "source": "/fat/:path*",
       "destination": "https://test.com/:path*"
     },
     {
