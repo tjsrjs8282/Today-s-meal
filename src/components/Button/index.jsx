@@ -14,7 +14,7 @@ export default function Button({
   nonefixed,
   noneBackground,
   marginTop,
-  colorWhite
+  colorWhite,
 }) {
   return (
     <button
