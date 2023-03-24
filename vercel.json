@@ -15,16 +15,20 @@
   ],
   "rewrites": [
     {
-      "source": "/fat/",
-      "destination": "https://test.com/"
+      "source": "/api/",
+      "destination": "https://platform.fatsecret.com/rest/server.api/"
     },
     {
-      "source": "/fat/:path*/",
-      "destination": "https://test.com/:path*/"
+      "source": "/api/(.*)",
+      "destination": "https://platform.fatsecret.com/rest/server.api/"
     },
     {
-      "source": "/fat/:path*",
-      "destination": "https://test.com/:path*"
+      "source": "/api/:path*/",
+      "destination": "https://platform.fatsecret.com/rest/server.api/:path*/"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://platform.fatsecret.com/rest/server.api/:path*"
     },
     {
       "source": "/(.*)",
