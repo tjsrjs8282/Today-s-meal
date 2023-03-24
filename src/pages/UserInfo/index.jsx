@@ -101,6 +101,7 @@ export default function UserInfo() {
         title="이름"
         value={userName}
         inputRef={(el) => (nameInput.current[0] = el)}
+        maxLength={8}
         onChange={handleInputChange}
       />
       <Title content="나이" sub />
