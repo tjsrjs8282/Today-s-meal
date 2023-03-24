@@ -29,7 +29,8 @@ body {
 .App {
   box-sizing: border-box;
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 600px;
   background: var(--backGroundColor1);
 }
 
