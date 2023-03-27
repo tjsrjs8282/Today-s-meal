@@ -105,6 +105,14 @@ export default function ProductBasket() {
     setModal(false)
   }
 
+  const onClickModalHandler = (name, id) => {
+    setModalTitle(`구매하기`)
+    setModalContent(`${productList[0].title} 를(을)
+     구매 하시겠습니까?`)
+
+    setModal(!modal)
+  }
+
   function getCartList() {
     const sessionCart = localStorageService().get('CART')
     const sessionCheck = sessionCart ? sessionCart : []
@@ -114,6 +122,7 @@ export default function ProductBasket() {
   useEffect(() => {
     getCartList()
   }, [])
+  console.log(cartList)
 
   return (
     <Wrapper colorGray>
@@ -212,7 +221,7 @@ export default function ProductBasket() {
           )
         })}
       </ul>
-      <Button content="구매하기" />
+      <Button content="구매하기" onClick={onClickModalHandler} />
     </Wrapper>
   )
 }
