@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import BasketListItem from './BasketListItem'
 import $ from './productBasket.module.scss'
 import Wrapper from '@components/Wrapper'
 import Flex from '@components/Flex'
@@ -19,33 +20,12 @@ export default function ProductBasket() {
   const [checkedList, setCheckedList] = useState([])
   const [cartList, setCartList] = useState([])
   const [cartDelete, setCartDelete] = useState([])
+  const [checkModal, setCheckModal] = useState(false)
   const [modal, setModal] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
   const [modalContent, setModalContent] = useState('')
   const [listOrder, setListOrder] = useState([])
   const [listCount, setListCount] = useState(getListCount())
-  const priceTotal =
-    cartList.length !== 0 ? cartList.map((data) => data.price).reduce((acc, cur) => acc + cur) : 0
-  const deliPrice = priceTotal > 50000 || cartList.length === 0 ? 0 : 3000
-
-  const TOTAL_PRICE = [
-    {
-      id: 1,
-      title: '총 상품 금액',
-      price: priceTotal.toLocaleString('ko-KR'),
-    },
-    {
-      id: 2,
-      title: '배송비',
-      price: deliPrice.toLocaleString('ko-KR'),
-    },
-    {
-      id: 3,
-      title: '총 결제 금액',
-      price: (priceTotal + deliPrice).toLocaleString('ko-KR'),
-      total: true,
-    },
-  ]
 
   const navigate = useNavigate()
 
@@ -73,28 +53,57 @@ export default function ProductBasket() {
     setListCount([...copy])
   }
 
+  const teststset = () => {
+    const price = listCount
+      .map((item) => item.price * item.count)
+      .reduce((acc, cur) => acc + cur, 0)
+    const delivery = price === 0 ? 0 : price >= 50000 ? 0 : 3000
+    const totalPrice = price + delivery
+
+    const TOTAL_PRICE = [
+      {
+        id: 1,
+        title: '총 상품 금액',
+        price: price.toLocaleString('ko-KR'),
+      },
+      {
+        id: 2,
+        title: '배송비',
+        price: delivery.toLocaleString('ko-KR'),
+      },
+      {
+        id: 3,
+        title: '총 결제 금액',
+        price: totalPrice.toLocaleString('ko-KR'),
+        total: true,
+      },
+    ]
+    setListOrder(TOTAL_PRICE)
+  }
+
+  useEffect(() => {
+    teststset()
+  }, [listCount])
+
   const handleCheckedItem = (id, isChecked) => {
     if (isChecked) {
       setCheckedList((prev) => [...prev, id])
     } else {
       setCheckedList(checkedList.filter((item) => item !== id))
     }
-    console.log(checkedList)
   }
 
   const handleAllChecked = (e) => {
     if (e.target.checked) {
       const allCheckedList = []
       cartList.forEach((item) => allCheckedList.push(item.id.toString()))
-
       setCheckedList(allCheckedList)
     } else {
       setCheckedList([])
     }
-    console.log('handleAllChekecd', checkedList)
   }
-
-  const onClickDeleteHandler = async (e) => {
+  setCheckModal
+  const onClickDeleteModal = async (e) => {
     const checkedId = await e.currentTarget.parentNode.parentNode.parentNode.id
     const cartCheckFilter = await cartList.filter((item) => {
       return item.id.toString() === checkedId
@@ -121,17 +130,30 @@ export default function ProductBasket() {
     })
     setCartList(listCopy)
     localStorageService().set('CART', listCopy)
+    setCheckModal(false)
+  }
+
+  const onClickCheckedModal = () => {
+    if (checkedList.length !== 0) {
+      setModalTitle(`삭제하기`)
+      setModalContent(`선택하신 상품을 삭제 하시겠습니까?`)
+    } else {
+      setModalTitle(`삭제하기`)
+      setModalContent(`선택하신 상품을 없습니다.`)
+    }
+
+    setCheckModal(!modal)
   }
 
   const modalOnClose = () => {
     setModal(false)
+    setCheckModal(false)
   }
 
   const onClickModalHandler = (name, id) => {
     setModalTitle(`구매하기`)
-    setModalContent(`${productList[0].title} 를(을)
+    setModalContent(`선택하신 상품들을
      구매 하시겠습니까?`)
-
     setModal(!modal)
   }
 
@@ -144,7 +166,6 @@ export default function ProductBasket() {
   useEffect(() => {
     getCartList()
   }, [])
-  console.log(cartList)
 
   return (
     <Wrapper colorGray>
@@ -153,6 +174,15 @@ export default function ProductBasket() {
           title={modalTitle}
           content={modalContent}
           onClick={handleClickDelete}
+          onClose={modalOnClose}
+          confirm
+        ></Modal>
+      )}
+      {checkModal && (
+        <Modal
+          title={modalTitle}
+          content={modalContent}
+          onClick={handleCheckedDelete}
           onClose={modalOnClose}
           confirm
         ></Modal>
@@ -188,7 +218,7 @@ export default function ProductBasket() {
             />
             전체선택
           </label>
-          <Button content="선택삭제" onClick={handleCheckedDelete} border />
+          <Button content="선택삭제" onClick={onClickCheckedModal} border />
         </Flex>
         <ul className={$.list_container}>
           {cartList.length === 0 ? (
@@ -198,40 +228,22 @@ export default function ProductBasket() {
             </li>
           ) : (
             cartList.map((li) => {
-              const { id, title, price, img } = li
               return (
-                <li key={id} id={id}>
-                  <CheckBox
-                    id={id}
-                    onChecked={handleCheckedItem}
-                    checked={checkedList.includes(id.toString()) ? true : false}
-                    icon={checkedList.includes(id.toString()) ? 'check' : 'checkNone'}
-                  />
-                  <div className={$.product_container}>
-                    <Flex start>
-                      <div className={$.image_box}>
-                        <img src={img} alt={title} />
-                      </div>
-                      <h3>{title}</h3>
-                    </Flex>
-                    <Flex between>
-                      <div className={$.count_container}>
-                        <CountBox value={1} marginBottomNone smallFont onChange={() => {}} />
-                      </div>
-                      <p className={$.price}>{price}원</p>
-                    </Flex>
-                    <div className={$.close_button}>
-                      <IconButton kinds="close" onClick={onClickDeleteHandler} />
-                    </div>
-                  </div>
-                </li>
+                <BasketListItem
+                  key={li.id}
+                  data={li}
+                  checkedList={checkedList}
+                  onClickDeleteModal={onClickDeleteModal}
+                  handleCheckedItem={handleCheckedItem}
+                  handleCountList={handleCountList}
+                />
               )
             })
           )}
         </ul>
       </div>
       <ul className={$.order_container}>
-        {TOTAL_PRICE.map((li) => {
+        {listOrder.map((li) => {
           const { id, title, price, total } = li
           return (
             <li key={id}>

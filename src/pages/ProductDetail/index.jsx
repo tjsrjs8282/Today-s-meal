@@ -62,7 +62,7 @@ export default function ProductDetail() {
 
     console.log(sesstionCheck)
     setModalTitle('장바구니')
-    if (sesstionCheck.lengt !== 0) {
+    if (sesstionCheck.length !== 0) {
       setModalContent(`${productList[0].title}가
       이미 장바구니에 담겨있습니다.!`)
       setCartModal(true)

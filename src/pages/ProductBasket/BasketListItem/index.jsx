@@ -1,15 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react'
 import $ from './basketListItem.module.scss'
 import CountBox from '@components/CountBox'
 import CheckBox from '../CheckBox'
 import Flex from '@components/Flex'
 import IconButton from '@components/IconButton'
 
-export default function BasketListItem({ data, 
-  checkedList, 
+export default function BasketListItem({
+  data,
+  checkedList,
   handleCheckedItem,
-  handleClickDelete,
-  handleCountList }) {
+  onClickDeleteModal,
+  handleCountList,
+}) {
   const { id, title, price, img } = data
   const [count, setCount] = useState(1)
   const [itemPrice, setItemPrice] = useState(price)
@@ -22,7 +24,7 @@ export default function BasketListItem({ data,
     setItemPrice(price * count)
     handleCountList(id, count)
   }, [count, itemPrice])
-  
+
   const handleCountCalculation = (value) => {
     setCount(value)
   }
@@ -48,13 +50,18 @@ export default function BasketListItem({ data,
         </Flex>
         <Flex between>
           <div className={$.count_container} id={id}>
-            <CountBox value={count} handleCountCalculation={handleCountCalculation}
-              marginBottomNone smallFont onChange={handleCountChange} />
+            <CountBox
+              value={count}
+              handleCountCalculation={handleCountCalculation}
+              marginBottomNone
+              smallFont
+              onChange={handleCountChange}
+            />
           </div>
           <p className={$.price}>{itemPrice.toLocaleString('ko-KR')}원</p>
         </Flex>
         <div className={$.close_button}>
-          <IconButton kinds="close" onClick={handleClickDelete} />
+          <IconButton kinds="close" onClick={onClickDeleteModal} />
         </div>
       </div>
     </li>
