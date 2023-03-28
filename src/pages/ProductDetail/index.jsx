@@ -16,14 +16,15 @@ export default function ProductDetail() {
   const [myPoint, setMyPoint] = useState(0)
   const sessionMyPoint = localStorageService().get('MY_POINT')
 
-  const [productList, setProductList] = useState([])
+  const [productList, setProductList] = useState([{}])
+  const [cartModal, setCartModal] = useState(false)
   const [modal, setModal] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
   const [modalContent, setModalContent] = useState('')
-  const deliPrice = productList.price > 50000 ? 0 : 3000
-  const priceTotal = productList.price + deliPrice
+  const deliPrice = productList[0].price > 50000 ? 0 : 3000
+  const priceTotal = productList[0].price + deliPrice
 
-  const reservePoint = Math.ceil(productList.price * 0.02)
+  const reservePoint = Math.ceil(productList[0].price * 0.02)
   const goBack = () => {
     navigate(-1)
   }
@@ -47,17 +48,43 @@ export default function ProductDetail() {
 
   const onClickModalHandler = (name, id) => {
     setModalTitle(`구매하기`)
-    setModalContent(`${productList.title} 를(을) 구매 하시겠습니까?`)
+    setModalContent(`${productList[0].title} 를(을)
+     구매 하시겠습니까?`)
 
     setModal(!modal)
   }
 
-  const onClickCartHandler = () => {
-    console.log('장바구니 추가')
+  const onClickCartHandler = async () => {
+    const sesstionCart = await localStorageService().get('CART')
+    const sesstionCheck = sesstionCart
+      ? sesstionCart.filter((data) => data.id === productList[0].id)
+      : []
+
+    console.log(sesstionCheck)
+    setModalTitle('장바구니')
+    if (sesstionCheck.lengt !== 0) {
+      setModalContent(`${productList[0].title}가
+      이미 장바구니에 담겨있습니다.!`)
+      setCartModal(true)
+      return
+    } else {
+      setModalContent(`${productList[0].title}가
+      장바구니에 담겼습니다!`)
+    }
+    setCartModal(true)
+    if (sesstionCart) {
+      sesstionCart.push({ ...productList[0] })
+      localStorageService().set('CART', sesstionCart)
+    } else {
+      localStorageService().set('CART', productList)
+    }
+
+    return
   }
 
   const modalOnClose = () => {
     setModal(false)
+    setCartModal(false)
   }
 
   function getPoint() {
@@ -67,7 +94,7 @@ export default function ProductDetail() {
 
   function getProduct() {
     const productIdfilter = PRODUCT_LIST.filter((data) => data.id === Number(id))
-    setProductList(...productIdfilter)
+    setProductList([...productIdfilter])
   }
   useEffect(() => {
     getProduct()
@@ -85,6 +112,9 @@ export default function ProductDetail() {
           confirm
         ></Modal>
       )}
+      {cartModal && (
+        <Modal title={modalTitle} content={modalContent} onClick={modalOnClose}></Modal>
+      )}
       <Header>
         <Flex width between>
           <IconButton kinds="back" onClick={goBack} />
@@ -93,12 +123,12 @@ export default function ProductDetail() {
       </Header>
 
       <div className={$.product_image}>
-        <img src={productList.img} alt="상품이미지" />
+        <img src={productList[0].img} alt="상품이미지" />
       </div>
       <Flex column width start padding>
         <div className={$.title}>
-          <h2>{productList.title}</h2>
-          <p className={$.price}>{productList.price?.toLocaleString('ko-KR')} 원</p>
+          <h2>{productList[0].title}</h2>
+          <p className={$.price}>{productList[0].price?.toLocaleString('ko-KR')} 원</p>
         </div>
         <ul className={$.benefit}>
           <li>
