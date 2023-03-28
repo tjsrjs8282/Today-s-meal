@@ -24,43 +24,13 @@ export default function ProductBasket() {
   const [modal, setModal] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
   const [modalContent, setModalContent] = useState('')
-  const [listOrder, setListOrder] = useState([])
-  const [listCount, setListCount] = useState(getListCount())
-
-  const navigate = useNavigate()
-
-  const goBack = () => {
-    navigate(-1)
-  }
-
-  function getListCount() {
-    return cartList.map((item) => {
-      return { id: item.id, price: item.price, count: 1 }
-    })
-  }
-
+  const [totalPrice, setTotalPrice] = useState([])
   useEffect(() => {
-    setListCount(getListCount())
-  }, [cartList])
-
-  const handleCountList = (id, count) => {
-    const copy = [...listCount]
-    copy.forEach((item) => {
-      if (item.id === id) {
-        item.count = count
-      }
-    })
-    setListCount([...copy])
-  }
-
-  const teststset = () => {
-    const price = listCount
-      .map((item) => item.price * item.count)
-      .reduce((acc, cur) => acc + cur, 0)
+    const price = cartList.map((item) => item.price * item.count).reduce((acc, cur) => acc + cur, 0)
     const delivery = price === 0 ? 0 : price >= 50000 ? 0 : 3000
     const totalPrice = price + delivery
 
-    const TOTAL_PRICE = [
+    setTotalPrice([
       {
         id: 1,
         title: '총 상품 금액',
@@ -77,13 +47,24 @@ export default function ProductBasket() {
         price: totalPrice.toLocaleString('ko-KR'),
         total: true,
       },
-    ]
-    setListOrder(TOTAL_PRICE)
+    ])
+  }, [cartList])
+
+  const navigate = useNavigate()
+
+  const goBack = () => {
+    navigate(-1)
   }
 
-  useEffect(() => {
-    teststset()
-  }, [listCount])
+  const handleCountList = (id, count) => {
+    const copy = [...cartList]
+    copy.forEach((item) => {
+      if (item.id === id) {
+        item.count = count
+      }
+    })
+    setCartList([...copy])
+  }
 
   const handleCheckedItem = (id, isChecked) => {
     if (isChecked) {
@@ -102,7 +83,7 @@ export default function ProductBasket() {
       setCheckedList([])
     }
   }
-  setCheckModal
+
   const onClickDeleteModal = async (e) => {
     const checkedId = await e.currentTarget.parentNode.parentNode.parentNode.id
     const cartCheckFilter = await cartList.filter((item) => {
@@ -139,9 +120,8 @@ export default function ProductBasket() {
       setModalContent(`선택하신 상품을 삭제 하시겠습니까?`)
     } else {
       setModalTitle(`삭제하기`)
-      setModalContent(`선택하신 상품을 없습니다.`)
+      setModalContent(`선택하신 상품이 없습니다.`)
     }
-
     setCheckModal(!modal)
   }
 
@@ -159,7 +139,11 @@ export default function ProductBasket() {
 
   function getCartList() {
     const sessionCart = localStorageService().get('CART')
-    const sessionCheck = sessionCart ? sessionCart : []
+    const sessionCheck = sessionCart
+      ? sessionCart.map((item) => {
+          return { ...item, count: 1 }
+        })
+      : []
     setCartList(sessionCheck)
   }
 
@@ -243,7 +227,7 @@ export default function ProductBasket() {
         </ul>
       </div>
       <ul className={$.order_container}>
-        {listOrder.map((li) => {
+        {totalPrice.map((li) => {
           const { id, title, price, total } = li
           return (
             <li key={id}>
