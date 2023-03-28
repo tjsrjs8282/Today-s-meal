@@ -22,6 +22,8 @@ export default function ProductBasket() {
   const [modal, setModal] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
   const [modalContent, setModalContent] = useState('')
+  const [listOrder, setListOrder] = useState([])
+  const [listCount, setListCount] = useState(getListCount())
   const priceTotal =
     cartList.length !== 0 ? cartList.map((data) => data.price).reduce((acc, cur) => acc + cur) : 0
   const deliPrice = priceTotal > 50000 || cartList.length === 0 ? 0 : 3000
@@ -30,17 +32,17 @@ export default function ProductBasket() {
     {
       id: 1,
       title: '총 상품 금액',
-      price: priceTotal,
+      price: priceTotal.toLocaleString('ko-KR'),
     },
     {
       id: 2,
       title: '배송비',
-      price: deliPrice,
+      price: deliPrice.toLocaleString('ko-KR'),
     },
     {
       id: 3,
       title: '총 결제 금액',
-      price: priceTotal + deliPrice,
+      price: (priceTotal + deliPrice).toLocaleString('ko-KR'),
       total: true,
     },
   ]
@@ -49,6 +51,26 @@ export default function ProductBasket() {
 
   const goBack = () => {
     navigate(-1)
+  }
+
+  function getListCount() {
+    return cartList.map((item) => {
+      return { id: item.id, price: item.price, count: 1 }
+    })
+  }
+
+  useEffect(() => {
+    setListCount(getListCount())
+  }, [cartList])
+
+  const handleCountList = (id, count) => {
+    const copy = [...listCount]
+    copy.forEach((item) => {
+      if (item.id === id) {
+        item.count = count
+      }
+    })
+    setListCount([...copy])
   }
 
   const handleCheckedItem = (id, isChecked) => {
