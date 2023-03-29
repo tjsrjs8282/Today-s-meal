@@ -8,8 +8,6 @@ import Header from '@components/Header'
 import HeaderTitle from '@components/HeaderTitle'
 import IconButton from '@components/IconButton'
 import Button from '@components/Button'
-import CountBox from '@components/CountBox'
-import CheckBox from './CheckBox'
 import Modal from '@components/Modal'
 import classNames from 'classnames/bind'
 import BgImg from '@assets/ic-logo-bg.png'
@@ -20,35 +18,18 @@ export default function ProductBasket() {
   const [checkedList, setCheckedList] = useState([])
   const [cartList, setCartList] = useState([])
   const [cartDelete, setCartDelete] = useState([])
+  const [myPoint, setMyPoint] = useState(0)
+  const [buyModal, setBuyModal] = useState(false)
   const [checkModal, setCheckModal] = useState(false)
   const [modal, setModal] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
   const [modalContent, setModalContent] = useState('')
   const [totalPrice, setTotalPrice] = useState([])
-  useEffect(() => {
-    const price = cartList.map((item) => item.price * item.count).reduce((acc, cur) => acc + cur, 0)
-    const delivery = price === 0 ? 0 : price >= 50000 ? 0 : 3000
-    const totalPrice = price + delivery
-
-    setTotalPrice([
-      {
-        id: 1,
-        title: '총 상품 금액',
-        price: price.toLocaleString('ko-KR'),
-      },
-      {
-        id: 2,
-        title: '배송비',
-        price: delivery.toLocaleString('ko-KR'),
-      },
-      {
-        id: 3,
-        title: '총 결제 금액',
-        price: totalPrice.toLocaleString('ko-KR'),
-        total: true,
-      },
-    ])
-  }, [cartList])
+  const sessionMyPoint = localStorageService().get('MY_POINT')
+  const price = cartList.map((item) => item.price * item.count).reduce((acc, cur) => acc + cur, 0)
+  const delivery = price === 0 ? 0 : price >= 50000 ? 0 : 3000
+  const priceTotal = price + delivery
+  const reservePoint = Math.ceil(price * 0.02)
 
   const navigate = useNavigate()
 
@@ -128,14 +109,60 @@ export default function ProductBasket() {
   const modalOnClose = () => {
     setModal(false)
     setCheckModal(false)
+    setBuyModal(false)
   }
 
   const onClickModalHandler = (name, id) => {
     setModalTitle(`구매하기`)
     setModalContent(`선택하신 상품들을
      구매 하시겠습니까?`)
-    setModal(!modal)
+    setBuyModal(!modal)
   }
+
+  const onClickBuyHandler = () => {
+    if (cartList.length === 0) {
+      alert('장바구니가 비어있습니다!')
+      setBuyModal(false)
+      return
+    }
+    if (sessionMyPoint - priceTotal > 0) {
+      let buyPoint = sessionMyPoint - priceTotal + reservePoint
+      localStorageService().set('MY_POINT', buyPoint)
+      localStorageService().remove('CART')
+      setMyPoint(buyPoint.toLocaleString('ko-KR'))
+      setCartList([])
+      alert('구매가 완료되었습니다!')
+    } else {
+      alert('포인트가 부족합니다.')
+    }
+    setBuyModal(false)
+  }
+
+  useEffect(() => {
+    setTotalPrice([
+      {
+        id: 1,
+        title: '총 상품 금액',
+        price: price.toLocaleString('ko-KR'),
+      },
+      {
+        id: 2,
+        title: '적립금',
+        price: reservePoint.toLocaleString('ko-KR'),
+      },
+      {
+        id: 3,
+        title: '배송비',
+        price: delivery.toLocaleString('ko-KR'),
+      },
+      {
+        id: 4,
+        title: '총 결제 금액',
+        price: priceTotal.toLocaleString('ko-KR'),
+        total: true,
+      },
+    ])
+  }, [cartList])
 
   function getCartList() {
     const sessionCart = localStorageService().get('CART')
@@ -147,8 +174,14 @@ export default function ProductBasket() {
     setCartList(sessionCheck)
   }
 
+  function getPoint() {
+    const getPoint = sessionMyPoint ? sessionMyPoint : 0
+    setMyPoint(getPoint.toLocaleString('ko-KR'))
+  }
+
   useEffect(() => {
     getCartList()
+    getPoint()
   }, [])
 
   return (
@@ -167,6 +200,15 @@ export default function ProductBasket() {
           title={modalTitle}
           content={modalContent}
           onClick={handleCheckedDelete}
+          onClose={modalOnClose}
+          confirm
+        ></Modal>
+      )}
+      {buyModal && (
+        <Modal
+          title={modalTitle}
+          content={modalContent}
+          onClick={onClickBuyHandler}
           onClose={modalOnClose}
           confirm
         ></Modal>
@@ -233,11 +275,19 @@ export default function ProductBasket() {
             <li key={id}>
               <Flex width between>
                 <p className={cx('order_title', { total })}>{title}</p>
-                <p className={cx('price', { total })}>{price}원</p>
+                <p className={cx('price', { total })}>{price} 원</p>
               </Flex>
             </li>
           )
         })}
+      </ul>
+      <ul className={$.order_container}>
+        <li>
+          <Flex width between>
+            <p className={cx('order_title', 'total')}>나의 포인트</p>
+            <p className={cx('price', 'total')}>{myPoint} P</p>
+          </Flex>
+        </li>
       </ul>
       <Button content="구매하기" onClick={onClickModalHandler} container />
     </Wrapper>
