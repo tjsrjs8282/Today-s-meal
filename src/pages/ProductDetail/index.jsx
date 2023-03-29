@@ -60,7 +60,6 @@ export default function ProductDetail() {
       ? sesstionCart.filter((data) => data.id === productList[0].id)
       : []
 
-    console.log(sesstionCheck)
     setModalTitle('장바구니')
     if (sesstionCheck.length !== 0) {
       setModalContent(`${productList[0].title}가
@@ -133,8 +132,8 @@ export default function ProductDetail() {
         <ul className={$.benefit}>
           <li>
             <Flex width between>
-              <p className={$.list_title}>적립포인트</p>
-              <p>{reservePoint.toLocaleString('ko-KR')} P</p>
+              <p className={$.list_title}>적립금</p>
+              <p>{reservePoint.toLocaleString('ko-KR')} 원</p>
             </Flex>
           </li>
           <li>
