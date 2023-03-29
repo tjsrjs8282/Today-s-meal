@@ -101,7 +101,7 @@ export default function ProductDetail() {
   }, [])
 
   return (
-    <Wrapper colorGray none>
+    <Wrapper colorWhite none>
       {modal && (
         <Modal
           title={modalTitle}

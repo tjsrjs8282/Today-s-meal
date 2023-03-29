@@ -16,7 +16,7 @@ export default function Intro() {
     navigate('/start')
   }
   return (
-    <Wrapper>
+    <Wrapper colorWhite>
       <div className={$.intro_box}>
         <h1>
           오늘 하루

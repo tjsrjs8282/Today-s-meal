@@ -18,7 +18,11 @@
     background: var(--siteColorWhite);
     font-size: 1.2rem;
     border: 1px solid #eee;
-    color: var(--siteColorGray2);
+    color: var(--siteColorBlack);
+
+    &:focus {
+      outline: none;
+    }
   }
 }
 .unit {

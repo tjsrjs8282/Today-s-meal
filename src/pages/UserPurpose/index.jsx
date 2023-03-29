@@ -43,7 +43,7 @@ export default function UserPurpose() {
   }
 
   return (
-    <Wrapper>
+    <Wrapper colorWhite>
       {modal && (
         <Modal
           title={modalTitle}
