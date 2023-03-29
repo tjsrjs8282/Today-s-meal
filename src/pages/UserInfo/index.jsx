@@ -146,7 +146,7 @@ export default function UserInfo() {
           />
         </div>
       </Flex>
-      <Button content="다음으로" check={isUserInfo} onClick={handleOnClick} />
+      <Button content="다음으로" check={isUserInfo} onClick={handleOnClick} container />
     </Wrapper>
   )
 }
