@@ -16,11 +16,12 @@ export default function Button({
   marginTop,
   colorWhite,
   container,
+  transparent,
 }) {
   return (
     <>
       {container ? (
-        <div className={$.fixed_box}>
+        <div className={cx('fixed_box', { transparent })}>
           <button
             className={cx('button', {
               focused: className,
