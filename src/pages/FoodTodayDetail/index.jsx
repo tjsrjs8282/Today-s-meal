@@ -30,7 +30,7 @@ export default function FoodTodayDetail() {
     SetCurrentTab(index)
   }
   return (
-    <Wrapper>
+    <Wrapper colorWhite>
       <Header>
         <IconButton kinds="back" onClick={goBack} />
       </Header>
