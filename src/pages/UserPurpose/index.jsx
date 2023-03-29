@@ -80,7 +80,7 @@ export default function UserPurpose() {
           )
         })}
       </RadioGroup>
-      <Button content="확인" onClick={handleOnClick} />
+      <Button content="확인" onClick={handleOnClick} container />
     </Wrapper>
   )
 }

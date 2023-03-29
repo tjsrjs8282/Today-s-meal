@@ -239,7 +239,7 @@ export default function ProductBasket() {
           )
         })}
       </ul>
-      <Button content="구매하기" onClick={onClickModalHandler} />
+      <Button content="구매하기" onClick={onClickModalHandler} container />
     </Wrapper>
   )
 }

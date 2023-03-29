@@ -15,22 +15,45 @@ export default function Button({
   noneBackground,
   marginTop,
   colorWhite,
+  container,
 }) {
   return (
-    <button
-      className={cx('button', {
-        focused: className,
-        check,
-        none,
-        border,
-        nonefixed,
-        noneBackground,
-        marginTop,
-        colorWhite,
-      })}
-      onClick={onClick}
-    >
-      {content}
-    </button>
+    <>
+      {container ? (
+        <div className={$.fixed_box}>
+          <button
+            className={cx('button', {
+              focused: className,
+              check,
+              none,
+              border,
+              nonefixed,
+              noneBackground,
+              marginTop,
+              colorWhite,
+            })}
+            onClick={onClick}
+          >
+            {content}
+          </button>
+        </div>
+      ) : (
+        <button
+          className={cx('button', {
+            focused: className,
+            check,
+            none,
+            border,
+            nonefixed,
+            noneBackground,
+            marginTop,
+            colorWhite,
+          })}
+          onClick={onClick}
+        >
+          {content}
+        </button>
+      )}
+    </>
   )
 }

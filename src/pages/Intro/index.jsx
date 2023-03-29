@@ -26,7 +26,7 @@ export default function Intro() {
         <p>목표를 설정하고 칼로리 계산해보아요</p>
         <img src={introLogo} alt="로고" />
       </div>
-      <Button content="시작하기" onClick={goStart} />
+      <Button content="시작하기" onClick={goStart} container />
     </Wrapper>
   )
 }
