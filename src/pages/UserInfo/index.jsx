@@ -72,7 +72,7 @@ export default function UserInfo() {
   }
 
   return (
-    <Wrapper>
+    <Wrapper colorWhite>
       {modal && <Modal title={modalTitle} content={modalContent} onClick={handleOnClick}></Modal>}
 
       <Header>

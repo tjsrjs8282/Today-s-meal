@@ -16,7 +16,7 @@ export default function Intro() {
     navigate('/start')
   }
   return (
-    <Wrapper>
+    <Wrapper colorWhite>
       <div className={$.intro_box}>
         <h1>
           오늘 하루
@@ -26,7 +26,7 @@ export default function Intro() {
         <p>목표를 설정하고 칼로리 계산해보아요</p>
         <img src={introLogo} alt="로고" />
       </div>
-      <Button content="시작하기" onClick={goStart} container transparent />
+      <Button content="시작하기" onClick={goStart} container />
     </Wrapper>
   )
 }
