@@ -92,7 +92,7 @@
 ## 프로젝트 소개
 
 
-![식단추가](https://user-images.githubusercontent.com/58929656/229432910-8dddb5b6-98af-4d4c-840d-83fe428bb56a.gif)  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![달력기능](https://user-images.githubusercontent.com/58929656/229433163-65914f5d-b3a4-4d7f-a64a-72e475ffe6c2.gif)
+![식단추가](https://user-images.githubusercontent.com/58929656/229432910-8dddb5b6-98af-4d4c-840d-83fe428bb56a.gif) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![달력기능](https://user-images.githubusercontent.com/58929656/229433163-65914f5d-b3a4-4d7f-a64a-72e475ffe6c2.gif)
 
 ### 오늘의 식단 페이지
 
@@ -103,7 +103,7 @@
 > 현재 내가 섭취한 총 탄수화물, 단백질, 지방, 칼로리를 파트 또는 날짜별로 확인 할 수 있습니다.<br/>
 
 
-![운동추가](https://user-images.githubusercontent.com/58929656/229439461-a4ee5ffe-5ddf-4e13-9d63-dc302937dcbb.gif) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![운동달력](https://user-images.githubusercontent.com/58929656/229439501-bb370cdd-86b0-4441-965c-d1f8d4d5ab0a.gif)
+![운동추가](https://user-images.githubusercontent.com/58929656/229439461-a4ee5ffe-5ddf-4e13-9d63-dc302937dcbb.gif)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![운동달력](https://user-images.githubusercontent.com/58929656/229439501-bb370cdd-86b0-4441-965c-d1f8d4d5ab0a.gif)
 
 
 
