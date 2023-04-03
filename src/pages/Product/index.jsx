@@ -96,6 +96,7 @@ export default function Product() {
           value={searchValue}
           placeholder="찾으시는 상품을 검색해주세요."
           inputRef={inputRef}
+          maxLength={30}
           onClick={handleResetClick}
           onChange={handleInputChange}
           onKeyPress={(e) => search(e)}

@@ -31,6 +31,7 @@ export default function HealthAddModal({
         placeholder="무슨 운동을 하셨나요?"
         name="healthName"
         title="운동명"
+        maxLength={30}
         value={healthName}
         onChange={handleInputChange}
         unit={healthName && <IconButton kinds={'closeCircle'} onClick={handleInputReset} />}

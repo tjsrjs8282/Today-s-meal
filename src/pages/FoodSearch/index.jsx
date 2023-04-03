@@ -113,6 +113,7 @@ export default function FoodSearch() {
             value={searchFood}
             inputRef={inputRef}
             placeholder="먹은 음식을 검색해 주세요."
+            maxLength={50}
             onChange={handleInputChange}
             onClick={handleResetClick}
             onKeyPress={(e) => search(e)}
