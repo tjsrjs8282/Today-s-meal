@@ -87,7 +87,13 @@
 <a href='/tjsrjs8282/react_diet/projects?query=is%3Aopen'>프로젝트 진행상황 보러가기</a>
 <br/>
 
+### 오늘의 식단 디자인 기획을 정리
+<a href='/tjsrjs8282/Today-s-meal/wiki/%ED%99%94%EB%A9%B4%EB%94%94%EC%9E%90%EC%9D%B8'>디자인 기획 보러가기</a>
+<a href='/tjsrjs8282/Today-s-meal/wiki/%ED%99%94%EB%A9%B4%EB%94%94%EC%9E%90%EC%9D%B8'>Figma로 전체 보러가기</a>
+
 ---
+
+
 
 ## 프로젝트 소개
 
@@ -154,7 +160,7 @@
 ## 사용 한 기술
 
 
-## 디자인시안 작업
+
 
 
 ### 프로젝트 목표
