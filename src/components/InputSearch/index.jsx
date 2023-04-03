@@ -12,11 +12,12 @@ export default function InputSearch({
   inputRef,
   onKeyPress,
   onClick,
+  maxLength,
 }) {
   return (
     <div className="search_box">
       <IconButton kinds={'search'} />
-      <Input {...{ type, name, value, inputRef, placeholder, onKeyPress, onChange }} />
+      <Input {...{ type, name, value, inputRef, placeholder, onKeyPress, onChange, maxLength }} />
       {value && <IconButton kinds={'closeCircle'} onClick={onClick} />}
     </div>
   )
