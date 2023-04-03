@@ -91,4 +91,20 @@
 
 ## 프로젝트 소개
 
+
+![식단추가](https://user-images.githubusercontent.com/58929656/229432910-8dddb5b6-98af-4d4c-840d-83fe428bb56a.gif)  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![달력기능](https://user-images.githubusercontent.com/58929656/229433163-65914f5d-b3a4-4d7f-a64a-72e475ffe6c2.gif)
+
+### 오늘의 식단 페이지
+
+> Fat secret API 를 활용하여 파트별로 내가 먹은 식단을 검색하여 추가 할 수 있습니다.<br/>
+> Fat secret 장멈으로 음식마다 Serving 종류를 다양하게 선택 할 수 있게 하였습니다.<br/>
+> 식단 검색 시 큰 카테고리 별로 태그를 나누어 검색기능을 좀 더 편리하게 구성했습니다.<br/>
+> API의 정보를 불러오는 동안 Loding animation 이 보여지도록 하였습니다.<br/>
+> 현재 내가 섭취한 총 탄수화물, 단백질, 지방, 칼로리를 파트 또는 날짜별로 확인 할 수 있습니다.<br/>
+
+
+![운동추가](https://user-images.githubusercontent.com/58929656/229439461-a4ee5ffe-5ddf-4e13-9d63-dc302937dcbb.gif) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![운동달력](https://user-images.githubusercontent.com/58929656/229439501-bb370cdd-86b0-4441-965c-d1f8d4d5ab0a.gif)
+
+
+
 ### 프로젝트 목표
