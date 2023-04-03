@@ -91,20 +91,70 @@
 
 ## 프로젝트 소개
 
+전체적인 프로젝트 목표와 소개
+>
+>
+>
+>
+
+<br/><br/>
+
+
+### 1. 오늘의 식단 (메인)
 
 ![식단추가](https://user-images.githubusercontent.com/58929656/229432910-8dddb5b6-98af-4d4c-840d-83fe428bb56a.gif) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![달력기능](https://user-images.githubusercontent.com/58929656/229433163-65914f5d-b3a4-4d7f-a64a-72e475ffe6c2.gif)
 
-### 오늘의 식단 페이지
+> Fat secret API 를 활용하여 파트별로 내가 먹은 식단을 검색하여 추가<br/>
+> Fat secret 장멈으로 음식마다 Serving 종류를 다양하게 선택<br/>
+> 식단 검색 시 큰 카테고리 별 필터 기능으로 편리한 검색<br/>
+> 해당 날짜의 총 섭취한 탄수화물, 단백질, 지방, 칼로리를 파트 별로 확인 가능<br/>
+> 기록 한 날이 달력에 Marking 되며, 지난 날짜의 섭취량 확인 가능<br/>
+> API의 정보를 불러오는 동안 Loding animation 효과 구현<br/>
 
-> Fat secret API 를 활용하여 파트별로 내가 먹은 식단을 검색하여 추가 할 수 있습니다.<br/>
-> Fat secret 장멈으로 음식마다 Serving 종류를 다양하게 선택 할 수 있게 하였습니다.<br/>
-> 식단 검색 시 큰 카테고리 별로 태그를 나누어 검색기능을 좀 더 편리하게 구성했습니다.<br/>
-> API의 정보를 불러오는 동안 Loding animation 이 보여지도록 하였습니다.<br/>
-> 현재 내가 섭취한 총 탄수화물, 단백질, 지방, 칼로리를 파트 또는 날짜별로 확인 할 수 있습니다.<br/>
+<br/><br/>
+---
 
+
+### 2. 운동 일지
 
 ![운동추가](https://user-images.githubusercontent.com/58929656/229439461-a4ee5ffe-5ddf-4e13-9d63-dc302937dcbb.gif)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![운동달력](https://user-images.githubusercontent.com/58929656/229439501-bb370cdd-86b0-4441-965c-d1f8d4d5ab0a.gif)
 
+> openweathermap 을 현재 사용자 지역의 날씨상태와 운동관련 문구 표시<br/>
+> 모달창으로 해당 날짜의 한 운동을 간편하게 기록 또는 삭제<br/>
+> 기록 한 날이 달력에 Marking 되며, 지난 날짜의 운동일지 확인 가능<br/>
+
+<br/><br/>
+---
+
+
+### 3. 쇼핑 몰
+
+![상품기능](https://user-images.githubusercontent.com/58929656/229443883-46533082-a2c4-46d0-9f90-4bfff1033070.gif)
+
+> 카테고리 별 필터 기능으로 간편한 상품 검색<br/>
+> 상품을 장바구니에 담을 수 있으며, 담긴 상품을 선택하여 삭제 가능<br/>
+> 구매금액에 0.02% 만큼 적립금으로 돌려받으며, 5만원 이상 구매 시 배송비무료<br/>
+> 상품구매 시 해당 사용자의 보유 포인트 만큼 차감<br/>
+
+<br/><br/>
+---
+
+
+### 4. 마이페이지
+![마이페이지](https://user-images.githubusercontent.com/58929656/229449092-2fc26538-f086-43f3-8862-b9c0d1c09b0f.gif)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![다크모드기능](https://user-images.githubusercontent.com/58929656/229449107-c8182bc0-465d-4d6a-bf4d-0eff03002674.gif)
+
+> 사용자의 (기본 정보, 식단 목표, 하루 목표 섭취량, 기록일지 마크)<br/>
+> 기본 정보, 식단 목표, 하루 목표 섭취량 수정 가능<br/>
+> 식단과 운동 일지를 작성한 날짜의 마킹을 채우는 재미요소 추가<br/>
+> 데이터 초기화 가능<br/>
+
+
+<br/><br/>
+---
+## 사용 한 기술
+
+
+## 디자인시안 작업
 
 
 ### 프로젝트 목표
