@@ -30,10 +30,6 @@ export default function ProductBasket() {
   const delivery = price === 0 ? 0 : price >= 50000 ? 0 : 3000
   const priceTotal = price + delivery
   const reservePoint = Math.ceil(price * 0.02)
-  useEffect(() => {
-    console.log('checkedList', checkedList)
-    console.log('cartList', cartList)
-  }, [checkedList, cartList])
 
   const navigate = useNavigate()
 
