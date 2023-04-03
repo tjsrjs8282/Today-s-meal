@@ -73,6 +73,7 @@ export default function ProductBasket() {
     const cartDeleteFilter = await cartList.filter((item) => {
       return item.id.toString() !== checkedId
     })
+    setCheckedList([])
     setCartDelete(cartDeleteFilter)
     setModalTitle(`삭제하기`)
     setModalContent(`${cartCheckFilter[0].title} 를(을)
@@ -81,6 +82,7 @@ export default function ProductBasket() {
   }
 
   const handleClickDelete = () => {
+    setCheckedList([])
     setCartList(cartDelete)
     localStorageService().set('CART', cartDelete)
     setModal(false)
@@ -90,6 +92,7 @@ export default function ProductBasket() {
     const listCopy = await cartList.filter((item) => {
       return !checkedList.includes(item.id.toString())
     })
+    setCheckedList([])
     setCartList(listCopy)
     localStorageService().set('CART', listCopy)
     setCheckModal(false)
