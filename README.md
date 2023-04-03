@@ -11,8 +11,8 @@
 
 ---
 
-📚[위키](https://github.com/tjsrjs8282/react_diet/wiki)
-🗂[프로젝트](https://github.com/tjsrjs8282/react_diet/projects)
+📚[위키](https://github.com/tjsrjs8282/Today-s-meal/wiki)
+🗂[프로젝트](https://github.com/tjsrjs8282/Today-s-meal/projects)
 
 ## 목차
 
@@ -78,18 +78,18 @@
 ### 오늘의 식단 팀원들의 하루하루 컨디션
 저희는 데일리 스크럼마다, 그날의 컨디션을 기록하고 서로 확인했어요!<br/>
 오늘의 식단 팀원들의 가장 높았던 컨디션 점수는 몇 점이었을까요? <br/>
-<a href='/tjsrjs8282/react_diet/wiki/데일리-스크럼-모음집'>데일리 스크럼 보러가기</a>
+<a href='/tjsrjs8282/Today-s-meal/wiki/데일리-스크럼-모음집'>데일리 스크럼 보러가기</a>
 <br/><br/>
 
 ### 오늘의 식단 작업진행 상황을 매주 기록
 깃헙의 Projects를 이용하면 실시간으로 팀원들의 작업 진행상태를 확인하고<br/>
 기록 할 수 있도록 했어요. 몇 주차때는 어떤 작업을 누가 했을까요?<br/>
-<a href='/tjsrjs8282/react_diet/projects?query=is%3Aopen'>프로젝트 진행상황 보러가기</a>
+<a href='/tjsrjs8282/Today-s-meal/projects?query=is%3Aopen'>프로젝트 진행상황 보러가기</a>
 <br/>
 
 ### 오늘의 식단 디자인 기획을 정리
-<a href='/tjsrjs8282/Today-s-meal/wiki/%ED%99%94%EB%A9%B4%EB%94%94%EC%9E%90%EC%9D%B8'>디자인 기획 보러가기</a>
-<a href='/tjsrjs8282/Today-s-meal/wiki/%ED%99%94%EB%A9%B4%EB%94%94%EC%9E%90%EC%9D%B8'>Figma로 전체 보러가기</a>
+<a href='/tjsrjs8282/Today-s-meal/wiki/화면디자인'>디자인 기획 보러가기</a><br/>
+<a href='https://www.figma.com/file/aHaw1lYi0dQ5iUkJiX5yOl/%EC%98%A4%EB%8A%98%EC%9D%98-%EC%8B%9D%EB%8B%A8-%EB%94%94%EC%9E%90%EC%9D%B8-%EC%8B%9C%EC%95%88?node-id=0-1&t=WEYKYb4TUFiV6fUV-0'>Figma로 전체 보러가기</a>
 
 ---
 
