@@ -98,7 +98,7 @@
 ## 프로젝트 소개
 
 플랫폼의 목표
->
+> 
 >
 >
 >
@@ -169,6 +169,15 @@
 
 
 ### 사용 한 기술
+
+> HTML / CSS / Javascript <br/>
+> React Vite, React Router <br/>
+> Sass 
+> Git / GitHub
+> Node.js
+> Axios
+> Recoil
+> Prettier / Eslint
 
 ---
 
